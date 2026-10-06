@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="none">
+  <!-- Pouch Top / Ruffle -->
+  <path d="M256 120 C230 110, 190 70, 195 40 C205 15, 240 60, 256 50 C272 60, 307 15, 317 40 C322 70, 282 110, 256 120 Z" fill="#2ea745"/>
+  <path d="M210 70 C225 35, 250 55, 256 50 C262 55, 287 35, 302 70 C290 85, 270 95, 256 95 C242 95, 222 85, 210 70 Z" fill="#248c39"/>
+  <path d="M195 40 C220 20, 245 55, 256 50 C267 55, 292 20, 317 40 C300 70, 285 85, 256 85 C227 85, 212 70, 195 40 Z" fill="#32b84d"/>
+
+  <!-- Neck Tie / Collar -->
+  <ellipse cx="256" cy="122" rx="55" ry="12" fill="#e8f5e9" stroke="#248c39" stroke-width="2"/>
+
+  <!-- Main Bag Body -->
+  <g>
+    <!-- Base Green Bag -->
+    <path d="M256 122 C180 125, 120 180, 120 280 C120 380, 175 460, 256 460 C337 460, 392 380, 392 280 C392 180, 332 125, 256 122 Z" fill="#2ea745"/>
+    
+    <!-- Shadow Overlay on Right Side -->
+    <path d="M256 122 C290 124, 392 200, 392 280 C392 380, 337 460, 256 460 C295 460, 370 400, 370 280 C370 195, 305 135, 256 122 Z" fill="#248c39"/>
+    <path d="M256 460 C337 460, 392 380, 392 280 C392 250, 380 215, 360 185 L256 460 Z" fill="#1f7d32" opacity="0.35"/>
+  </g>
+
+  <!-- Center White Circle / Badge -->
+  <circle cx="256" cy="300" r="76" fill="#ffffff"/>
+
+  <!-- Green Dollar Sign ($) -->
+  <!-- Top & Bottom vertical bar through center -->
+  <rect x="251" y="244" width="10" height="112" rx="5" fill="#2ea745"/>
+  
+  <!-- $ Character path -->
+  <path d="M278 268 C278 255, 266 252, 256 252 C242 252, 230 258, 230 272 C230 288, 246 293, 264 298 C282 303, 292 312, 292 328 C292 344, 278 352, 256 352 C238 352, 224 345, 224 330 M278 268" stroke="#2ea745" stroke-width="12" stroke-linecap="round" fill="none"/>
+</svg>

@@ -1,0 +1,98 @@
+.specular-btn {
+  --sb-radius: 18px;
+  --sb-line-color: #ffffff;
+  --sb-base-color: #525252;
+  --sb-intensity: 1;
+  --sb-proximity: 250;
+
+  position: relative;
+  isolation: isolate;
+  overflow: visible;
+  border-radius: var(--sb-radius);
+  outline: none;
+  cursor: pointer;
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.2s ease,
+    background-color 0.2s ease,
+    color 0.2s ease,
+    opacity 0.2s ease;
+}
+
+.specular-btn:active {
+  transform: scale(0.97);
+}
+
+.specular-btn:focus-visible {
+  outline: 2px solid color-mix(in srgb, currentColor 60%, transparent);
+  outline-offset: 3px;
+}
+
+.specular-btn:disabled,
+.specular-btn[aria-disabled="true"] {
+  cursor: default;
+  opacity: 0.55;
+}
+
+.specular-btn:disabled:active,
+.specular-btn[aria-disabled="true"]:active {
+  transform: none;
+}
+
+.specular-btn > .sb-fx {
+  position: absolute;
+  inset: -20px;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.specular-btn > .sb-fx canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.specular-btn > .sb-label {
+  position: relative;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: inherit;
+  min-width: 0;
+  pointer-events: none;
+}
+
+.specular-btn--full {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.specular-btn--icon {
+  --sb-radius: 999px;
+  --sb-proximity: 180;
+}
+
+.specular-btn--sm {
+  --sb-radius: 14px;
+  --sb-proximity: 200;
+}
+
+.specular-btn--danger {
+  --sb-line-color: #fecdd3;
+  --sb-base-color: #be123c;
+}
+
+.specular-btn--soft {
+  --sb-line-color: #ffffff;
+  --sb-base-color: #d1d5db;
+  --sb-intensity: 0.85;
+}
+
+@supports not (outline-color: color-mix(in srgb, white 60%, transparent)) {
+  .specular-btn:focus-visible {
+    outline-color: currentColor;
+  }
+}

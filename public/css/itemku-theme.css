@@ -1,0 +1,360 @@
+/* ===== ITEMKU THEME CSS — with COMPLETE Dark/Light Mode ===== */
+
+/* ─── CSS Variables (Light theme default) ─── */
+:root {
+  --itemku-blue-dark:    #072a60;
+  --itemku-blue-primary: #0050ae;
+  --itemku-blue-hover:   #003d87;
+  --itemku-blue-subnav:  #08326e;
+  --itemku-orange:       #ff5e00;
+  --itemku-yellow:       #ffb800;
+  --itemku-bg-gray:      #f5f7fa;
+
+  /* Theme tokens */
+  --bg-page:        #f7f9fb;
+  --bg-card:        #ffffff;
+  --bg-card-hover:  #f8fafc;
+  --bg-sidebar:     #f8fafd;
+  --border-color:   #eef2f6;
+  --border-hover:   #bcd4fa;
+  --text-primary:   #1e293b;
+  --text-secondary: #64748b;
+  --text-muted:     #94a3b8;
+  --shadow-card:    rgba(0,0,0,0.04);
+  --shadow-hover:   rgba(0,80,174,0.10);
+  --input-bg:       #ffffff;
+  --input-border:   #e2e8f0;
+
+  /* Header bar base style (light mode) */
+  --header-bg:      #0050ae;
+  --header-subnav:  #08326e;
+}
+
+/* ─── Dark theme overrides (Complete Dark) ─── */
+[data-theme="dark"] {
+  --bg-page:        #080a10;
+  --bg-card:        #101422;
+  --bg-card-hover:  #181d30;
+  --bg-sidebar:     #0c0f1a;
+  --border-color:   #1c2235;
+  --border-hover:   #2d3654;
+  --text-primary:   #f8fafc;
+  --text-secondary: #94a3b8;
+  --text-muted:     #627288;
+  --shadow-card:    rgba(0,0,0,0.3);
+  --shadow-hover:   rgba(0,80,174,0.25);
+  --input-bg:       #181d30;
+  --input-border:   #1c2235;
+
+  /* Header is also fully dark in dark mode */
+  --header-bg:      #0c0f1a;
+  --header-subnav:  #101422;
+}
+
+/* ─── Base ─── */
+body {
+  background-color: var(--bg-page);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  color: var(--text-primary);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* ─── Header ─── */
+.itemku-header {
+  background: var(--header-bg);
+  color: #ffffff;
+  transition: background-color 0.3s ease;
+}
+
+.itemku-subnav {
+  background: var(--header-subnav);
+  border-top: 1px solid rgba(255,255,255,0.08);
+  transition: background-color 0.3s ease;
+}
+
+.itemku-search-input {
+  background: var(--input-bg);
+  border: none;
+  color: var(--text-primary);
+  border-radius: 8px;
+  font-size: 13px;
+  transition: box-shadow 0.2s ease, background-color 0.3s ease;
+}
+
+.itemku-search-input:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(255, 184, 0, 0.4);
+}
+
+.itemku-search-tag {
+  background: rgba(255,255,255,0.1);
+  color: rgba(255,255,255,0.8);
+  font-size: 11px;
+  padding: 2px 8px;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.itemku-search-tag:hover {
+  background: rgba(255,255,255,0.2);
+  color: #ffffff;
+}
+
+/* ─── Hero ─── */
+.itemku-hero {
+  background: radial-gradient(circle at 85% 30%, #1e6bd6 0%, #0c4291 50%, #072a60 100%);
+  position: relative;
+  overflow: hidden;
+  border-radius: 20px;
+}
+
+[data-theme="dark"] .itemku-hero {
+  background: radial-gradient(circle at 85% 30%, #172a45 0%, #0e1726 60%, #080a10 100%);
+}
+
+.itemku-hero-card {
+  border-radius: 12px;
+  overflow: hidden;
+  position: relative;
+  transition: transform 0.3s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.3s ease;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.25);
+}
+
+.itemku-hero-card:hover {
+  transform: translateY(-6px) scale(1.02);
+  box-shadow: 0 16px 36px rgba(0,0,0,0.35);
+}
+
+/* ─── 3D Tactile Category cards ─── */
+.itemku-category-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 20px;
+  padding: 14px 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  text-align: center;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 4px 14px var(--shadow-card), inset 0 1px 1px rgba(255,255,255,0.06);
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Specular top reflection */
+.itemku-category-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 40%;
+  background: linear-gradient(180deg, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0) 100%);
+  pointer-events: none;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+}
+
+.itemku-category-card:hover {
+  transform: translateY(-5px) scale(1.02);
+  box-shadow: 0 14px 28px -4px rgba(0, 229, 199, 0.15), 0 6px 12px -2px rgba(0,0,0,0.25), inset 0 1px 1px rgba(255,255,255,0.15);
+  border-color: rgba(0, 229, 199, 0.4);
+}
+
+.itemku-category-icon {
+  width: 52px;
+  height: 52px;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 6px 16px -2px rgba(0,0,0,0.18), inset 0 1px 2px rgba(255,255,255,0.25);
+  position: relative;
+}
+
+.itemku-category-icon::after {
+  content: '';
+  position: absolute;
+  top: 1px;
+  left: 1px;
+  right: 1px;
+  height: 45%;
+  background: linear-gradient(180deg, rgba(255,255,255,0.25) 0%, rgba(255,255,255,0) 100%);
+  border-radius: 15px 15px 0 0;
+  pointer-events: none;
+}
+
+.itemku-category-icon svg {
+  width: 26px;
+  height: 26px;
+  transition: transform 0.25s ease;
+}
+
+.itemku-category-icon img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 12px;
+}
+
+.itemku-category-card:hover .itemku-category-icon {
+  transform: scale(1.12) translateY(-2px);
+  box-shadow: 0 10px 22px -3px rgba(0, 229, 199, 0.3), inset 0 1px 2px rgba(255,255,255,0.4);
+}
+
+[data-theme="dark"] .itemku-category-icon {
+  background-color: #0d1e26 !important;
+  border-color: #1a3845 !important;
+}
+
+/* ─── Product card ─── */
+.itemku-product-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 14px;
+  overflow: hidden;
+  transition: all 0.25s ease, background-color 0.3s ease, border-color 0.3s ease;
+  box-shadow: 0 2px 6px var(--shadow-card);
+  display: flex;
+  flex-direction: column;
+}
+
+.itemku-product-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 28px var(--shadow-hover);
+  border-color: var(--border-hover);
+}
+
+/* Floating Action Button */
+.itemku-floating-btn {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: #0050ae;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8px 24px rgba(0, 80, 174, 0.4);
+  cursor: pointer;
+  z-index: 99;
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.itemku-floating-btn:hover {
+  transform: scale(1.1);
+  background: #003d87;
+  box-shadow: 0 12px 30px rgba(0, 80, 174, 0.6);
+}
+
+/* ─── High-Specificity Dark-mode Tailwind overrides ─── */
+[data-theme="dark"] body.bg-\[\#f7f9fb\]    { background-color: var(--bg-page) !important; }
+[data-theme="dark"] .bg-white               { background-color: var(--bg-card) !important; }
+[data-theme="dark"] .bg-\[\#f8fafd\]        { background-color: var(--bg-sidebar) !important; }
+[data-theme="dark"] .bg-gray-50             { background-color: var(--bg-card-hover) !important; }
+[data-theme="dark"] .bg-gray-100            { background-color: #181d30 !important; }
+[data-theme="dark"] .bg-blue-50             { background-color: rgba(0,80,174,0.15) !important; }
+
+/* Stat cards & icons */
+[data-theme="dark"] .bg-\[\#f8fafd\].border  { background-color: var(--bg-card) !important; border-color: var(--border-color) !important; }
+[data-theme="dark"] .bg-blue-100            { background-color: #1b263b !important; color: #38bdf8 !important; }
+[data-theme="dark"] .bg-emerald-100         { background-color: #064e3b !important; color: #34d399 !important; }
+[data-theme="dark"] .bg-amber-100           { background-color: #78350f !important; color: #fbbf24 !important; }
+
+/* Category icons in dark mode should not have white backgrounds */
+[data-theme="dark"] .itemku-category-icon   { background-color: #181d30 !important; border-color: #1c2235 !important; }
+
+/* Borders */
+[data-theme="dark"] .border-gray-100        { border-color: var(--border-color) !important; }
+[data-theme="dark"] .border-gray-200        { border-color: var(--border-color) !important; }
+[data-theme="dark"] .border-blue-100        { border-color: #1c2235 !important; }
+
+/* Text colors */
+[data-theme="dark"] .text-gray-900          { color: var(--text-primary)   !important; }
+[data-theme="dark"] .text-gray-800          { color: var(--text-primary)   !important; }
+[data-theme="dark"] .text-gray-700          { color: var(--text-secondary) !important; }
+[data-theme="dark"] .text-gray-600          { color: var(--text-secondary) !important; }
+[data-theme="dark"] .text-gray-500          { color: var(--text-muted)     !important; }
+[data-theme="dark"] .text-gray-400          { color: var(--text-muted)     !important; }
+[data-theme="dark"] .text-xs.text-gray-500  { color: var(--text-muted)     !important; }
+
+/* Footer */
+[data-theme="dark"] footer                  { background-color: var(--bg-card) !important; border-color: var(--border-color) !important; }
+[data-theme="dark"] footer h4               { color: var(--text-primary) !important; }
+
+/* Sidebar / Drawer */
+[data-theme="dark"] #profile-drawer         { background-color: var(--bg-sidebar) !important; }
+
+/* Inputs in dark mode */
+[data-theme="dark"] input:not([type='checkbox']):not([type='radio']) {
+  background-color: var(--input-bg) !important;
+  border-color: var(--input-border) !important;
+  color: var(--text-primary) !important;
+}
+
+/* ─── Theme toggle button ─── */
+.theme-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  background: rgba(255,255,255,0.12);
+  color: rgba(255,255,255,0.9);
+  transition: background 0.2s ease, transform 0.2s ease;
+  flex-shrink: 0;
+}
+
+.theme-toggle:hover {
+  background: rgba(255,255,255,0.22);
+  transform: rotate(15deg);
+}
+
+.theme-toggle svg { display: block; }
+
+/* Sun/Moon visibility depending on theme */
+.theme-toggle .icon-sun  { display: none; }
+.theme-toggle .icon-moon { display: block; }
+
+[data-theme="dark"] .theme-toggle .icon-sun,
+.dark .theme-toggle .icon-sun { display: block !important; }
+
+[data-theme="dark"] .theme-toggle .icon-moon,
+.dark .theme-toggle .icon-moon { display: none !important; }
+
+/* ─── Profile Drawer Support/Activity Lists Fix ─── */
+#profile-drawer .divide-y > a {
+  border-radius: 0 !important;
+}
+#profile-drawer .divide-y > a:first-of-type {
+  border-top-left-radius: 12px !important;
+  border-top-right-radius: 12px !important;
+}
+#profile-drawer .divide-y > a:last-of-type {
+  border-bottom-left-radius: 12px !important;
+  border-bottom-right-radius: 12px !important;
+}
+
+/* Make link text and chevron icons white inside drawer lists in dark mode */
+[data-theme="dark"] #profile-drawer .divide-y a,
+[data-theme="dark"] #profile-drawer .divide-y a span {
+  color: #ffffff !important;
+}
+[data-theme="dark"] #profile-drawer .divide-y a svg {
+  color: rgba(255, 255, 255, 0.9) !important;
+}
+[data-theme="dark"] #profile-drawer .divide-y > :not([hidden]) ~ :not([hidden]) {
+  border-color: rgba(255, 255, 255, 0.1) !important;
+}
+
