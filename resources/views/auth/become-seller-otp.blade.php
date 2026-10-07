@@ -3,26 +3,8 @@
 @section('title', 'Verifikasi OTP Pendaftaran Seller — gian games')
 
 @section('head')
+<link rel="stylesheet" href="{{ asset('css/code-slots.css') }}">
 <style>
-    .input-otp {
-        width: 100%;
-        border: 2px solid #cbd5e1;
-        border-radius: 16px;
-        padding: 16px;
-        font-size: 28px;
-        font-weight: 800;
-        letter-spacing: 10px;
-        text-align: center;
-        color: #0f172a;
-        outline: none;
-        transition: all 0.2s;
-        background: #f8fafd;
-    }
-    .input-otp:focus {
-        border-color: #0050ae;
-        background: #ffffff;
-        box-shadow: 0 0 0 4px rgba(0, 80, 174, 0.15);
-    }
     .animate-up { animation: slideUp 0.5s ease both; }
     @keyframes slideUp { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:translateY(0); } }
 </style>
@@ -36,7 +18,7 @@
     </div>
 
     <div class="w-full max-w-md animate-up bg-white rounded-3xl p-8 sm:p-10 shadow-2xl relative z-10 border border-gray-100">
-        
+
         <!-- Header Badge -->
         <div class="text-center mb-6">
             <div class="w-16 h-16 rounded-2xl bg-blue-50 text-[#0050ae] flex items-center justify-center text-3xl mx-auto mb-4 shadow-sm border border-blue-100">
@@ -65,30 +47,45 @@
         @endif
 
         <!-- Form Submit OTP -->
-        <form method="POST" action="{{ route('become-seller.verify-otp.submit') }}" class="space-y-6">
+        <form method="POST" action="{{ route('become-seller.verify-otp.submit') }}" id="otp-form" class="space-y-6">
             @csrf
 
             <div>
-                <label class="block text-center text-xs font-bold text-gray-700 uppercase tracking-wider mb-2">
+                <label class="block text-center text-xs font-bold text-gray-700 uppercase tracking-wider mb-4">
                     Masukkan 6-Digit Kode OTP
                 </label>
-                <input type="text"
-                       name="otp"
-                       maxlength="6"
-                       required
-                       autofocus
-                       autocomplete="off"
-                       placeholder="••••••"
-                       class="input-otp">
-                <p class="text-center text-[11px] text-gray-400 mt-2">
+
+                {{-- CodeSlots animated container --}}
+                <div class="flex justify-center">
+                    <div
+                        id="cs-root"
+                        data-code-slots
+                        data-length="6"
+                        data-input-name="otp"
+                        data-slot-color="#eff6ff"
+                        data-accent-color="#0050ae"
+                        data-ink-color="#0050ae"
+                        data-digit-color="#ffffff"
+                        data-danger-color="#ff3b30"
+                        data-slot-size="52"
+                        data-gap="10"
+                        data-radius="14"
+                        data-auto-focus="true"
+                        data-aria-label="Kode OTP Pendaftaran Seller"
+                    ></div>
+                </div>
+
+                <p class="text-center text-[11px] text-gray-400 mt-3">
                     ⏱️ Kode berlaku selama <strong>10 menit</strong>
                 </p>
             </div>
 
             <button type="submit"
-                    class="w-full py-3.5 bg-gradient-to-r from-[#0050ae] to-indigo-700 hover:from-[#003d87] hover:to-indigo-800 text-white font-extrabold text-sm rounded-xl shadow-lg hover:shadow-xl transition-all active:scale-[0.99] flex items-center justify-center gap-2 cursor-pointer">
+                    id="submit-btn"
+                    class="w-full py-3.5 bg-gradient-to-r from-[#0050ae] to-indigo-700 hover:from-[#003d87] hover:to-indigo-800 text-white font-extrabold text-sm rounded-xl shadow-lg hover:shadow-xl transition-all active:scale-[0.99] flex items-center justify-center gap-2 opacity-50 cursor-not-allowed"
+                    disabled>
                 <span>🔐</span>
-                <span>Verifikasi & Kirim Pendaftaran</span>
+                <span>Verifikasi &amp; Kirim Pendaftaran</span>
             </button>
         </form>
 
@@ -105,7 +102,7 @@
                     <span>Kirim Ulang Kode OTP</span>
                 </button>
             </form>
-            
+
             <div class="pt-2">
                 <a href="{{ route('become-seller') }}" class="text-[11px] text-gray-400 hover:text-gray-600 hover:underline">
                     ← Ubah Data / Foto Pendaftaran
@@ -115,4 +112,32 @@
 
     </div>
 </section>
+
+<script src="{{ asset('js/code-slots.js') }}"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const el     = document.getElementById('cs-root');
+        const btn    = document.getElementById('submit-btn');
+        const hasErr = {{ $errors->any() ? 'true' : 'false' }};
+
+        requestAnimationFrame(function () {
+            const cs = el._csInstance;
+            if (!cs) return;
+
+            cs.opts.onChange = function (code) {
+                if (code.length === 6) {
+                    btn.disabled = false;
+                    btn.classList.remove('opacity-50', 'cursor-not-allowed');
+                } else {
+                    btn.disabled = true;
+                    btn.classList.add('opacity-50', 'cursor-not-allowed');
+                }
+            };
+
+            if (hasErr) {
+                setTimeout(function () { cs.setStatus('error'); }, 500);
+            }
+        });
+    });
+</script>
 @endsection

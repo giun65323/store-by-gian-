@@ -9,26 +9,9 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="{{ asset('css/code-slots.css') }}">
     <style>
         body { font-family: 'Inter', sans-serif; }
-        .input-otp {
-            width: 100%;
-            border: 1px solid #b0b0b0;
-            border-radius: 12px;
-            padding: 16px;
-            font-size: 24px;
-            font-weight: 700;
-            letter-spacing: 8px;
-            text-align: center;
-            color: #222;
-            outline: none;
-            transition: border-color 0.2s, box-shadow 0.2s;
-            background: #fff;
-        }
-        .input-otp:focus {
-            border-color: #f43f5e;
-            box-shadow: 0 0 0 2px rgba(244, 63, 94, 0.15);
-        }
         .btn-brand {
             background: linear-gradient(to right, #FF385C, #e31c5f);
             color: white;
@@ -60,12 +43,12 @@
         </div>
 
         <h2 class="text-2xl font-bold text-gray-900 text-center mb-2">Verifikasi Email Anda</h2>
-        <p class="text-gray-500 text-sm text-center mb-6 leading-relaxed">
+        <p class="text-gray-500 text-sm text-center mb-8 leading-relaxed">
             Kami baru saja mengirimkan kode OTP 6-digit ke alamat email Anda. Silakan masukkan kode tersebut untuk menyelesaikan pendaftaran.
         </p>
 
         @if ($errors->any())
-            <div class="mb-5 rounded-xl bg-rose-50 border border-rose-200 px-4 py-3.5 text-rose-700 text-sm space-y-1">
+            <div id="error-banner" class="mb-5 rounded-xl bg-rose-50 border border-rose-200 px-4 py-3.5 text-rose-700 text-sm space-y-1">
                 @foreach ($errors->all() as $error)
                     <div class="flex items-start gap-2">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-rose-400 shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -77,16 +60,38 @@
             </div>
         @endif
 
-        <form method="POST" action="{{ route('verify-otp') }}" class="space-y-6">
+        <form method="POST" action="{{ route('verify-otp') }}" id="otp-form" class="space-y-6">
             @csrf
 
             <div>
-                <label class="block text-center text-[13px] font-semibold text-gray-700 mb-3">Kode Verifikasi (OTP)</label>
-                <input type="text" name="otp" maxLength="6" required autofocus autocomplete="off"
-                       placeholder="••••••" class="input-otp">
+                <label class="block text-center text-[13px] font-semibold text-gray-700 mb-4">Kode Verifikasi (OTP)</label>
+
+                {{-- CodeSlots animated container --}}
+                <div class="flex justify-center">
+                    <div
+                        id="cs-root"
+                        data-code-slots
+                        data-length="6"
+                        data-input-name="otp"
+                        data-slot-color="#f1f5f9"
+                        data-accent-color="#FF385C"
+                        data-ink-color="#FF385C"
+                        data-digit-color="#ffffff"
+                        data-danger-color="#ff3b30"
+                        data-slot-size="52"
+                        data-gap="10"
+                        data-radius="14"
+                        data-auto-focus="true"
+                        data-aria-label="Kode OTP Verifikasi"
+                    ></div>
+                </div>
+
+                <p class="text-center text-xs text-gray-400 mt-3">⏱️ Kode OTP berlaku selama 10 menit</p>
             </div>
 
-            <button type="submit" class="specular-btn specular-btn--full btn-brand">Verifikasi Sekarang</button>
+            <button type="submit" id="submit-btn" class="btn-brand opacity-50 cursor-not-allowed" disabled>
+                Verifikasi Sekarang
+            </button>
         </form>
 
         <div class="mt-6 text-center">
@@ -94,6 +99,42 @@
             <a href="{{ route('register') }}" class="text-xs font-semibold text-rose-500 hover:text-rose-600">Daftar ulang</a>
         </div>
     </div>
+
+    <script src="{{ asset('js/code-slots.js') }}"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const el     = document.getElementById('cs-root');
+            const btn    = document.getElementById('submit-btn');
+            const form   = document.getElementById('otp-form');
+            const hasErr = {{ $errors->any() ? 'true' : 'false' }};
+
+            // Wait for CodeSlots auto-init
+            requestAnimationFrame(function () {
+                const cs = el._csInstance;
+                if (!cs) return;
+
+                // Update submit button enabled state
+                cs.opts.onChange = function (code) {
+                    if (code.length === 6) {
+                        btn.disabled = false;
+                        btn.classList.remove('opacity-50', 'cursor-not-allowed');
+                    } else {
+                        btn.disabled = true;
+                        btn.classList.add('opacity-50', 'cursor-not-allowed');
+                    }
+                };
+
+                // If there were server validation errors → trigger drain animation
+                if (hasErr) {
+                    // Small delay so animation is visible after page load
+                    setTimeout(function () { cs.setStatus('error'); }, 500);
+                }
+
+                // Auto-submit once all 6 digits entered (optional — disabled by default)
+                // cs.opts.onComplete = code => form.submit();
+            });
+        });
+    </script>
 
 </body>
 </html>

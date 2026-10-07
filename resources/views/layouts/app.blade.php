@@ -18,7 +18,7 @@
     </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@yield('title', 'gian games') — Platform Jual Beli Game & Produk Digital Terpercaya</title>
+    <title>@yield('title', 'gian games') | Platform Jual Beli Game & Produk Digital Terpercaya</title>
     <meta name="description" content="Tempat jual beli item, akun game, voucher, dan top up game termurah dan terpercaya di Indonesia.">
     <!-- Google Fonts: Inter & Outfit -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -81,7 +81,7 @@
     </style>
     @yield('head')
 </head>
-<body class="bg-[#f7f9fb] dark:bg-[#090d16] text-gray-900 dark:text-gray-100 min-h-screen flex flex-col antialiased selection:bg-blue-200 pb-20 md:pb-0">
+<body class="bg-[#f7f9fb] dark:bg-[#090d16] text-gray-900 dark:text-gray-100 min-h-screen flex flex-col antialiased selection:bg-blue-200">
 
     @auth
     <!-- ===== HEADER ITEMKU STYLE ===== -->
@@ -117,52 +117,58 @@
 
                 <!-- Search Bar & Tags -->
                 <div class="flex-1 max-w-2xl hidden md:block">
-                    <form action="{{ route('orders.search') }}" method="POST" class="relative flex items-center w-full bg-white rounded-full border border-gray-900/20 shadow-xs overflow-hidden focus-within:ring-2 focus-within:ring-[#ffb800] focus-within:border-transparent transition-all">
+                    <form action="{{ route('orders.search') }}" method="POST" class="relative flex items-center w-full bg-white dark:bg-[#101422] rounded-xl border border-white/25 dark:border-gray-800 shadow-sm overflow-hidden focus-within:ring-2 focus-within:ring-[#ffb800] focus-within:border-transparent transition-all">
                         @csrf
+                        <div class="pl-3.5 pr-1 text-gray-400 pointer-events-none flex items-center">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                            </svg>
+                        </div>
                         <input type="text"
                                name="order_number"
-                               placeholder="Cari Nomor Order (OD...) atau Game & Voucher..."
-                               class="flex-1 bg-transparent text-gray-800 placeholder-gray-400 text-xs pl-4 sm:pl-5 pr-2 py-2.5 focus:outline-none font-sans">
-                        <button type="submit" class="bg-black hover:bg-neutral-800 active:bg-neutral-950 text-white px-5 sm:px-6 py-2.5 flex items-center justify-center transition-colors shrink-0 group" title="Cari">
-                            <svg class="w-4 h-4 text-white group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                            </svg>
+                               placeholder="Cari game, voucher, item, atau no. order (OD...)"
+                               class="flex-1 bg-transparent text-gray-800 dark:text-gray-100 placeholder-gray-400 text-xs px-2.5 py-2.5 focus:outline-none font-sans">
+                        <button type="submit" class="bg-gradient-to-r from-[#ffb800] to-amber-500 hover:from-amber-400 hover:to-amber-500 text-gray-950 font-bold px-4 py-2.5 flex items-center justify-center transition-all shrink-0 text-xs gap-1.5 shadow-xs cursor-pointer active:scale-95" title="Cari Pesanan & Game">
+                            <span>Cari</span>
                         </button>
                     </form>
                     <!-- Quick Tags -->
-                    <div class="flex items-center gap-1.5 mt-1.5 overflow-x-auto scrollbar-hide">
-                        <a href="{{ route('products.index') }}" class="itemku-search-tag">Robux 5 Hari</a>
-                        <a href="{{ route('products.index') }}" class="itemku-search-tag">plants vs brainrots</a>
-                        <a href="{{ route('products.index') }}" class="itemku-search-tag">Akun Blox Fruit</a>
-                        <a href="{{ route('products.index') }}" class="itemku-search-tag">Fish it</a>
-                        <a href="{{ route('products.index') }}" class="itemku-search-tag">Token HoK</a>
-                        <a href="{{ route('products.index') }}" class="itemku-search-tag">MLBB</a>
+                    <div class="flex items-center gap-1.5 mt-2 overflow-x-auto scrollbar-hide text-[11px]">
+                        <span class="text-white/60 font-semibold shrink-0 flex items-center gap-1 mr-0.5">
+                            <span>🔥</span>
+                            <span>Tren:</span>
+                        </span>
+                        <a href="{{ route('products.index') }}" class="px-2.5 py-0.5 rounded-md bg-white/10 hover:bg-white/20 text-white/90 hover:text-white transition-colors border border-white/10 shrink-0 font-medium">Robux 5 Hari</a>
+                        <a href="{{ route('products.index') }}" class="px-2.5 py-0.5 rounded-md bg-white/10 hover:bg-white/20 text-white/90 hover:text-white transition-colors border border-white/10 shrink-0 font-medium">Blox Fruit</a>
+                        <a href="{{ route('products.index') }}" class="px-2.5 py-0.5 rounded-md bg-white/10 hover:bg-white/20 text-white/90 hover:text-white transition-colors border border-white/10 shrink-0 font-medium">Diamond MLBB</a>
+                        <a href="{{ route('products.index') }}" class="px-2.5 py-0.5 rounded-md bg-white/10 hover:bg-white/20 text-white/90 hover:text-white transition-colors border border-white/10 shrink-0 font-medium">Steam Key</a>
+                        <a href="{{ route('products.index') }}" class="px-2.5 py-0.5 rounded-md bg-white/10 hover:bg-white/20 text-white/90 hover:text-white transition-colors border border-white/10 shrink-0 font-medium">Growtopia DL</a>
+                        <a href="{{ route('products.index') }}" class="px-2.5 py-0.5 rounded-md bg-white/10 hover:bg-white/20 text-white/90 hover:text-white transition-colors border border-white/10 shrink-0 font-medium">Free Fire</a>
                     </div>
                 </div>
 
                 <!-- Right Actions -->
-                <div class="flex items-center gap-3 lg:gap-4 shrink-0">
-                    <!-- Message Icon -->
+                <div class="flex items-center gap-2.5 sm:gap-3 shrink-0">
                     <!-- Message Icon with Unread Badge & Dropdown -->
                     <div class="relative" id="header-messages-container">
                         <button type="button"
                                 id="header-messages-btn"
                                 onclick="toggleChatDropdown()"
-                                class="p-2 text-white/90 hover:text-white relative hover:bg-white/10 rounded-full transition-colors cursor-pointer"
+                                class="p-2 text-white/90 hover:text-white relative hover:bg-white/10 rounded-xl transition-colors cursor-pointer border border-white/10"
                                 title="Pesan & Obrolan Transaksi">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
                             </svg>
                             <!-- Chat Notification Badge -->
                             <span id="chat-unread-badge"
-                                  class="absolute -top-0.5 -right-0.5 bg-red-500 text-white text-[10px] font-black min-w-[18px] h-[18px] px-1 rounded-full flex items-center justify-center shadow-xs border border-white/20 transition-all scale-100 hidden animate-pulse">
+                                  class="absolute -top-1 -right-1 bg-red-500 text-white text-[10px] font-black min-w-[18px] h-[18px] px-1 rounded-full flex items-center justify-center shadow-xs border border-white/20 transition-all scale-100 hidden animate-pulse">
                                 0
                             </span>
                         </button>
 
                         <!-- Messages Dropdown -->
                         <div id="header-chat-dropdown"
-                             class="hidden absolute right-0 mt-2 w-80 sm:w-96 bg-white rounded-2xl shadow-2xl border border-gray-100 z-[120] overflow-hidden text-gray-900">
+                             class="hidden absolute right-0 mt-2 w-80 sm:w-96 bg-white dark:bg-[#101422] rounded-2xl shadow-2xl border border-gray-100 dark:border-gray-800 z-[120] overflow-hidden text-gray-900 dark:text-gray-100">
                             <!-- Dropdown Header -->
                             <div class="px-4 py-3 bg-[#0050ae] text-white flex items-center justify-between">
                                 <div class="flex items-center gap-2">
@@ -173,7 +179,7 @@
                             </div>
 
                             <!-- Messages List -->
-                            <div id="chat-dropdown-list" class="max-h-80 overflow-y-auto divide-y divide-gray-100 text-xs">
+                            <div id="chat-dropdown-list" class="max-h-80 overflow-y-auto divide-y divide-gray-100 dark:divide-gray-800 text-xs">
                                 <div class="p-6 text-center text-gray-400">
                                     <span class="inline-block animate-spin text-base">⏳</span>
                                     <p class="text-[11px] mt-1">Memuat obrolan...</p>
@@ -181,8 +187,8 @@
                             </div>
 
                             <!-- Dropdown Footer -->
-                            <div class="p-2.5 bg-gray-50 border-t border-gray-100 text-center">
-                                <a href="{{ route('orders.index') }}" class="text-[11px] font-bold text-[#0050ae] hover:underline flex items-center justify-center gap-1">
+                            <div class="p-2.5 bg-gray-50 dark:bg-gray-900 border-t border-gray-100 dark:border-gray-800 text-center">
+                                <a href="{{ route('orders.index') }}" class="text-[11px] font-bold text-[#0050ae] dark:text-[#ffb800] hover:underline flex items-center justify-center gap-1">
                                     <span>Lihat Semua Pesanan & Transaksi</span>
                                     <span>→</span>
                                 </a>
@@ -191,7 +197,7 @@
                     </div>
 
                     <!-- Notification Bell -->
-                    <button type="button" class="p-2 text-white/90 hover:text-white relative hover:bg-white/10 rounded-full transition-colors" title="Notifikasi">
+                    <button type="button" class="p-2 text-white/90 hover:text-white relative hover:bg-white/10 rounded-xl transition-colors border border-white/10" title="Notifikasi">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
                         </svg>
@@ -201,14 +207,14 @@
                     <button type="button"
                             id="header-cart-btn"
                             onclick="openCartDrawer()"
-                            class="p-2 text-white/90 hover:text-white relative hover:bg-white/10 rounded-full transition-colors"
+                            class="p-2 text-white/90 hover:text-white relative hover:bg-white/10 rounded-xl transition-colors border border-white/10 cursor-pointer"
                             title="Keranjang Belanja">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
                         </svg>
                         <!-- Cart Notification Badge -->
                         <span id="cart-badge"
-                              class="absolute -top-0.5 -right-0.5 bg-[#ff5e00] text-white text-[10px] font-black min-w-[18px] h-[18px] px-1 rounded-full flex items-center justify-center shadow-xs border border-white/20 transition-all scale-100 hidden">
+                              class="absolute -top-1 -right-1 bg-[#ff5e00] text-white text-[10px] font-black min-w-[18px] h-[18px] px-1 rounded-full flex items-center justify-center shadow-xs border border-white/20 transition-all scale-100 hidden">
                             0
                         </span>
                     </button>
@@ -216,7 +222,7 @@
                     <!-- Theme Toggle Button -->
                     <button type="button"
                             id="theme-toggle"
-                            class="theme-toggle cursor-pointer"
+                            class="theme-toggle cursor-pointer border border-white/10 rounded-xl"
                             title="Ganti Mode Terang / Gelap"
                             aria-label="Toggle dark/light mode">
                         <!-- Moon (shown in light mode -> click to go dark) -->
@@ -233,29 +239,26 @@
                     @if(auth()->user()->isAdmin())
                     <!-- Admin Panel Button -->
                     <a href="{{ route('admin.dashboard') }}"
-                       class="inline-flex items-center gap-1.5 bg-[#ffb800] hover:bg-[#ffa500] text-gray-900 text-xs font-black px-3 py-1.5 rounded-lg shadow-sm transition-all hover:scale-105">
-                        🛡️ Admin Control
+                       class="inline-flex items-center gap-1.5 bg-gradient-to-r from-amber-400 to-[#ffb800] hover:from-amber-300 hover:to-amber-400 text-gray-950 text-xs font-black px-3.5 py-2 rounded-xl shadow-sm transition-all hover:scale-105">
+                        <span>🛡️</span>
+                        <span>Admin</span>
                     </a>
                     @endif
 
                     <!-- Start Selling / Tambah Produk Button -->
                     @if(auth()->user()->isSeller() || auth()->user()->isAdmin())
-                    {{-- Seller/Admin: langsung ke tambah produk --}}
                     <a href="{{ route('products.create') }}"
-                       class="hidden sm:inline-flex items-center gap-1.5 bg-gradient-to-r from-blue-700 to-indigo-800 hover:from-blue-800 hover:to-indigo-900 text-white text-xs font-bold px-3.5 py-2 rounded-lg border border-white/20 shadow-sm transition-all hover:scale-[1.02]">
+                       class="hidden sm:inline-flex items-center gap-1.5 bg-white/15 hover:bg-white/25 text-white text-xs font-bold px-3.5 py-2 rounded-xl border border-white/20 shadow-sm transition-all hover:scale-[1.02]">
                         <svg class="w-4 h-4 text-[#ffb800]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v16m8-8H4" />
                         </svg>
-                        Start Selling
+                        <span>Tambah Produk</span>
                     </a>
                     @else
-                    {{-- Buyer: arahkan ke register untuk jadi seller --}}
                     <a href="{{ route('become-seller') }}"
-                       class="hidden sm:inline-flex items-center gap-1.5 bg-gradient-to-r from-blue-700 to-indigo-800 hover:from-blue-800 hover:to-indigo-900 text-white text-xs font-bold px-3.5 py-2 rounded-lg border border-white/20 shadow-sm transition-all hover:scale-[1.02]">
-                        <svg class="w-4 h-4 text-[#ffb800]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
-                        </svg>
-                        Start Selling
+                       class="hidden sm:inline-flex items-center gap-1.5 bg-gradient-to-r from-amber-400 to-[#ffb800] hover:from-amber-300 hover:to-[#ffa500] text-gray-950 text-xs font-extrabold px-3.5 py-2 rounded-xl shadow-md transition-all hover:scale-[1.02]">
+                        <span>🏬</span>
+                        <span>Buka Lapak</span>
                     </a>
                     @endif
                 </div>
@@ -263,29 +266,56 @@
         </div>
 
         <!-- Sub-Nav Categories Bar -->
-        <div class="itemku-subnav px-4 sm:px-6 lg:px-8">
-            <div class="max-w-7xl mx-auto flex items-center gap-6 py-2 overflow-x-auto scrollbar-hide text-xs font-medium text-white/90">
-                <a href="{{ route('dashboard') }}" class="flex items-center gap-1.5 text-white font-bold hover:text-[#ffb800] shrink-0">
-                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                        <path d="M5 3a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2V5a2 2 0 00-2-2H5zM5 11a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2v-2a2 2 0 00-2-2H5zM11 5a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V5zM11 13a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
-                    </svg>
-                    Category
-                </a>
-                <a href="{{ route('orders.index') }}" class="hover:text-white shrink-0 {{ request()->routeIs('orders.*') ? 'text-[#ffb800] font-bold' : '' }}">Riwayat Transaksi</a>
-                <a href="{{ route('products.index') }}" class="hover:text-white shrink-0 {{ request()->routeIs('products.*') ? 'text-[#ffb800] font-bold' : '' }}">
-                    {{ auth()->user()->isAdmin() ? 'Moderasi Produk' : 'Produk Saya' }}
-                </a>
-                @if(auth()->user()->isAdmin())
-                <a href="{{ route('admin.dashboard') }}" class="text-[#ffb800] hover:text-white font-extrabold shrink-0 flex items-center gap-1">
-                    <span>🛡️ Kontrol Admin</span>
-                </a>
-                @endif
-                <a href="{{ route('products.index') }}" class="hover:text-white shrink-0">Steam Voucher</a>
-                <a href="{{ route('products.index') }}" class="hover:text-white shrink-0">Growtopia DL</a>
-                <a href="{{ route('products.index') }}" class="hover:text-white shrink-0">Steam Key</a>
-                <a href="{{ route('products.index') }}" class="hover:text-white shrink-0">Roblox Games</a>
-                <a href="{{ route('products.index') }}" class="hover:text-white shrink-0">Mobile Legends WDP</a>
-                <a href="{{ route('products.index') }}" class="hover:text-white shrink-0">Free Fire Diamonds</a>
+        <div class="itemku-subnav px-4 sm:px-6 lg:px-8 border-t border-white/10">
+            <div class="max-w-7xl mx-auto flex items-center justify-between gap-4 py-2 overflow-x-auto scrollbar-hide text-xs font-medium">
+                <!-- Group 1: Core Nav -->
+                <div class="flex items-center gap-2 shrink-0">
+                    <a href="{{ route('products.index') }}" class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white/15 text-white font-bold hover:bg-white/25 transition-all shrink-0 border border-white/10">
+                        <svg class="w-3.5 h-3.5 text-[#ffb800]" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M5 3a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2V5a2 2 0 00-2-2H5zM5 11a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2v-2a2 2 0 00-2-2H5zM11 5a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V5zM11 13a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
+                        </svg>
+                        <span>Kategori Game</span>
+                    </a>
+                    <a href="{{ route('orders.index') }}" class="px-3 py-1.5 rounded-lg text-white/85 hover:text-white hover:bg-white/10 transition-all shrink-0 {{ request()->routeIs('orders.*') ? 'bg-white/20 text-[#ffb800] font-bold' : '' }}">
+                        Riwayat Transaksi
+                    </a>
+                    <a href="{{ route('products.index') }}" class="px-3 py-1.5 rounded-lg text-white/85 hover:text-white hover:bg-white/10 transition-all shrink-0 {{ request()->routeIs('products.*') ? 'bg-white/20 text-[#ffb800] font-bold' : '' }}">
+                        {{ auth()->user()->isAdmin() ? 'Moderasi Produk' : 'Lapak Saya' }}
+                    </a>
+                    @if(auth()->user()->isAdmin())
+                    <a href="{{ route('admin.dashboard') }}" class="px-3 py-1.5 rounded-lg bg-[#ffb800]/20 border border-[#ffb800]/40 text-[#ffb800] hover:bg-[#ffb800]/30 font-extrabold shrink-0 flex items-center gap-1">
+                        <span>🛡️</span>
+                        <span>Kontrol Admin</span>
+                    </a>
+                    @endif
+                </div>
+
+                <!-- Separator -->
+                <span class="h-4 w-px bg-white/20 shrink-0 hidden lg:block" aria-hidden="true"></span>
+
+                <!-- Group 2: Quick Trending Game Shortcuts -->
+                <div class="flex items-center gap-2 text-white/80 shrink-0">
+                    <a href="{{ route('products.index') }}" class="flex items-center gap-1.5 px-2.5 py-1 rounded-md hover:bg-white/10 hover:text-white transition-colors shrink-0">
+                        <span class="w-2 h-2 rounded-full bg-cyan-400"></span>
+                        <span>Roblox</span>
+                    </a>
+                    <a href="{{ route('products.index') }}" class="flex items-center gap-1.5 px-2.5 py-1 rounded-md hover:bg-white/10 hover:text-white transition-colors shrink-0">
+                        <span class="w-2 h-2 rounded-full bg-pink-400"></span>
+                        <span>Mobile Legends</span>
+                    </a>
+                    <a href="{{ route('products.index') }}" class="flex items-center gap-1.5 px-2.5 py-1 rounded-md hover:bg-white/10 hover:text-white transition-colors shrink-0">
+                        <span class="w-2 h-2 rounded-full bg-orange-400"></span>
+                        <span>Free Fire</span>
+                    </a>
+                    <a href="{{ route('products.index') }}" class="flex items-center gap-1.5 px-2.5 py-1 rounded-md hover:bg-white/10 hover:text-white transition-colors shrink-0">
+                        <span class="w-2 h-2 rounded-full bg-sky-400"></span>
+                        <span>Steam Key</span>
+                    </a>
+                    <a href="{{ route('products.index') }}" class="flex items-center gap-1.5 px-2.5 py-1 rounded-md hover:bg-white/10 hover:text-white transition-colors shrink-0">
+                        <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+                        <span>Growtopia</span>
+                    </a>
+                </div>
             </div>
         </div>
     </header>
@@ -352,8 +382,8 @@
     </footer>
 
     @auth
-    <!-- Mobile Bottom Dock Navigation -->
-    <div id="dock-root" class="md:hidden"></div>
+    <!-- Bottom Dock Navigation (semua layar) -->
+    <div id="dock-root"></div>
     @endauth
 
     <!-- ===== ITEMKU STYLE USER PROFILE DRAWER / MODAL ===== -->
@@ -968,56 +998,83 @@
     <script>
     (function () {
         var dockRoot = document.getElementById('dock-root');
-        if (!dockRoot) return;
+        if (!dockRoot || typeof Dock === 'undefined') return;
 
-        /* SVG icon helpers */
-        function svg(path, extra) {
-            return '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:rgba(255,255,255,0.85)" ' + (extra||'') + '>' + path + '</svg>';
+        /* ── SVG icon builder ── */
+        function svg(path, opts) {
+            opts = opts || {};
+            var size  = opts.size  || 20;
+            var color = opts.color || 'rgba(255,255,255,0.88)';
+            var sw    = opts.sw    || 1.75;
+            return '<svg xmlns="http://www.w3.org/2000/svg" width="' + size + '" height="' + size + '" viewBox="0 0 24 24" fill="none" stroke="' + color + '" stroke-width="' + sw + '" stroke-linecap="round" stroke-linejoin="round">' + path + '</svg>';
         }
 
-        var isProducts  = window.location.pathname.startsWith('/products');
-        var isOrders    = window.location.pathname.startsWith('/orders');
-        var isDashboard = window.location.pathname === '/dashboard' || window.location.pathname === '/';
+        var path  = window.location.pathname;
+        var isHome     = path === '/dashboard' || path === '/';
+        var isOrders   = path.startsWith('/orders');
+        var isProducts = path.startsWith('/products');
+        var isProfile  = path.startsWith('/profile');
+        var isHelp     = path.startsWith('/help');
 
-        Dock.mount(dockRoot, {
+        /* ── Add bottom padding so content is not hidden behind dock ── */
+        document.body.style.paddingBottom = '90px';
+
+        window._dockInstance = Dock.mount(dockRoot, {
             panelHeight:   64,
-            baseItemSize:  48,
-            magnification: 68,
-            distance:      160,
-            spring: { mass: 0.1, stiffness: 180, damping: 14 },
+            baseItemSize:  46,
+            magnification: 70,
+            distance:      150,
+            spring: { mass: 0.1, stiffness: 180, damping: 13 },
             items: [
+                /* Home */
                 {
                     icon:   svg('<path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/>'),
-                    label:  'Dashboard',
+                    label:  'Beranda',
                     href:   '/dashboard',
-                    active: isDashboard,
+                    active: isHome,
                 },
+                /* Orders */
                 {
-                    icon:   svg('<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/>'),
+                    icon:   svg('<path d="M9 17H5a2 2 0 0 0-2 2"/><path d="M9 3H5a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h4a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2z"/><rect x="13" y="3" width="8" height="8" rx="2"/><rect x="13" y="13" width="8" height="8" rx="2"/><path d="M5 13v6"/><path d="M2 16h6"/>'),
                     label:  'Transaksi',
                     href:   '/orders',
                     active: isOrders,
                 },
+                /* Products */
                 {
-                    icon:   svg('<line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/>'),
+                    icon:   svg('<path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/>'),
                     label:  'Produk Saya',
                     href:   '/products',
                     active: isProducts,
                 },
+                /* separator */
+                'separator',
+                /* Add Product */
                 {
-                    icon:   svg('<circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/>'),
+                    icon:   svg('<circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12">', { color: 'rgba(255,184,0,0.9)' }),
                     label:  'Tambah Produk',
                     href:   '/products/create',
                 },
+                /* separator */
+                'separator',
+                /* Help */
+                {
+                    icon:   svg('<circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/>'),
+                    label:  'Bantuan',
+                    href:   '/help',
+                    active: isHelp,
+                },
+                /* Profile */
                 {
                     icon:   svg('<path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>'),
                     label:  'Profil',
+                    active: isProfile,
                     onClick: function() {
-                        if (window.openProfileDrawer) {
-                            window.openProfileDrawer();
-                        }
+                        if (window.openProfileDrawer) window.openProfileDrawer();
+                        else window.location.href = '/profile';
                     },
                 },
+                /* Logout */
                 {
                     icon:   svg('<path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/>'),
                     label:  'Keluar',

@@ -9,26 +9,9 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="{{ asset('css/code-slots.css') }}">
     <style>
         body { font-family: 'Inter', sans-serif; }
-        .input-otp {
-            width: 100%;
-            border: 1.5px solid #d1d5db;
-            border-radius: 14px;
-            padding: 16px;
-            font-size: 26px;
-            font-weight: 800;
-            letter-spacing: 10px;
-            text-align: center;
-            color: #111827;
-            outline: none;
-            transition: border-color 0.2s, box-shadow 0.2s;
-            background: #fff;
-        }
-        .input-otp:focus {
-            border-color: #f43f5e;
-            box-shadow: 0 0 0 3px rgba(244, 63, 94, 0.15);
-        }
         .btn-brand {
             background: linear-gradient(to right, #FF385C, #e31c5f);
             color: white;
@@ -96,20 +79,39 @@
             </div>
         @endif
 
-        <form method="POST" action="{{ route('password.verify.otp') }}" class="space-y-6">
+        <form method="POST" action="{{ route('password.verify.otp') }}" id="otp-form" class="space-y-6">
             @csrf
 
             <div>
-                <label class="block text-center text-[13px] font-semibold text-gray-700 mb-2">Masukkan 6-Digit Kode OTP</label>
-                <input type="text" name="otp" maxLength="6" required autofocus autocomplete="off"
-                       placeholder="••••••" class="input-otp">
-                <p class="text-[11px] text-gray-400 text-center mt-2">
+                <label class="block text-center text-[13px] font-semibold text-gray-700 mb-4">Masukkan 6-Digit Kode OTP</label>
+
+                {{-- CodeSlots animated container --}}
+                <div class="flex justify-center">
+                    <div
+                        id="cs-root"
+                        data-code-slots
+                        data-length="6"
+                        data-input-name="otp"
+                        data-slot-color="#f1f5f9"
+                        data-accent-color="#FF385C"
+                        data-ink-color="#FF385C"
+                        data-digit-color="#ffffff"
+                        data-danger-color="#ff3b30"
+                        data-slot-size="52"
+                        data-gap="10"
+                        data-radius="14"
+                        data-auto-focus="true"
+                        data-aria-label="Kode OTP Reset Password"
+                    ></div>
+                </div>
+
+                <p class="text-[11px] text-gray-400 text-center mt-3">
                     ⏱️ Kode OTP berlaku selama 10 menit
                 </p>
             </div>
 
-            <button type="submit" class="specular-btn specular-btn--full btn-brand">
-                Verifikasi OTP & Lanjutkan
+            <button type="submit" id="submit-btn" class="btn-brand opacity-50 cursor-not-allowed" disabled>
+                Verifikasi OTP &amp; Lanjutkan
             </button>
         </form>
 
@@ -129,6 +131,34 @@
             </div>
         </div>
     </div>
+
+    <script src="{{ asset('js/code-slots.js') }}"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const el     = document.getElementById('cs-root');
+            const btn    = document.getElementById('submit-btn');
+            const hasErr = {{ $errors->any() ? 'true' : 'false' }};
+
+            requestAnimationFrame(function () {
+                const cs = el._csInstance;
+                if (!cs) return;
+
+                cs.opts.onChange = function (code) {
+                    if (code.length === 6) {
+                        btn.disabled = false;
+                        btn.classList.remove('opacity-50', 'cursor-not-allowed');
+                    } else {
+                        btn.disabled = true;
+                        btn.classList.add('opacity-50', 'cursor-not-allowed');
+                    }
+                };
+
+                if (hasErr) {
+                    setTimeout(function () { cs.setStatus('error'); }, 500);
+                }
+            });
+        });
+    </script>
 
 </body>
 </html>

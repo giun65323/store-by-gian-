@@ -1,9 +1,9 @@
-@media (min-width: 768px) {
-  .dock-outer {
-    display: none !important;
-  }
-}
+/* ============================================================
+   Dock — Vanilla JS port of React Bits Dock component
+   Spring-physics magnification, glass-morphism panel
+   ============================================================ */
 
+/* ── Outer wrapper (fixed bottom, full width) ── */
 .dock-outer {
   position: fixed;
   bottom: 0;
@@ -14,53 +14,64 @@
   justify-content: center;
   align-items: flex-end;
   pointer-events: none;
-  padding-bottom: 0.75rem;
+  padding-bottom: 0.875rem;
+  /* Expand upwards to give room for magnified items + labels */
+  min-height: 120px;
 }
 
+/* ── Panel (the visible "bar") ── */
 .dock-panel {
-  position: relative;
+  position: absolute;
+  bottom: 0.875rem;
+  left: 50%;
+  transform: translateX(-50%);
   display: flex;
   align-items: flex-end;
-  gap: 0.75rem;
-  border-radius: 1.25rem;
-  background: rgba(12, 9, 18, 0.82);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  gap: 0.625rem;
+  border-radius: 1.35rem;
+  background: rgba(10, 8, 16, 0.78);
+  border: 1px solid rgba(255, 255, 255, 0.10);
   padding: 0.5rem 0.75rem;
   pointer-events: all;
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(24px) saturate(1.6);
+  -webkit-backdrop-filter: blur(24px) saturate(1.6);
   box-shadow:
-    0 8px 32px rgba(0, 0, 0, 0.45),
-    0 1px 0 rgba(255, 255, 255, 0.08) inset;
-  transition: padding-bottom 0.15s ease;
+    0 8px 40px rgba(0, 0, 0, 0.55),
+    0 1px 0   rgba(255, 255, 255, 0.07) inset,
+    0 -1px 0  rgba(0, 0, 0, 0.25) inset;
+  /* no transition on height — spring JS handles it */
 }
 
+/* ── Individual item ── */
 .dock-item {
   position: relative;
   display: inline-flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  border-radius: 12px;
-  background: rgba(255, 255, 255, 0.07);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 13px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.09);
   cursor: pointer;
   outline: none;
   transition: background 0.15s ease, border-color 0.15s ease;
   will-change: width, height;
   flex-shrink: 0;
+  /* items grow upward from the panel bottom */
+  align-self: flex-end;
 }
 
 .dock-item:hover,
 .dock-item:focus-visible {
-  background: rgba(255, 255, 255, 0.13);
-  border-color: rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.14);
+  border-color: rgba(255, 255, 255, 0.18);
 }
 
 .dock-item:focus-visible {
-  box-shadow: 0 0 0 2px rgba(255, 184, 0, 0.6);
+  box-shadow: 0 0 0 2px rgba(255, 184, 0, 0.65);
 }
 
+/* ── Icon wrapper ── */
 .dock-icon {
   display: flex;
   align-items: center;
@@ -68,17 +79,20 @@
   line-height: 1;
   pointer-events: none;
   user-select: none;
+  /* scale driven by JS */
+  transition: transform 0.05s linear;
 }
 
+/* ── Tooltip label ── */
 .dock-label {
   position: absolute;
   bottom: calc(100% + 10px);
   left: 50%;
-  transform: translateX(-50%);
+  transform: translateX(-50%) translateY(4px);
   white-space: nowrap;
   border-radius: 0.4rem;
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  background: rgba(12, 9, 18, 0.92);
+  border: 1px solid rgba(255, 255, 255, 0.11);
+  background: rgba(10, 8, 16, 0.90);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   padding: 0.2rem 0.6rem;
@@ -87,8 +101,7 @@
   color: rgba(255, 255, 255, 0.92);
   pointer-events: none;
   opacity: 0;
-  transform: translateX(-50%) translateY(4px);
-  transition: opacity 0.18s ease, transform 0.18s ease;
+  transition: opacity 0.16s ease, transform 0.16s ease;
   z-index: 10;
 }
 
@@ -98,11 +111,11 @@
   transform: translateX(-50%) translateY(0);
 }
 
-/* Dot indicator for active item */
+/* ── Active dot indicator ── */
 .dock-item::after {
   content: '';
   position: absolute;
-  bottom: -6px;
+  bottom: -7px;
   left: 50%;
   transform: translateX(-50%);
   width: 4px;
@@ -113,12 +126,25 @@
 }
 
 .dock-item.dock-item--active::after {
-  background: rgba(255, 184, 0, 0.9);
+  background: rgba(255, 184, 0, 0.92);
 }
 
+/* ── Separator ── */
+.dock-separator {
+  width: 1px;
+  height: 36px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 1px;
+  align-self: center;
+  flex-shrink: 0;
+  margin: 0 0.125rem;
+}
+
+/* ── Reduced motion ── */
 @media (prefers-reduced-motion: reduce) {
   .dock-item {
-    transition: none !important;
+    transition: background 0.15s ease !important;
+    will-change: auto !important;
   }
   .dock-label {
     transition: none !important;
