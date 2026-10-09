@@ -271,9 +271,16 @@
                             <!-- User Name & Avatar -->
                             <td class="py-3.5 px-4">
                                 <div class="flex items-center gap-3">
-                                    <div class="w-9 h-9 rounded-xl flex items-center justify-center font-black text-white text-xs shrink-0 shadow-xs {{ $u->isAdmin() ? 'bg-gradient-to-tr from-amber-500 to-amber-400' : ($u->isSeller() ? 'bg-gradient-to-tr from-blue-600 to-indigo-600' : 'bg-gradient-to-tr from-slate-600 to-slate-500') }}">
-                                        {{ strtoupper(substr($u->name, 0, 2)) }}
-                                    </div>
+                                    @if($u->avatar_url)
+                                        <img src="{{ $u->avatar_url }}" alt="{{ $u->name }}" class="w-9 h-9 rounded-xl object-cover shrink-0 shadow-xs" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                                        <div class="w-9 h-9 rounded-xl items-center justify-center font-black text-white text-xs shrink-0 shadow-xs {{ $u->isAdmin() ? 'bg-gradient-to-tr from-amber-500 to-amber-400' : ($u->isSeller() ? 'bg-gradient-to-tr from-blue-600 to-indigo-600' : 'bg-gradient-to-tr from-slate-600 to-slate-500') }}" style="display:none;">
+                                            {{ strtoupper(substr($u->name, 0, 2)) }}
+                                        </div>
+                                    @else
+                                        <div class="w-9 h-9 rounded-xl flex items-center justify-center font-black text-white text-xs shrink-0 shadow-xs {{ $u->isAdmin() ? 'bg-gradient-to-tr from-amber-500 to-amber-400' : ($u->isSeller() ? 'bg-gradient-to-tr from-blue-600 to-indigo-600' : 'bg-gradient-to-tr from-slate-600 to-slate-500') }}">
+                                            {{ strtoupper(substr($u->name, 0, 2)) }}
+                                        </div>
+                                    @endif
                                     <div>
                                         <div class="font-extrabold text-slate-900 flex items-center gap-1.5">
                                             <span>{{ $u->name }}</span>

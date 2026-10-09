@@ -87,15 +87,16 @@
             <div class="space-y-2">
                 <div class="relative w-24 h-24 mx-auto sm:mx-0">
                     <!-- Avatar Image / Placeholder -->
-                    <div id="avatar-container" class="w-24 h-24 rounded-full overflow-hidden border-2 border-gray-200 dark:border-gray-700 bg-gradient-to-tr from-sky-400 via-indigo-500 to-purple-600 shadow-sm flex items-center justify-center">
-                        @if($user->avatar && Storage::disk('public')->exists($user->avatar))
-                            <img id="avatar-preview-img" src="{{ asset('storage/' . $user->avatar) }}" alt="{{ $user->name }}" class="w-full h-full object-cover">
-                        @else
-                            <img id="avatar-preview-img" src="" alt="Preview" class="w-full h-full object-cover hidden">
-                            <div id="avatar-initial-fallback" class="w-full h-full bg-[#08326e] flex items-center justify-center text-white font-black text-3xl">
-                                {{ strtoupper(substr($user->name, 0, 1)) }}
-                            </div>
-                        @endif
+                    <div id="avatar-container" class="w-24 h-24 rounded-full overflow-hidden border-2 border-gray-200 dark:border-gray-700 bg-gradient-to-tr from-sky-400 via-indigo-500 to-purple-600 shadow-sm flex items-center justify-center relative">
+                        <img id="avatar-preview-img"
+                             src="{{ $user->avatar_url ?: '' }}"
+                             alt="{{ $user->name }}"
+                             class="w-full h-full object-cover {{ empty($user->avatar_url) ? 'hidden' : '' }}"
+                             onerror="this.classList.add('hidden'); var fb = document.getElementById('avatar-initial-fallback'); if(fb) fb.classList.remove('hidden');">
+                        <div id="avatar-initial-fallback"
+                             class="w-full h-full bg-[#08326e] flex items-center justify-center text-white font-black text-3xl {{ !empty($user->avatar_url) ? 'hidden' : '' }}">
+                            {{ strtoupper(substr($user->name, 0, 1)) }}
+                        </div>
                     </div>
 
                     <!-- Floating Pencil Edit Button -->

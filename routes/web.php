@@ -22,9 +22,20 @@ Route::get('/', function () {
     return redirect()->route('login');
 });
 
+// Fallback untuk serving file storage publik (gambar/avatar/produk) jika web server belum membaca symlink
+Route::get('/storage/{path}', function (string $path) {
+    if (!\Illuminate\Support\Facades\Storage::disk('public')->exists($path)) {
+        abort(404);
+    }
+    return \Illuminate\Support\Facades\Storage::disk('public')->response($path);
+})->where('path', '.*')->name('storage.fallback');
+
 // ==== Pusat Bantuan (Help Center & AI Assistant) ====
 Route::get('/help-center', [HelpCenterController::class, 'index'])->name('help.index');
 Route::post('/help-center/ai-chat', [HelpCenterController::class, 'chatAi'])->name('help.ai.chat');
+
+// ==== Detail Produk Publik & Ulasan Bintang ====
+Route::get('/products/{product}', [ProductController::class, 'show'])->name('products.show');
 
 // ==== Guest only (belum login) ====
 Route::middleware('guest')->group(function () {
@@ -64,7 +75,9 @@ Route::middleware('auth')->group(function () {
     Route::post('/become-seller/verify-otp', [RegisterController::class, 'verifyBecomeSellerOtp'])->name('become-seller.verify-otp.submit');
     Route::post('/become-seller/resend-otp', [RegisterController::class, 'resendBecomeSellerOtp'])->name('become-seller.resend-otp');
 
-    Route::resource('products', ProductController::class);
+    Route::resource('products', ProductController::class)->except(['show']);
+    Route::post('/products/{product}/reviews', [ProductController::class, 'storeReview'])->name('products.reviews.store');
+    Route::delete('/reviews/{review}', [ProductController::class, 'destroyReview'])->name('reviews.destroy');
 
     // ==== Orders / Transaksi & Pencarian ====
     Route::get('/orders', [OrderController::class, 'index'])->name('orders.index');

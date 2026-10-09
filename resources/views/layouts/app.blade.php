@@ -55,6 +55,7 @@
     <link rel="stylesheet" href="{{ asset('css/itemku-theme.css') }}">
     <link rel="stylesheet" href="{{ asset('css/fold-text.css') }}">
     <link rel="stylesheet" href="{{ asset('css/dock.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/peek-rating.css') }}">
     <style>
         .glass-toast {
             backdrop-filter: blur(16px);
@@ -86,24 +87,6 @@
     @auth
     <!-- ===== HEADER ITEMKU STYLE ===== -->
     <header class="itemku-header sticky top-0 z-50 shadow-md">
-        <!-- Top Micro Bar -->
-        <div class="border-b border-white/10 text-[11px] text-white/80 py-1 px-4 sm:px-6 lg:px-8">
-            <div class="max-w-7xl mx-auto flex items-center justify-end gap-5">
-                <a href="{{ route('help.index') }}" class="hover:text-white flex items-center gap-1.5 transition-colors font-medium">
-                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z" />
-                    </svg>
-                    <span>Pusat Bantuan & Lacak</span>
-                </a>
-                <div class="flex items-center gap-1.5 cursor-pointer hover:text-white">
-                    <span class="inline-block w-4 h-2.5 bg-red-600 border border-white/40 rounded-sm relative overflow-hidden">
-                        <span class="absolute inset-x-0 bottom-0 h-1.5 bg-white"></span>
-                    </span>
-                    <span>ID - IDR | EN</span>
-                </div>
-            </div>
-        </div>
-
         <!-- Main Nav Bar -->
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
             <div class="flex items-center justify-between gap-4 lg:gap-8">
@@ -236,31 +219,42 @@
                         </svg>
                     </button>
 
-                    @if(auth()->user()->isAdmin())
-                    <!-- Admin Panel Button -->
-                    <a href="{{ route('admin.dashboard') }}"
-                       class="inline-flex items-center gap-1.5 bg-gradient-to-r from-amber-400 to-[#ffb800] hover:from-amber-300 hover:to-amber-400 text-gray-950 text-xs font-black px-3.5 py-2 rounded-xl shadow-sm transition-all hover:scale-105">
-                        <span>🛡️</span>
-                        <span>Admin</span>
-                    </a>
-                    @endif
+                    @auth
+                        @if(auth()->user()->isAdmin())
+                        <!-- Admin Panel Button -->
+                        <a href="{{ route('admin.dashboard') }}"
+                           class="inline-flex items-center gap-1.5 bg-gradient-to-r from-amber-400 to-[#ffb800] hover:from-amber-300 hover:to-amber-400 text-gray-950 text-xs font-black px-3.5 py-2 rounded-xl shadow-sm transition-all hover:scale-105">
+                            <span>🛡️</span>
+                            <span>Admin</span>
+                        </a>
+                        @endif
 
-                    <!-- Start Selling / Tambah Produk Button -->
-                    @if(auth()->user()->isSeller() || auth()->user()->isAdmin())
-                    <a href="{{ route('products.create') }}"
-                       class="hidden sm:inline-flex items-center gap-1.5 bg-white/15 hover:bg-white/25 text-white text-xs font-bold px-3.5 py-2 rounded-xl border border-white/20 shadow-sm transition-all hover:scale-[1.02]">
-                        <svg class="w-4 h-4 text-[#ffb800]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v16m8-8H4" />
-                        </svg>
-                        <span>Tambah Produk</span>
-                    </a>
+                        <!-- Start Selling / Tambah Produk Button -->
+                        @if(auth()->user()->isSeller() || auth()->user()->isAdmin())
+                        <a href="{{ route('products.create') }}"
+                           class="hidden sm:inline-flex items-center gap-1.5 bg-white/15 hover:bg-white/25 text-white text-xs font-bold px-3.5 py-2 rounded-xl border border-white/20 shadow-sm transition-all hover:scale-[1.02]">
+                            <svg class="w-4 h-4 text-[#ffb800]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v16m8-8H4" />
+                            </svg>
+                            <span>Tambah Produk</span>
+                        </a>
+                        @else
+                        <a href="{{ route('become-seller') }}"
+                           class="hidden sm:inline-flex items-center gap-1.5 bg-gradient-to-r from-amber-400 to-[#ffb800] hover:from-amber-300 hover:to-[#ffa500] text-gray-950 text-xs font-extrabold px-3.5 py-2 rounded-xl shadow-md transition-all hover:scale-[1.02]">
+                            <span>🏬</span>
+                            <span>Buka Lapak</span>
+                        </a>
+                        @endif
                     @else
-                    <a href="{{ route('become-seller') }}"
-                       class="hidden sm:inline-flex items-center gap-1.5 bg-gradient-to-r from-amber-400 to-[#ffb800] hover:from-amber-300 hover:to-[#ffa500] text-gray-950 text-xs font-extrabold px-3.5 py-2 rounded-xl shadow-md transition-all hover:scale-[1.02]">
-                        <span>🏬</span>
-                        <span>Buka Lapak</span>
-                    </a>
-                    @endif
+                        <a href="{{ route('login') }}"
+                           class="inline-flex items-center gap-1.5 bg-white/15 hover:bg-white/25 text-white text-xs font-bold px-3.5 py-2 rounded-xl border border-white/20 shadow-sm transition-all">
+                            <span>Masuk</span>
+                        </a>
+                        <a href="{{ route('register') }}"
+                           class="inline-flex items-center gap-1.5 bg-amber-400 hover:bg-amber-300 text-slate-950 text-xs font-black px-3.5 py-2 rounded-xl shadow-sm transition-all">
+                            <span>Daftar</span>
+                        </a>
+                    @endauth
                 </div>
             </div>
         </div>
@@ -276,6 +270,7 @@
                         </svg>
                         <span>Kategori Game</span>
                     </a>
+                    @auth
                     <a href="{{ route('orders.index') }}" class="px-3 py-1.5 rounded-lg text-white/85 hover:text-white hover:bg-white/10 transition-all shrink-0 {{ request()->routeIs('orders.*') ? 'bg-white/20 text-[#ffb800] font-bold' : '' }}">
                         Riwayat Transaksi
                     </a>
@@ -288,6 +283,7 @@
                         <span>Kontrol Admin</span>
                     </a>
                     @endif
+                    @endauth
                 </div>
 
                 <!-- Separator -->
@@ -386,6 +382,7 @@
     <div id="dock-root"></div>
     @endauth
 
+    @auth
     <!-- ===== ITEMKU STYLE USER PROFILE DRAWER / MODAL ===== -->
     <div id="profile-drawer-backdrop" class="fixed inset-0 bg-black/40 backdrop-blur-xs z-[100] opacity-0 pointer-events-none transition-opacity duration-300"></div>
 
@@ -424,8 +421,11 @@
             <!-- Profile Info Row (Click to Edit Profile) -->
             <a href="{{ route('profile.edit') }}" class="flex items-center gap-3.5 group cursor-pointer" title="Klik untuk Edit Profile">
                 <div class="relative w-14 h-14 rounded-full bg-gradient-to-tr from-sky-400 via-indigo-500 to-purple-600 p-0.5 shadow-md shrink-0 group-hover:scale-105 transition-transform">
-                    @if(auth()->user()->avatar && Storage::disk('public')->exists(auth()->user()->avatar))
-                        <img src="{{ asset('storage/' . auth()->user()->avatar) }}" alt="{{ auth()->user()->name }}" class="w-full h-full rounded-full object-cover">
+                    @if(auth()->user()->avatar_url)
+                        <img src="{{ auth()->user()->avatar_url }}" alt="{{ auth()->user()->name }}" class="w-full h-full rounded-full object-cover" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div class="w-full h-full rounded-full bg-[#08326e] items-center justify-center text-white font-extrabold text-lg" style="display:none;">
+                            {{ strtoupper(substr(auth()->user()->name, 0, 1)) }}
+                        </div>
                     @else
                         <div class="w-full h-full rounded-full bg-[#08326e] flex items-center justify-center text-white font-extrabold text-lg">
                             {{ strtoupper(substr(auth()->user()->name, 0, 1)) }}
@@ -684,6 +684,7 @@
         </div>
 
     </aside>
+    @endauth
 
     <!-- ========================================================================= -->
     <!-- ===== CART SLIDE-OVER DRAWER ===== -->
@@ -966,6 +967,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
     <script src="{{ asset('js/fold-text.js') }}"></script>
     <script src="{{ asset('js/dock.js') }}"></script>
+    <script src="{{ asset('js/peek-rating.js') }}"></script>
     <script>
     document.addEventListener('DOMContentLoaded', function () {
         var logoTarget = document.getElementById('logo-fold-text');

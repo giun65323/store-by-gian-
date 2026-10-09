@@ -356,9 +356,16 @@
         <!-- Chat Header -->
         <div class="bg-[#0050ae] text-white p-4 flex items-center justify-between shrink-0 shadow-md">
             <div class="flex items-center gap-3">
-                <div class="w-10 h-10 rounded-full bg-white/15 flex items-center justify-center text-lg font-bold border border-white/20">
-                    💬
-                </div>
+                @php
+                    $chatPartner = $isSeller ? $order->buyer : ($order->store?->seller ?? $order->seller);
+                @endphp
+                @if($chatPartner && $chatPartner->avatar_url)
+                    <img src="{{ $chatPartner->avatar_url }}" alt="{{ $chatPartner->name }}" class="w-10 h-10 rounded-full object-cover border-2 border-white/30 shadow-xs" onerror="this.style.display='none'">
+                @else
+                    <div class="w-10 h-10 rounded-full bg-white/15 flex items-center justify-center text-sm font-black border border-white/20">
+                        {{ strtoupper(substr($chatPartner?->name ?? 'U', 0, 1)) }}
+                    </div>
+                @endif
                 <div>
                     <h3 class="font-extrabold text-sm leading-tight">Live Chat Pesanan</h3>
                     <p class="text-[11px] text-blue-100 truncate">
@@ -529,23 +536,34 @@ function renderChatMessages(messages) {
 
     let html = '';
     messages.forEach(msg => {
+        const initial = escapeHtml((msg.sender_name || 'U').substring(0, 1).toUpperCase());
+        const avatarImg = msg.sender_avatar
+            ? `<img src="${escapeHtml(msg.sender_avatar)}" alt="${escapeHtml(msg.sender_name)}" class="w-7 h-7 rounded-full object-cover shrink-0 shadow-xs border border-gray-200 dark:border-gray-700" onerror="this.outerHTML='<div class=\\'w-7 h-7 rounded-full bg-slate-500 text-white font-bold text-[10px] flex items-center justify-center shrink-0\\'>${initial}</div>'">`
+            : `<div class="w-7 h-7 rounded-full bg-gradient-to-tr from-sky-500 to-indigo-600 text-white font-bold text-[10px] flex items-center justify-center shrink-0 shadow-xs">${initial}</div>`;
+
         if (msg.is_me) {
             html += `
-                <div class="flex flex-col items-end">
-                    <div class="max-w-[78%] bg-[#0050ae] text-white px-3.5 py-2 rounded-2xl rounded-tr-xs shadow-xs leading-relaxed">
-                        ${escapeHtml(msg.message)}
+                <div class="flex items-end justify-end gap-2">
+                    <div class="flex flex-col items-end max-w-[78%]">
+                        <div class="bg-[#0050ae] text-white px-3.5 py-2 rounded-2xl rounded-br-xs shadow-xs leading-relaxed">
+                            ${escapeHtml(msg.message)}
+                        </div>
+                        <span class="text-[10px] text-gray-400 mt-0.5 mr-1">${msg.created_time} ✓✓</span>
                     </div>
-                    <span class="text-[10px] text-gray-400 mt-0.5 mr-1">${msg.created_time} ✓✓</span>
+                    ${avatarImg}
                 </div>
             `;
         } else {
             html += `
-                <div class="flex flex-col items-start">
-                    <span class="text-[10px] font-bold text-gray-500 mb-0.5 ml-1">${escapeHtml(msg.sender_name)}</span>
-                    <div class="max-w-[78%] bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-gray-800 dark:text-gray-100 px-3.5 py-2 rounded-2xl rounded-tl-xs shadow-xs leading-relaxed">
-                        ${escapeHtml(msg.message)}
+                <div class="flex items-start gap-2">
+                    ${avatarImg}
+                    <div class="flex flex-col items-start max-w-[78%]">
+                        <span class="text-[10px] font-bold text-gray-500 mb-0.5 ml-1">${escapeHtml(msg.sender_name)}</span>
+                        <div class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-gray-800 dark:text-gray-100 px-3.5 py-2 rounded-2xl rounded-tl-xs shadow-xs leading-relaxed">
+                            ${escapeHtml(msg.message)}
+                        </div>
+                        <span class="text-[10px] text-gray-400 mt-0.5 ml-1">${msg.created_time}</span>
                     </div>
-                    <span class="text-[10px] text-gray-400 mt-0.5 ml-1">${msg.created_time}</span>
                 </div>
             `;
         }

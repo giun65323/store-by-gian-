@@ -29,13 +29,14 @@ class OrderChatController extends Controller
             ->update(['is_read' => true]);
 
         $messages = $order->messages()
-            ->with(['sender:id,name,role_id'])
+            ->with(['sender:id,name,role_id,avatar'])
             ->get()
             ->map(function ($msg) use ($user) {
                 return [
                     'id'           => $msg->id,
                     'sender_id'    => $msg->sender_id,
                     'sender_name'  => $msg->sender?->name ?? 'User',
+                    'sender_avatar'=> $msg->sender?->avatar_url ?? '',
                     'is_me'        => $msg->sender_id === $user->id,
                     'message'      => $msg->message,
                     'is_read'      => $msg->is_read,
@@ -85,6 +86,7 @@ class OrderChatController extends Controller
                 'id'           => $msg->id,
                 'sender_id'    => $msg->sender_id,
                 'sender_name'  => $user->name,
+                'sender_avatar'=> $user->avatar_url ?? '',
                 'is_me'        => true,
                 'message'      => $msg->message,
                 'created_time' => $msg->created_at->format('H:i'),
@@ -139,6 +141,7 @@ class OrderChatController extends Controller
                     'product_name'     => $order->product_name,
                     'other_party_name' => $otherPartyName,
                     'sender_name'      => $msg->sender?->name ?? 'Pengguna',
+                    'sender_avatar'    => $msg->sender?->avatar_url ?? '',
                     'message'          => $msg->message,
                     'is_me'            => $msg->sender_id === $user->id,
                     'unread_count'     => $unreadInOrder,

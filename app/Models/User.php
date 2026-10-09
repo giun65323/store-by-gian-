@@ -65,7 +65,13 @@ class User extends Authenticatable
      */
     public function getAvatarUrlAttribute(): string
     {
-        if ($this->avatar && \Illuminate\Support\Facades\Storage::disk('public')->exists($this->avatar)) {
+        if (!$this->avatar) {
+            return '';
+        }
+        if (str_starts_with($this->avatar, 'http://') || str_starts_with($this->avatar, 'https://')) {
+            return $this->avatar;
+        }
+        if (\Illuminate\Support\Facades\Storage::disk('public')->exists($this->avatar)) {
             return asset('storage/' . $this->avatar);
         }
         return '';
@@ -133,6 +139,14 @@ class User extends Authenticatable
     public function soldOrders(): HasMany
     {
         return $this->hasMany(Order::class, 'seller_id')->latest();
+    }
+
+    /**
+     * Product reviews written by this user.
+     */
+    public function reviews(): HasMany
+    {
+        return $this->hasMany(Review::class);
     }
 
     /**

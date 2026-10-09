@@ -52,7 +52,7 @@
         <div class="itemku-product-card p-3.5 group relative flex flex-col justify-between rounded-3xl bg-white dark:bg-[#111827] border border-gray-200/80 dark:border-gray-800 shadow-xs hover:-translate-y-1 transition-all duration-300 hover:shadow-lg">
             <div>
                 <!-- Product Image / Color Placeholder -->
-                <div class="relative w-full aspect-square rounded-2xl overflow-hidden bg-gray-100 dark:bg-gray-800 mb-3 border border-gray-100 dark:border-gray-800">
+                <a href="{{ route('products.show', $product) }}" class="block relative w-full aspect-square rounded-2xl overflow-hidden bg-gray-100 dark:bg-gray-800 mb-3 border border-gray-100 dark:border-gray-800 group/img">
                     @php
                         $colors = ['from-blue-600 to-indigo-700','from-indigo-600 to-purple-700','from-emerald-600 to-teal-700','from-amber-600 to-red-700','from-purple-600 to-pink-700'];
                         $colorIdx = crc32($product->name) % count($colors);
@@ -79,6 +79,12 @@
                         </span>
                     @endif
 
+                    <!-- Rating Badge -->
+                    <div class="absolute bottom-2 left-2 bg-black/75 text-white text-[9px] font-bold px-1.5 py-0.5 rounded-md flex items-center gap-1 border border-white/15 backdrop-blur-xs shadow-xs">
+                        <span class="text-amber-400">★</span>
+                        <span>{{ number_format($product->averageRating(), 1) }}</span>
+                    </div>
+
                     <!-- Stock Badge -->
                     <div class="absolute bottom-2 right-2">
                         @if ($product->stock > 5)
@@ -95,12 +101,14 @@
                             </span>
                         @endif
                     </div>
-                </div>
+                </a>
 
                 <!-- Product Info -->
                 <div class="space-y-1">
                     <h3 class="font-black text-gray-900 dark:text-white text-xs truncate group-hover:text-[#0050ae] dark:group-hover:text-sky-400 transition-colors" title="{{ $product->name }}">
-                        {{ $product->name }}
+                        <a href="{{ route('products.show', $product) }}" class="hover:underline">
+                            {{ $product->name }}
+                        </a>
                     </h3>
                     @if(auth()->user()->isAdmin())
                         <div class="text-[10px] font-bold text-indigo-700 dark:text-indigo-300 truncate bg-indigo-50 dark:bg-indigo-950 px-2 py-0.5 rounded-md">
@@ -118,9 +126,13 @@
             </div>
 
             <!-- Action buttons (Bottom) -->
-            <div class="mt-3 pt-2.5 border-t border-gray-100 dark:border-gray-800 flex items-center justify-between gap-2">
+            <div class="mt-3 pt-2.5 border-t border-gray-100 dark:border-gray-800 flex items-center justify-between gap-1.5">
+                <a href="{{ route('products.show', $product) }}"
+                   class="flex-1 text-center bg-blue-50 dark:bg-blue-950/60 hover:bg-[#0050ae] hover:text-white text-[#0050ae] dark:text-cyan-300 text-[11px] font-bold py-2 rounded-xl transition-all">
+                    Buka
+                </a>
                 <a href="{{ route('products.edit', $product) }}"
-                   class="flex-1 text-center bg-gray-100 dark:bg-gray-800 hover:bg-[#0050ae] hover:text-white text-gray-700 dark:text-gray-200 text-xs font-bold py-2 rounded-xl transition-all">
+                   class="text-center bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-200 text-[11px] font-bold px-3 py-2 rounded-xl transition-all">
                     Edit
                 </a>
                 <!-- Delete button (Admin or Owner) -->

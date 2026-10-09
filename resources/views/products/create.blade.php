@@ -98,6 +98,21 @@
                        class="w-full border @error('name') border-red-400 bg-red-50 @else border-gray-300 @enderror rounded-xl px-4 py-2.5 text-xs text-gray-900 placeholder-gray-400 focus:outline-none focus:border-[#0050ae] focus:ring-2 focus:ring-[#0050ae]/15 transition-all">
             </div>
 
+            <!-- Deskripsi Produk -->
+            <div>
+                <label for="description" class="block text-xs font-bold text-gray-700 mb-1.5 uppercase tracking-wide">
+                    Deskripsi & Rincian Produk
+                    <span class="text-gray-400 font-normal lowercase">(opsional)</span>
+                </label>
+                <textarea id="description" name="description" rows="4"
+                          placeholder="Jelaskan detail produk/akun/voucher game Anda. Misalnya: level akun, item langka, cara klaim voucher, syarat & ketentuan, dll."
+                          class="w-full border @error('description') border-red-400 bg-red-50 @else border-gray-300 @enderror rounded-xl px-4 py-2.5 text-xs text-gray-900 placeholder-gray-400 focus:outline-none focus:border-[#0050ae] focus:ring-2 focus:ring-[#0050ae]/15 transition-all">{{ old('description') }}</textarea>
+                <p class="text-[11px] text-gray-400 mt-1">Deskripsi yang jelas akan mempermudah pembeli memahami detail dagangan Anda.</p>
+                @error('description')
+                    <p class="mt-1 text-xs text-red-500">{{ $message }}</p>
+                @enderror
+            </div>
+
             <!-- Pilihan Jenis Pengiriman (2 Jenis Pesanan: Instan vs Biasa) -->
             <div>
                 <label class="block text-xs font-bold text-gray-700 mb-1.5 uppercase tracking-wide">

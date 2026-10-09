@@ -42,22 +42,6 @@
         box-shadow: 0 10px 20px -4px rgba(0, 80, 174, 0.15);
     }
 
-    /* Floating subtle animation for artwork */
-    @keyframes heroFloat {
-        0%, 100% { transform: translateY(0px) rotate(0deg); }
-        50% { transform: translateY(-6px) rotate(0.5deg); }
-    }
-    .animate-hero-float {
-        animation: heroFloat 6s ease-in-out infinite;
-    }
-
-    @keyframes pulseGlow {
-        0%, 100% { opacity: 0.4; transform: scale(1); }
-        50% { opacity: 0.7; transform: scale(1.05); }
-    }
-    .animate-pulse-glow {
-        animation: pulseGlow 5s ease-in-out infinite;
-    }
 </style>
 @endsection
 
@@ -71,33 +55,29 @@
     @endphp
 
     <!-- ========================================================================= -->
-    <!-- 1. HERO PROMO CAROUSEL (CRAFTED WITH AMBIENT DEPTH & 3D ARTWORK STACK)  -->
+    <!-- 1. HERO PROMO BANNER (STATIS, ELEGAN & BERSIH)                             -->
     <!-- ========================================================================= -->
     <div class="relative overflow-hidden rounded-2xl border border-blue-500/20 shadow-xl bg-gradient-to-br from-[#051833] via-[#09254d] to-[#041226] text-white group" id="hero-carousel">
-        <!-- Ambient Background Light Orbs -->
-        <div class="absolute -top-24 -right-24 w-96 h-96 bg-cyan-500/15 rounded-full blur-3xl pointer-events-none animate-pulse-glow"></div>
-        <div class="absolute -bottom-24 left-1/3 w-80 h-80 bg-blue-600/15 rounded-full blur-3xl pointer-events-none"></div>
-        <div class="absolute top-1/2 right-12 w-64 h-64 bg-amber-500/10 rounded-full blur-2xl pointer-events-none"></div>
+        <!-- Ambient Background Light Orbs (Statis tanpa animasi denyut) -->
+        <div class="absolute -top-24 -right-24 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="absolute -bottom-24 left-1/3 w-80 h-80 bg-blue-600/10 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="absolute top-1/2 right-12 w-64 h-64 bg-amber-500/5 rounded-full blur-2xl pointer-events-none"></div>
 
-        <!-- SLIDE 1: FLASH DEALS (50% OFF) -->
+        <!-- SLIDE 1: PROMO UTAMA (STATIS TANPA FLASH DEAL) -->
         <div class="banner-slide active p-6 sm:p-8 lg:p-10 flex-col md:flex-row items-center justify-between gap-8 relative z-10">
             <!-- Left Info Column -->
             <div class="max-w-xl space-y-4 text-left">
-                <!-- Flash Deals Badge & Timer -->
+                <!-- Badge Platform Resmi -->
                 <div class="flex flex-wrap items-center gap-2.5 text-xs">
-                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-rose-500/20 border border-rose-500/40 text-rose-300 font-extrabold text-[11px] tracking-wider uppercase shadow-inner">
-                        <span class="w-2 h-2 rounded-full bg-rose-400 animate-ping"></span>
-                        <span>Flash Deals</span>
-                    </span>
-                    <span class="text-blue-200/70 text-xs font-medium">Berakhir Dalam:</span>
-                    <span id="flash-sale-timer" class="font-mono font-black text-amber-300 bg-black/50 px-2.5 py-1 rounded-lg border border-amber-400/30 text-xs tracking-wider shadow-sm">
-                        02 : 45 : 12
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-cyan-500/20 border border-cyan-400/30 text-cyan-300 font-extrabold text-[11px] tracking-wider uppercase">
+                        <span>✨</span>
+                        <span>Marketplace Game Terpercaya</span>
                     </span>
                 </div>
 
                 <!-- Main Heading -->
                 <h1 class="text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight text-white leading-tight font-brand">
-                    Diskon s/d 50% Top Up Game & Produk Digital Resmi
+                    Top Up Game & Produk Digital Resmi
                 </h1>
 
                 <!-- Subtitle / Value Prop -->
@@ -126,7 +106,7 @@
                     <a href="{{ route('products.index') }}"
                        class="inline-flex items-center gap-2 bg-gradient-to-r from-amber-400 via-amber-300 to-[#ffb800] hover:from-amber-300 hover:to-amber-500 text-gray-950 font-black text-xs sm:text-sm px-5 py-3 rounded-xl shadow-lg shadow-amber-500/20 hover:shadow-amber-500/35 transition-all hover:-translate-y-0.5 active:translate-y-0 cursor-pointer">
                         <span>🛍️</span>
-                        <span>Lihat Katalog Promo</span>
+                        <span>Lihat Semua Produk</span>
                     </a>
                     <a href="{{ route('orders.index') }}"
                        class="inline-flex items-center gap-1.5 bg-white/10 hover:bg-white/15 border border-white/20 text-white font-bold text-xs sm:text-sm px-4 py-3 rounded-xl transition-all cursor-pointer">
@@ -135,22 +115,22 @@
                 </div>
             </div>
 
-            <!-- Right Artwork Representation Column -->
+            <!-- Right Artwork Representation Column (DIEM / STATIS) -->
             <div class="w-full md:w-auto flex justify-center items-center relative">
-                <div class="relative w-64 sm:w-72 lg:w-80 h-64 sm:h-72 flex items-center justify-center animate-hero-float">
-                    <!-- Layer 1: Ambient Backdrop Card -->
-                    <div class="absolute inset-2 bg-gradient-to-tr from-blue-600/30 to-cyan-500/20 rounded-2xl border border-white/10 backdrop-blur-md transform -rotate-6 scale-95 shadow-2xl"></div>
+                <div class="relative w-64 sm:w-72 lg:w-80 h-64 sm:h-72 flex items-center justify-center">
+                    <!-- Layer 1: Ambient Backdrop Card (Rapi & Sejajar) -->
+                    <div class="absolute inset-1 bg-gradient-to-tr from-blue-600/30 to-cyan-500/20 rounded-2xl border border-white/10 backdrop-blur-md shadow-2xl"></div>
 
-                    <!-- Layer 2: Primary Showcase Card -->
+                    <!-- Layer 2: Primary Showcase Card (Statis & Bersih) -->
                     <div class="relative z-10 w-full bg-gradient-to-b from-[#132d54]/95 to-[#0d1e38]/95 border border-cyan-400/40 rounded-2xl p-4 shadow-2xl backdrop-blur-xl space-y-3">
                         <!-- Card Header -->
                         <div class="flex items-center justify-between pb-2 border-b border-white/10">
                             <div class="flex items-center gap-2">
-                                <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></span>
-                                <span class="text-[11px] font-bold text-cyan-300 uppercase tracking-wider">Flash Deal #1</span>
+                                <span class="w-2.5 h-2.5 rounded-full bg-emerald-400"></span>
+                                <span class="text-[11px] font-bold text-cyan-300 uppercase tracking-wider">Produk Pilihan</span>
                             </div>
-                            <span class="text-[10px] bg-rose-500 text-white font-black px-2 py-0.5 rounded-full shadow-xs">
-                                Diskon 50%
+                            <span class="text-[10px] bg-emerald-500/20 border border-emerald-400/30 text-emerald-300 font-bold px-2 py-0.5 rounded-full">
+                                Ready Stock
                             </span>
                         </div>
 
@@ -164,7 +144,6 @@
                                 <p class="text-[11px] text-gray-300 truncate">1.000 Robux via Gamepass</p>
                                 <div class="flex items-center gap-1.5 mt-0.5">
                                     <span class="text-xs font-black text-amber-300">Rp 45.000</span>
-                                    <span class="text-[10px] text-gray-400 line-through">Rp 90.000</span>
                                 </div>
                             </div>
                         </div>
@@ -301,13 +280,16 @@
     <!-- ========================================================================= -->
     <!-- 2. QUICK FILTER GAME CATEGORIES (TACTILE, DISTINCT ACCENTS, RESPONSIVE)   -->
     <!-- ========================================================================= -->
-    <div class="space-y-3">
+    <div class="space-y-4">
         <div class="flex items-center justify-between">
             <div class="flex items-center gap-2">
                 <span class="text-lg">🎮</span>
-                <h2 class="text-sm sm:text-base font-extrabold text-gray-900 dark:text-white font-brand tracking-tight">
-                    Kategori & Game Pilihan
-                </h2>
+                <div>
+                    <h2 class="text-sm sm:text-base font-extrabold text-gray-900 dark:text-white font-brand tracking-tight">
+                        Kategori & Game Pilihan
+                    </h2>
+                    <p class="text-[11px] text-gray-500 dark:text-gray-400">Pilih kategori item game dan voucher favorit Anda</p>
+                </div>
             </div>
             <a href="{{ route('products.index') }}" class="text-xs font-bold text-[#0050ae] dark:text-[#ffb800] hover:underline flex items-center gap-1">
                 <span>Lihat Semua</span>
@@ -317,95 +299,95 @@
 
         <div class="grid grid-cols-2 sm:grid-cols-5 lg:grid-cols-10 gap-2.5 sm:gap-3">
             <!-- 1. Top Up Game -->
-            <a href="{{ route('products.index') }}" class="category-chip group flex flex-col items-center justify-between p-3 rounded-2xl bg-white dark:bg-[#101422] border border-gray-200/80 dark:border-gray-800 hover:border-blue-500/50 dark:hover:border-cyan-500/50 text-center relative overflow-hidden">
-                <span class="absolute top-1.5 right-1.5 text-[9px] bg-blue-50 dark:bg-blue-950/80 text-blue-600 dark:text-cyan-300 font-extrabold px-1.5 py-0.2 rounded">POPULER</span>
-                <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-50 to-blue-100 dark:from-blue-950/70 dark:to-cyan-950/50 text-[#0050ae] dark:text-cyan-400 flex items-center justify-center p-2.5 my-1 group-hover:scale-110 transition-transform shadow-xs">
+            <a href="{{ route('products.index') }}" class="category-chip group relative flex flex-col items-center justify-between p-3 sm:p-3.5 rounded-2xl bg-white dark:bg-[#111827] border border-gray-200/80 dark:border-gray-800 hover:border-[#0050ae]/50 dark:hover:border-cyan-400/50 shadow-xs hover:shadow-lg hover:-translate-y-1 transition-all duration-200 text-center overflow-hidden">
+                <span class="absolute top-2 right-2 text-[8px] bg-blue-600 text-white font-black px-1.5 py-0.5 rounded-full shadow-xs uppercase tracking-wider">POPULER</span>
+                <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-blue-50 to-blue-100 dark:from-blue-950/70 dark:to-cyan-950/50 text-[#0050ae] dark:text-cyan-400 flex items-center justify-center p-2.5 my-1 group-hover:scale-110 transition-transform shadow-xs">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
                 </div>
-                <span class="text-xs font-bold text-gray-900 dark:text-gray-100 group-hover:text-[#0050ae] dark:group-hover:text-cyan-300 transition-colors truncate w-full">Top Up Game</span>
+                <span class="text-xs font-bold text-gray-900 dark:text-gray-100 group-hover:text-[#0050ae] dark:group-hover:text-cyan-300 transition-colors truncate w-full mt-1">Top Up Game</span>
                 <span class="text-[10px] text-gray-400 dark:text-gray-500 truncate w-full">Instan 24J</span>
             </a>
 
             <!-- 2. Roblox -->
-            <a href="{{ route('products.index') }}" class="category-chip group flex flex-col items-center justify-between p-3 rounded-2xl bg-white dark:bg-[#101422] border border-gray-200/80 dark:border-gray-800 hover:border-blue-500/50 dark:hover:border-cyan-500/50 text-center relative overflow-hidden">
-                <span class="absolute top-1.5 right-1.5 text-[9px] bg-red-50 dark:bg-red-950/80 text-red-600 dark:text-red-300 font-extrabold px-1.5 py-0.2 rounded">HOT</span>
-                <div class="w-12 h-12 rounded-xl bg-gray-50 dark:bg-gray-800/80 p-2 my-1 flex items-center justify-center group-hover:scale-110 transition-transform shadow-xs">
+            <a href="{{ route('products.index') }}" class="category-chip group relative flex flex-col items-center justify-between p-3 sm:p-3.5 rounded-2xl bg-white dark:bg-[#111827] border border-gray-200/80 dark:border-gray-800 hover:border-[#0050ae]/50 dark:hover:border-cyan-400/50 shadow-xs hover:shadow-lg hover:-translate-y-1 transition-all duration-200 text-center overflow-hidden">
+                <span class="absolute top-2 right-2 text-[8px] bg-rose-600 text-white font-black px-1.5 py-0.5 rounded-full shadow-xs uppercase tracking-wider">HOT</span>
+                <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-indigo-50 to-slate-100 dark:from-slate-800 dark:to-indigo-950/70 p-2 my-1 flex items-center justify-center group-hover:scale-110 transition-transform shadow-xs">
                     <img src="{{ asset('images/categories/roblox.png') }}" alt="Roblox" class="w-full h-full object-contain">
                 </div>
-                <span class="text-xs font-bold text-gray-900 dark:text-gray-100 group-hover:text-[#0050ae] dark:group-hover:text-cyan-300 transition-colors truncate w-full">Roblox</span>
+                <span class="text-xs font-bold text-gray-900 dark:text-gray-100 group-hover:text-[#0050ae] dark:group-hover:text-cyan-300 transition-colors truncate w-full mt-1">Roblox</span>
                 <span class="text-[10px] text-gray-400 dark:text-gray-500 truncate w-full">Robux 5 Hari</span>
             </a>
 
             <!-- 3. Steam Key -->
-            <a href="{{ route('products.index') }}" class="category-chip group flex flex-col items-center justify-between p-3 rounded-2xl bg-white dark:bg-[#101422] border border-gray-200/80 dark:border-gray-800 hover:border-blue-500/50 dark:hover:border-cyan-500/50 text-center relative overflow-hidden">
-                <div class="w-12 h-12 rounded-xl bg-gray-50 dark:bg-gray-800/80 p-2 my-1 flex items-center justify-center group-hover:scale-110 transition-transform shadow-xs">
+            <a href="{{ route('products.index') }}" class="category-chip group relative flex flex-col items-center justify-between p-3 sm:p-3.5 rounded-2xl bg-white dark:bg-[#111827] border border-gray-200/80 dark:border-gray-800 hover:border-[#0050ae]/50 dark:hover:border-cyan-400/50 shadow-xs hover:shadow-lg hover:-translate-y-1 transition-all duration-200 text-center overflow-hidden">
+                <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-slate-100 to-slate-200 dark:from-slate-800 dark:to-slate-900 p-2 my-1 flex items-center justify-center group-hover:scale-110 transition-transform shadow-xs">
                     <img src="{{ asset('images/categories/steam.png') }}" alt="Steam" class="w-full h-full object-contain">
                 </div>
-                <span class="text-xs font-bold text-gray-900 dark:text-gray-100 group-hover:text-[#0050ae] dark:group-hover:text-cyan-300 transition-colors truncate w-full">Steam Key</span>
+                <span class="text-xs font-bold text-gray-900 dark:text-gray-100 group-hover:text-[#0050ae] dark:group-hover:text-cyan-300 transition-colors truncate w-full mt-1">Steam Key</span>
                 <span class="text-[10px] text-gray-400 dark:text-gray-500 truncate w-full">Wallet & Game</span>
             </a>
 
             <!-- 4. Akun Game -->
-            <a href="{{ route('products.index') }}" class="category-chip group flex flex-col items-center justify-between p-3 rounded-2xl bg-white dark:bg-[#101422] border border-gray-200/80 dark:border-gray-800 hover:border-blue-500/50 dark:hover:border-cyan-500/50 text-center relative overflow-hidden">
-                <div class="w-12 h-12 rounded-xl bg-purple-50 dark:bg-purple-950/60 text-purple-600 dark:text-purple-400 flex items-center justify-center p-2.5 my-1 group-hover:scale-110 transition-transform shadow-xs">
+            <a href="{{ route('products.index') }}" class="category-chip group relative flex flex-col items-center justify-between p-3 sm:p-3.5 rounded-2xl bg-white dark:bg-[#111827] border border-gray-200/80 dark:border-gray-800 hover:border-[#0050ae]/50 dark:hover:border-cyan-400/50 shadow-xs hover:shadow-lg hover:-translate-y-1 transition-all duration-200 text-center overflow-hidden">
+                <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-purple-50 to-indigo-50 dark:from-purple-950/60 dark:to-indigo-950/60 text-purple-600 dark:text-purple-400 flex items-center justify-center p-2.5 my-1 group-hover:scale-110 transition-transform shadow-xs">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
                 </div>
-                <span class="text-xs font-bold text-gray-900 dark:text-gray-100 group-hover:text-[#0050ae] dark:group-hover:text-cyan-300 transition-colors truncate w-full">Akun Game</span>
+                <span class="text-xs font-bold text-gray-900 dark:text-gray-100 group-hover:text-[#0050ae] dark:group-hover:text-cyan-300 transition-colors truncate w-full mt-1">Akun Game</span>
                 <span class="text-[10px] text-gray-400 dark:text-gray-500 truncate w-full">Sultan & Polosan</span>
             </a>
 
             <!-- 5. Item Game -->
-            <a href="{{ route('products.index') }}" class="category-chip group flex flex-col items-center justify-between p-3 rounded-2xl bg-white dark:bg-[#101422] border border-gray-200/80 dark:border-gray-800 hover:border-blue-500/50 dark:hover:border-cyan-500/50 text-center relative overflow-hidden">
-                <div class="w-12 h-12 rounded-xl bg-gray-50 dark:bg-gray-800/80 p-2 my-1 flex items-center justify-center group-hover:scale-110 transition-transform shadow-xs">
+            <a href="{{ route('products.index') }}" class="category-chip group relative flex flex-col items-center justify-between p-3 sm:p-3.5 rounded-2xl bg-white dark:bg-[#111827] border border-gray-200/80 dark:border-gray-800 hover:border-[#0050ae]/50 dark:hover:border-cyan-400/50 shadow-xs hover:shadow-lg hover:-translate-y-1 transition-all duration-200 text-center overflow-hidden">
+                <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-rose-50 to-orange-50 dark:from-rose-950/60 dark:to-orange-950/60 p-2 my-1 flex items-center justify-center group-hover:scale-110 transition-transform shadow-xs">
                     <img src="{{ asset('images/categories/sword.png') }}" alt="Item Game" class="w-full h-full object-contain">
                 </div>
-                <span class="text-xs font-bold text-gray-900 dark:text-gray-100 group-hover:text-[#0050ae] dark:group-hover:text-cyan-300 transition-colors truncate w-full">Item Game</span>
+                <span class="text-xs font-bold text-gray-900 dark:text-gray-100 group-hover:text-[#0050ae] dark:group-hover:text-cyan-300 transition-colors truncate w-full mt-1">Item Game</span>
                 <span class="text-[10px] text-gray-400 dark:text-gray-500 truncate w-full">Skin & Senjata</span>
             </a>
 
             <!-- 6. Voucher Digital -->
-            <a href="{{ route('products.index') }}" class="category-chip group flex flex-col items-center justify-between p-3 rounded-2xl bg-white dark:bg-[#101422] border border-gray-200/80 dark:border-gray-800 hover:border-blue-500/50 dark:hover:border-cyan-500/50 text-center relative overflow-hidden">
-                <div class="w-12 h-12 rounded-xl bg-emerald-50 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400 flex items-center justify-center p-2.5 my-1 group-hover:scale-110 transition-transform shadow-xs">
+            <a href="{{ route('products.index') }}" class="category-chip group relative flex flex-col items-center justify-between p-3 sm:p-3.5 rounded-2xl bg-white dark:bg-[#111827] border border-gray-200/80 dark:border-gray-800 hover:border-[#0050ae]/50 dark:hover:border-cyan-400/50 shadow-xs hover:shadow-lg hover:-translate-y-1 transition-all duration-200 text-center overflow-hidden">
+                <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-emerald-50 to-teal-50 dark:from-emerald-950/60 dark:to-teal-950/60 text-emerald-600 dark:text-emerald-400 flex items-center justify-center p-2.5 my-1 group-hover:scale-110 transition-transform shadow-xs">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 5v2m0 4v2m0 4v2M5 5a2 2 0 00-2 2v3a2 2 0 110 4v3a2 2 0 002 2h14a2 2 0 002-2v-3a2 2 0 110-4V7a2 2 0 00-2-2H5z"/></svg>
                 </div>
-                <span class="text-xs font-bold text-gray-900 dark:text-gray-100 group-hover:text-[#0050ae] dark:group-hover:text-cyan-300 transition-colors truncate w-full">Voucher</span>
+                <span class="text-xs font-bold text-gray-900 dark:text-gray-100 group-hover:text-[#0050ae] dark:group-hover:text-cyan-300 transition-colors truncate w-full mt-1">Voucher</span>
                 <span class="text-[10px] text-gray-400 dark:text-gray-500 truncate w-full">Google & Razer</span>
             </a>
 
             <!-- 7. Game Key -->
-            <a href="{{ route('products.index') }}" class="category-chip group flex flex-col items-center justify-between p-3 rounded-2xl bg-white dark:bg-[#101422] border border-gray-200/80 dark:border-gray-800 hover:border-blue-500/50 dark:hover:border-cyan-500/50 text-center relative overflow-hidden">
-                <div class="w-12 h-12 rounded-xl bg-gray-50 dark:bg-gray-800/80 p-2 my-1 flex items-center justify-center group-hover:scale-110 transition-transform shadow-xs">
+            <a href="{{ route('products.index') }}" class="category-chip group relative flex flex-col items-center justify-between p-3 sm:p-3.5 rounded-2xl bg-white dark:bg-[#111827] border border-gray-200/80 dark:border-gray-800 hover:border-[#0050ae]/50 dark:hover:border-cyan-400/50 shadow-xs hover:shadow-lg hover:-translate-y-1 transition-all duration-200 text-center overflow-hidden">
+                <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-amber-50 to-yellow-100 dark:from-amber-950/60 dark:to-yellow-950/60 p-2 my-1 flex items-center justify-center group-hover:scale-110 transition-transform shadow-xs">
                     <img src="{{ asset('images/categories/game-key.png') }}" alt="Game Key" class="w-full h-full object-contain">
                 </div>
-                <span class="text-xs font-bold text-gray-900 dark:text-gray-100 group-hover:text-[#0050ae] dark:group-hover:text-cyan-300 transition-colors truncate w-full">Game Key</span>
+                <span class="text-xs font-bold text-gray-900 dark:text-gray-100 group-hover:text-[#0050ae] dark:group-hover:text-cyan-300 transition-colors truncate w-full mt-1">Game Key</span>
                 <span class="text-[10px] text-gray-400 dark:text-gray-500 truncate w-full">PC & Konsol</span>
             </a>
 
             <!-- 8. Growtopia / Investasi -->
-            <a href="{{ route('products.index') }}" class="category-chip group flex flex-col items-center justify-between p-3 rounded-2xl bg-white dark:bg-[#101422] border border-gray-200/80 dark:border-gray-800 hover:border-blue-500/50 dark:hover:border-cyan-500/50 text-center relative overflow-hidden">
-                <div class="w-12 h-12 rounded-xl bg-amber-50 dark:bg-amber-950/60 text-amber-600 dark:text-amber-400 flex items-center justify-center p-2.5 my-1 group-hover:scale-110 transition-transform shadow-xs">
+            <a href="{{ route('products.index') }}" class="category-chip group relative flex flex-col items-center justify-between p-3 sm:p-3.5 rounded-2xl bg-white dark:bg-[#111827] border border-gray-200/80 dark:border-gray-800 hover:border-[#0050ae]/50 dark:hover:border-cyan-400/50 shadow-xs hover:shadow-lg hover:-translate-y-1 transition-all duration-200 text-center overflow-hidden">
+                <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-yellow-50 to-amber-100 dark:from-yellow-950/60 dark:to-amber-950/60 text-amber-600 dark:text-amber-400 flex items-center justify-center p-2.5 my-1 group-hover:scale-110 transition-transform shadow-xs">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
                 </div>
-                <span class="text-xs font-bold text-gray-900 dark:text-gray-100 group-hover:text-[#0050ae] dark:group-hover:text-cyan-300 transition-colors truncate w-full">Investasi</span>
+                <span class="text-xs font-bold text-gray-900 dark:text-gray-100 group-hover:text-[#0050ae] dark:group-hover:text-cyan-300 transition-colors truncate w-full mt-1">Investasi</span>
                 <span class="text-[10px] text-gray-400 dark:text-gray-500 truncate w-full">Growtopia DL</span>
             </a>
 
             <!-- 9. Mobile Legends WDP -->
-            <a href="{{ route('products.index') }}" class="category-chip group flex flex-col items-center justify-between p-3 rounded-2xl bg-white dark:bg-[#101422] border border-gray-200/80 dark:border-gray-800 hover:border-blue-500/50 dark:hover:border-cyan-500/50 text-center relative overflow-hidden">
-                <span class="absolute top-1.5 right-1.5 text-[9px] bg-amber-50 dark:bg-amber-950/80 text-amber-600 dark:text-amber-300 font-extrabold px-1.5 py-0.2 rounded">HEMAT</span>
-                <div class="w-12 h-12 rounded-xl bg-rose-50 dark:bg-rose-950/60 text-rose-600 dark:text-rose-400 flex items-center justify-center p-2.5 my-1 group-hover:scale-110 transition-transform shadow-xs">
+            <a href="{{ route('products.index') }}" class="category-chip group relative flex flex-col items-center justify-between p-3 sm:p-3.5 rounded-2xl bg-white dark:bg-[#111827] border border-gray-200/80 dark:border-gray-800 hover:border-[#0050ae]/50 dark:hover:border-cyan-400/50 shadow-xs hover:shadow-lg hover:-translate-y-1 transition-all duration-200 text-center overflow-hidden">
+                <span class="absolute top-2 right-2 text-[8px] bg-emerald-600 text-white font-black px-1.5 py-0.5 rounded-full shadow-xs uppercase tracking-wider">HEMAT</span>
+                <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-sky-50 to-blue-100 dark:from-sky-950/60 dark:to-blue-950/60 text-sky-600 dark:text-sky-400 flex items-center justify-center p-2.5 my-1 group-hover:scale-110 transition-transform shadow-xs">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
                 </div>
-                <span class="text-xs font-bold text-gray-900 dark:text-gray-100 group-hover:text-[#0050ae] dark:group-hover:text-cyan-300 transition-colors truncate w-full">MLBB WDP</span>
+                <span class="text-xs font-bold text-gray-900 dark:text-gray-100 group-hover:text-[#0050ae] dark:group-hover:text-cyan-300 transition-colors truncate w-full mt-1">MLBB WDP</span>
                 <span class="text-[10px] text-gray-400 dark:text-gray-500 truncate w-full">Weekly Pass</span>
             </a>
 
             <!-- 10. Free Fire -->
-            <a href="{{ route('products.index') }}" class="category-chip group flex flex-col items-center justify-between p-3 rounded-2xl bg-white dark:bg-[#101422] border border-gray-200/80 dark:border-gray-800 hover:border-blue-500/50 dark:hover:border-cyan-500/50 text-center relative overflow-hidden">
-                <div class="w-12 h-12 rounded-xl bg-orange-50 dark:bg-orange-950/60 text-orange-600 dark:text-orange-400 flex items-center justify-center p-2.5 my-1 group-hover:scale-110 transition-transform shadow-xs">
+            <a href="{{ route('products.index') }}" class="category-chip group relative flex flex-col items-center justify-between p-3 sm:p-3.5 rounded-2xl bg-white dark:bg-[#111827] border border-gray-200/80 dark:border-gray-800 hover:border-[#0050ae]/50 dark:hover:border-cyan-400/50 shadow-xs hover:shadow-lg hover:-translate-y-1 transition-all duration-200 text-center overflow-hidden">
+                <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-orange-50 to-amber-100 dark:from-orange-950/60 dark:to-rose-950/60 text-orange-600 dark:text-orange-400 flex items-center justify-center p-2.5 my-1 group-hover:scale-110 transition-transform shadow-xs">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 18.657A8 8 0 016.343 7.343S7 9 9 10c0-2 .5-5 2.986-7C14 5 16.09 5.777 17.656 7.343A7.975 7.975 0 0120 13a7.975 7.975 0 01-2.343 5.657z"/></svg>
                 </div>
-                <span class="text-xs font-bold text-gray-900 dark:text-gray-100 group-hover:text-[#0050ae] dark:group-hover:text-cyan-300 transition-colors truncate w-full">Free Fire</span>
+                <span class="text-xs font-bold text-gray-900 dark:text-gray-100 group-hover:text-[#0050ae] dark:group-hover:text-cyan-300 transition-colors truncate w-full mt-1">Free Fire</span>
                 <span class="text-[10px] text-gray-400 dark:text-gray-500 truncate w-full">Diamond Kilat</span>
             </a>
         </div>
@@ -505,7 +487,8 @@
                 <div class="product-card p-3 flex flex-col justify-between rounded-2xl bg-white dark:bg-[#101422] border border-gray-200/90 dark:border-gray-800 relative group">
                     <div>
                         <!-- Thumbnail Image -->
-                        <div class="relative w-full aspect-square rounded-xl overflow-hidden bg-gray-100 dark:bg-gray-800 mb-2.5">
+                        <!-- Product Image -->
+                        <a href="{{ route('products.show', $item) }}" class="block relative w-full aspect-square rounded-xl overflow-hidden bg-gray-100 dark:bg-gray-800 mb-2.5 group/img">
                             @if ($item->image && Storage::disk('public')->exists($item->image))
                                 <img src="{{ asset('storage/' . $item->image) }}" alt="{{ $item->name }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
                             @else
@@ -528,19 +511,25 @@
                             @endif
 
                             <!-- Rating Badge -->
-                            <div class="absolute bottom-2 left-2 bg-black/75 text-white text-[10px] font-bold px-1.5 py-0.5 rounded-md flex items-center gap-1 border border-white/15 backdrop-blur-xs">
+                            <div class="absolute bottom-2 left-2 bg-black/75 text-white text-[10px] font-bold px-1.5 py-0.5 rounded-md flex items-center gap-1 border border-white/15 backdrop-blur-xs shadow-xs">
                                 <span class="text-amber-400">★</span>
-                                <span>4.9</span>
+                                <span>{{ number_format($item->averageRating(), 1) }}</span>
                             </div>
-                        </div>
+                        </a>
 
                         <!-- Product Info -->
                         <h3 class="font-extrabold text-xs text-gray-900 dark:text-white truncate group-hover:text-[#0050ae] dark:group-hover:text-cyan-300 transition-colors" title="{{ $item->name }}">
-                            {{ $item->name }}
+                            <a href="{{ route('products.show', $item) }}" class="hover:underline">
+                                {{ $item->name }}
+                            </a>
                         </h3>
-                        <p class="text-[11px] text-gray-500 dark:text-gray-400 truncate mt-0.5 flex items-center gap-1">
-                            <span class="text-blue-500 text-[10px]">✓</span>
-                            <span>{{ $item->store ? $item->store->name : ($item->user?->name ?? 'Toko Resmi') }}</span>
+                        <p class="text-[11px] text-gray-500 dark:text-gray-400 truncate mt-0.5 flex items-center gap-1.5">
+                            @if($item->user?->avatar_url)
+                                <img src="{{ $item->user->avatar_url }}" alt="{{ $item->user->name }}" class="w-3.5 h-3.5 rounded-full object-cover shrink-0" onerror="this.style.display='none'">
+                            @else
+                                <span class="text-blue-500 text-[10px]">✓</span>
+                            @endif
+                            <span class="truncate">{{ $item->store ? $item->store->name : ($item->user?->name ?? 'Toko Resmi') }}</span>
                         </p>
                     </div>
 
@@ -575,10 +564,16 @@
                                 </form>
                             </div>
                         @else
-                            <a href="{{ route('products.edit', $item) }}"
-                               class="w-full py-2 bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-200 font-bold text-xs rounded-xl text-center block transition-colors">
-                                Kelola Produk
-                            </a>
+                            <div class="flex items-center gap-1.5 pt-0.5">
+                                <a href="{{ route('products.show', $item) }}"
+                                   class="flex-1 py-2 bg-blue-50 dark:bg-blue-950/60 hover:bg-[#0050ae] hover:text-white text-[#0050ae] dark:text-cyan-300 font-bold text-xs rounded-xl text-center block transition-colors">
+                                    Buka Detail
+                                </a>
+                                <a href="{{ route('products.edit', $item) }}"
+                                   class="py-2 px-3 bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-200 font-bold text-xs rounded-xl text-center block transition-colors">
+                                    Edit
+                                </a>
+                            </div>
                         @endif
                     </div>
                 </div>
@@ -592,81 +587,106 @@
     <!-- 5. WIDGET LAPAK & INVENTARIS (SELLER HUB DENGAN KONTEKS KHUSUS)            -->
     <!-- ========================================================================= -->
     @if(auth()->user()->isSeller() || auth()->user()->isAdmin())
-    <div class="rounded-2xl border border-blue-500/20 bg-gradient-to-br from-[#071d38] via-[#0b294d] to-[#061830] text-white p-5 sm:p-6 shadow-xl space-y-5">
+    <div class="rounded-2xl border border-slate-700/60 dark:border-slate-800 bg-gradient-to-br from-[#0b172b] via-[#0f2144] to-[#091325] text-white p-5 sm:p-6 shadow-xl space-y-5 relative overflow-hidden">
+        <!-- Subtle Ambient Glows -->
+        <div class="absolute -right-16 -top-16 w-56 h-56 bg-blue-500/10 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="absolute -left-16 -bottom-16 w-56 h-56 bg-amber-500/10 rounded-full blur-3xl pointer-events-none"></div>
+
         <!-- Top Seller Hub Header -->
-        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-white/10">
+        <div class="relative z-10 flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-white/10">
             <div class="flex items-center gap-3">
-                <div class="w-12 h-12 rounded-2xl bg-blue-500/20 border border-blue-400/30 text-amber-300 flex items-center justify-center text-2xl shadow-inner">
-                    🏬
+                <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-amber-400/20 to-amber-500/10 border border-amber-400/30 text-amber-400 flex items-center justify-center shadow-inner shrink-0">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V7M3 7l2-4h14l2 4M3 7h18M9 21v-8a1 1 0 011-1h4a1 1 0 011 1v8"/>
+                    </svg>
                 </div>
                 <div>
-                    <div class="flex items-center gap-2">
-                        <h2 class="text-base sm:text-lg font-black text-white font-brand">
+                    <div class="flex items-center gap-2 flex-wrap">
+                        <h2 class="text-base sm:text-lg font-black text-white font-brand tracking-tight">
                             Pusat Kontrol Lapak (Seller Hub)
                         </h2>
-                        <span class="bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 text-[10px] font-extrabold px-2 py-0.5 rounded-full flex items-center gap-1">
-                            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                        <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-extrabold bg-emerald-500/15 border border-emerald-500/30 text-emerald-400">
+                            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
                             <span>Toko Aktif</span>
                         </span>
                     </div>
-                    <p class="text-xs text-blue-200/80 mt-0.5">Pantau unit stok, katalog siap kirim, dan potensi omset penjualan Anda</p>
+                    <p class="text-xs text-slate-300/80 mt-0.5">Pantau unit stok, katalog siap kirim, dan potensi omset penjualan lapak Anda</p>
                 </div>
             </div>
 
             <!-- Action buttons -->
-            <div class="flex items-center gap-2.5">
+            <div class="flex items-center gap-2.5 shrink-0">
                 <a href="{{ route('products.create') }}"
-                   class="inline-flex items-center gap-1.5 bg-gradient-to-r from-amber-400 to-[#ffb800] hover:from-amber-300 hover:to-amber-500 text-gray-950 text-xs font-black px-4 py-2.5 rounded-xl shadow-md transition-all hover:scale-[1.02]">
-                    <span>+</span>
+                   class="inline-flex items-center gap-1.5 bg-gradient-to-r from-amber-400 to-[#ffb800] hover:from-amber-300 hover:to-amber-500 text-slate-950 text-xs font-black px-4 py-2.5 rounded-xl shadow-md transition-all hover:scale-[1.02]">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v16m8-8H4"/></svg>
                     <span>Tambah Produk Baru</span>
                 </a>
                 <a href="{{ route('products.index') }}"
-                   class="inline-flex items-center bg-white/10 hover:bg-white/20 border border-white/20 text-white text-xs font-bold px-3.5 py-2.5 rounded-xl transition-all">
+                   class="inline-flex items-center bg-white/10 hover:bg-white/20 border border-white/15 text-white text-xs font-bold px-3.5 py-2.5 rounded-xl transition-all">
                     Kelola Katalog
                 </a>
             </div>
         </div>
 
         <!-- 3 Metric Cards With Refined Spacing & Depth -->
-        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3.5">
+        <div class="relative z-10 grid grid-cols-1 sm:grid-cols-3 gap-3.5">
             <!-- Metric 1: Produk Terdaftar -->
-            <div class="bg-white/5 border border-white/10 rounded-2xl p-4.5 flex items-center justify-between backdrop-blur-xs hover:bg-white/10 transition-colors">
+            <div class="bg-slate-950/40 border border-white/10 hover:border-blue-500/40 rounded-2xl p-4.5 flex items-center justify-between backdrop-blur-xs transition-colors">
                 <div class="space-y-1">
-                    <span class="text-xs text-blue-200/70 font-semibold block">Produk Terdaftar</span>
-                    <div class="text-3xl font-black text-white font-brand tracking-tight">{{ $totalProducts }}</div>
-                    <span class="inline-block text-[10px] text-cyan-300 bg-cyan-950/60 border border-cyan-800/40 px-2 py-0.5 rounded-md font-medium">Katalog Aktif</span>
+                    <span class="text-xs text-slate-300 font-medium block">Produk Terdaftar</span>
+                    <div class="text-2xl sm:text-3xl font-black text-white font-brand tracking-tight">{{ $totalProducts }}</div>
+                    <span class="inline-flex items-center text-[10px] text-cyan-300 bg-cyan-500/10 border border-cyan-500/20 px-2 py-0.5 rounded-md font-semibold">Katalog Aktif</span>
                 </div>
-                <div class="w-12 h-12 rounded-xl bg-blue-500/20 text-cyan-300 flex items-center justify-center border border-blue-400/20 shadow-sm">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/></svg>
+                <div class="w-12 h-12 rounded-xl bg-blue-500/15 border border-blue-400/25 text-cyan-400 flex items-center justify-center shrink-0 shadow-sm">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/></svg>
                 </div>
             </div>
 
             <!-- Metric 2: Total Unit Stok -->
-            <div class="bg-white/5 border border-white/10 rounded-2xl p-4.5 flex items-center justify-between backdrop-blur-xs hover:bg-white/10 transition-colors">
+            <div class="bg-slate-950/40 border border-white/10 hover:border-emerald-500/40 rounded-2xl p-4.5 flex items-center justify-between backdrop-blur-xs transition-colors">
                 <div class="space-y-1">
-                    <span class="text-xs text-blue-200/70 font-semibold block">Total Unit Stok</span>
-                    <div class="text-3xl font-black text-white font-brand tracking-tight">{{ number_format($totalStock) }}</div>
-                    <span class="inline-block text-[10px] text-emerald-300 bg-emerald-950/60 border border-emerald-800/40 px-2 py-0.5 rounded-md font-medium">Ready Stock Siap Kirim</span>
+                    <span class="text-xs text-slate-300 font-medium block">Total Unit Stok</span>
+                    <div class="text-2xl sm:text-3xl font-black text-white font-brand tracking-tight">{{ number_format($totalStock) }}</div>
+                    <span class="inline-flex items-center text-[10px] text-emerald-300 bg-emerald-500/10 border border-emerald-500/20 px-2 py-0.5 rounded-md font-semibold">Ready Stock Siap Kirim</span>
                 </div>
-                <div class="w-12 h-12 rounded-xl bg-emerald-500/20 text-emerald-300 flex items-center justify-center border border-emerald-400/20 shadow-sm">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
+                <div class="w-12 h-12 rounded-xl bg-emerald-500/15 border border-emerald-400/25 text-emerald-400 flex items-center justify-center shrink-0 shadow-sm">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
                 </div>
             </div>
 
             <!-- Metric 3: Estimasi Nilai Inventaris -->
-            <div class="bg-white/5 border border-white/10 rounded-2xl p-4.5 flex items-center justify-between backdrop-blur-xs hover:bg-white/10 transition-colors">
+            <div class="bg-slate-950/40 border border-white/10 hover:border-amber-500/40 rounded-2xl p-4.5 flex items-center justify-between backdrop-blur-xs transition-colors">
                 <div class="space-y-1">
-                    <span class="text-xs text-blue-200/70 font-semibold block">Estimasi Nilai Inventaris</span>
-                    <div class="text-2xl sm:text-3xl font-black text-amber-300 font-brand tracking-tight">
+                    <span class="text-xs text-slate-300 font-medium block">Estimasi Nilai Inventaris</span>
+                    <div class="text-xl sm:text-2xl font-black text-amber-300 font-brand tracking-tight">
                         Rp {{ number_format($totalValue, 0, ',', '.') }}
                     </div>
-                    <span class="inline-block text-[10px] text-amber-300 bg-amber-950/60 border border-amber-800/40 px-2 py-0.5 rounded-md font-medium">Potensi Omset Dagangan</span>
+                    <span class="inline-flex items-center text-[10px] text-amber-300 bg-amber-500/10 border border-amber-500/20 px-2 py-0.5 rounded-md font-semibold">Potensi Omset Dagangan</span>
                 </div>
-                <div class="w-12 h-12 rounded-xl bg-amber-500/20 text-amber-300 flex items-center justify-center border border-amber-400/20 shadow-sm">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                <div class="w-12 h-12 rounded-xl bg-amber-500/15 border border-amber-400/25 text-amber-400 flex items-center justify-center shrink-0 shadow-sm">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
                 </div>
             </div>
         </div>
+
+        <!-- Onboarding Helper When Products Are Zero -->
+        @if($totalProducts === 0)
+        <div class="relative z-10 p-4 rounded-xl bg-blue-500/10 border border-blue-400/20 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-xs">
+            <div class="flex items-center gap-3">
+                <div class="w-8 h-8 rounded-lg bg-blue-500/20 text-cyan-300 flex items-center justify-center shrink-0">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                </div>
+                <div>
+                    <span class="font-bold text-white block">Lapak Anda siap digunakan! Belum ada produk yang aktif.</span>
+                    <span class="text-slate-300/80">Upload akun game, voucher, atau item perdana Anda agar pembeli dapat langsung bertransaksi.</span>
+                </div>
+            </div>
+            <a href="{{ route('products.create') }}" class="shrink-0 font-bold text-amber-300 hover:text-amber-200 inline-flex items-center gap-1 transition-colors">
+                <span>+ Pasang Dagangan</span>
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+            </a>
+        </div>
+        @endif
     </div>
     @else
     <!-- Invitation Card for Non-Sellers -->
@@ -697,12 +717,11 @@
 
 </div>
 
-<!-- CAROUSEL & FLASH DEALS SCRIPT -->
+<!-- CAROUSEL SCRIPT (MANUAL SAJA, DIEM TANPA GERAK AUTO-SLIDE & TANPA FLASH DEAL) -->
 <script>
 var currentSlide = 0;
 var bannerSlides = document.querySelectorAll('.banner-slide');
 var carouselDots = document.querySelectorAll('.carousel-indicator');
-var autoSlideTimer = null;
 
 function showSlide(index) {
     if (!bannerSlides.length) return;
@@ -742,47 +761,6 @@ function prevBannerSlide() {
 
 function setBannerSlide(index) {
     showSlide(index);
-    resetAutoSlide();
 }
-
-function startAutoSlide() {
-    autoSlideTimer = setInterval(nextBannerSlide, 6000);
-}
-
-function resetAutoSlide() {
-    clearInterval(autoSlideTimer);
-    startAutoSlide();
-}
-
-var carouselEl = document.getElementById('hero-carousel');
-if (carouselEl) {
-    carouselEl.addEventListener('mouseenter', function() {
-        clearInterval(autoSlideTimer);
-    });
-    carouselEl.addEventListener('mouseleave', function() {
-        startAutoSlide();
-    });
-}
-
-startAutoSlide();
-
-// Real-time Countdown Timer for Flash Deals
-(function() {
-    var timerEl = document.getElementById('flash-sale-timer');
-    if (!timerEl) return;
-
-    var totalSeconds = 2 * 3600 + 45 * 60 + 12;
-    setInterval(function() {
-        totalSeconds--;
-        if (totalSeconds < 0) totalSeconds = 3 * 3600;
-        var h = Math.floor(totalSeconds / 3600);
-        var m = Math.floor((totalSeconds % 3600) / 60);
-        var s = totalSeconds % 60;
-        timerEl.textContent =
-            (h < 10 ? '0' + h : h) + ' : ' +
-            (m < 10 ? '0' + m : m) + ' : ' +
-            (s < 10 ? '0' + s : s);
-    }, 1000);
-})();
 </script>
 @endsection
