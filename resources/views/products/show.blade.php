@@ -1,16 +1,20 @@
 @extends('layouts.app')
 @php use Illuminate\Support\Facades\Storage; @endphp
 
-@section('title', $product->name . ' — gian games')
+@section('title', $product->name . ' - gian games')
 
 @section('content')
+@php
+    $store = $product->store ?? $product->user?->store;
+    $storeUrl = $store ? route('stores.show', $store->slug ?? $store->id) : '#';
+@endphp
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 space-y-6">
 
     <!-- ===== BREADCRUMB ===== -->
     <nav class="flex items-center gap-2 text-xs text-gray-500 dark:text-gray-400 flex-wrap">
-        <a href="{{ route('dashboard') }}" class="hover:text-[#0050ae] dark:hover:text-cyan-300 transition-colors">Home</a>
+        <a href="{{ route('dashboard') }}" class="hover:text-[#7c3aed] dark:hover:text-cyan-300 transition-colors">Home</a>
         <span>/</span>
-        <a href="{{ route('products.index') }}" class="hover:text-[#0050ae] dark:hover:text-cyan-300 transition-colors">Katalog Produk</a>
+        <a href="{{ route('products.index') }}" class="hover:text-[#7c3aed] dark:hover:text-cyan-300 transition-colors">Katalog Produk</a>
         <span>/</span>
         <span class="text-gray-900 dark:text-white font-bold truncate max-w-xs sm:max-w-md">{{ $product->name }}</span>
     </nav>
@@ -118,22 +122,24 @@
                             </span>
                         </div>
 
-                        <!-- Kartu Penjual / Toko -->
-                        <div class="p-3.5 rounded-2xl bg-gray-50 dark:bg-gray-800/50 border border-gray-200/80 dark:border-gray-700/60 flex items-center justify-between gap-3">
-                            <div class="flex items-center gap-3 min-w-0">
-                                @if($product->user?->avatar_url)
+                        <!-- Kartu Penjual / Toko (Bisa Diklik untuk Melihat Profil & Seluruh Dagangan Toko) -->
+                        <div class="p-3.5 rounded-2xl bg-gray-50 dark:bg-gray-800/50 border border-gray-200/80 dark:border-gray-700/60 flex items-center justify-between gap-3 group/store hover:border-purple-300 dark:hover:border-purple-800/80 transition-colors">
+                            <a href="{{ $storeUrl }}" class="flex items-center gap-3 min-w-0 flex-1 hover:opacity-95 transition-opacity focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#7c3aed] rounded-xl p-1 -m-1" title="Lihat Profil Toko & Seluruh Produk">
+                                @if($store && $store->logo && Storage::disk('public')->exists($store->logo))
+                                    <img src="{{ asset('storage/' . $store->logo) }}" alt="{{ $store->name }}" class="w-10 h-10 rounded-full object-cover shrink-0 border border-gray-300 dark:border-gray-700">
+                                @elseif($product->user?->avatar_url)
                                     <img src="{{ $product->user->avatar_url }}" alt="{{ $product->user->name }}" class="w-10 h-10 rounded-full object-cover shrink-0 border border-gray-300 dark:border-gray-700">
                                 @else
-                                    <div class="w-10 h-10 rounded-full bg-[#0050ae] text-white flex items-center justify-center font-black text-sm shrink-0">
-                                        {{ strtoupper(substr($product->user?->name ?? 'T', 0, 1)) }}
+                                    <div class="w-10 h-10 rounded-full bg-[#7c3aed] text-white flex items-center justify-center font-black text-sm shrink-0">
+                                        {{ strtoupper(substr($store ? $store->name : ($product->user?->name ?? 'T'), 0, 1)) }}
                                     </div>
                                 @endif
                                 <div class="min-w-0">
                                     <div class="flex items-center gap-1.5 flex-wrap">
-                                        <span class="font-bold text-xs text-gray-900 dark:text-white truncate">
-                                            {{ $product->store ? $product->store->name : ($product->user?->name ?? 'Toko Resmi gian games') }}
+                                        <span class="font-bold text-xs text-gray-900 dark:text-white group-hover/store:text-[#7c3aed] dark:group-hover/store:text-purple-300 transition-colors truncate">
+                                            {{ $store ? $store->name : ($product->user?->name ?? 'Toko Resmi gian games') }}
                                         </span>
-                                        <span class="inline-flex items-center gap-1 text-[9px] font-black bg-blue-500/15 text-[#0050ae] dark:text-cyan-300 border border-blue-500/30 px-1.5 py-0.2 rounded-md">
+                                        <span class="inline-flex items-center gap-1 text-[9px] font-black bg-blue-500/15 text-[#7c3aed] dark:text-cyan-300 border border-blue-500/30 px-1.5 py-0.2 rounded-md">
                                             ✓ Penjual Resmi
                                         </span>
                                     </div>
@@ -142,12 +148,20 @@
                                         <span>Aktif & Cepat Tanggap</span>
                                     </p>
                                 </div>
-                            </div>
-                            @if(auth()->check() && (auth()->id() === $product->user_id || auth()->user()->isAdmin()))
-                                <a href="{{ route('products.edit', $product) }}" class="shrink-0 text-xs font-bold text-[#0050ae] dark:text-cyan-400 hover:underline px-2.5 py-1.5 rounded-lg bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700">
-                                    ✏️ Edit
+                            </a>
+
+                            <div class="flex items-center gap-2 shrink-0">
+                                @if($store)
+                                <a href="{{ $storeUrl }}" class="text-xs font-bold text-[#7c3aed] dark:text-purple-300 hover:text-white hover:bg-[#7c3aed] dark:hover:bg-[#7c3aed] px-2.5 py-1.5 rounded-lg bg-purple-50 dark:bg-purple-950/60 border border-purple-200/80 dark:border-purple-800/60 transition-all focus-visible:ring-2 focus-visible:ring-[#7c3aed] focus-visible:outline-none" title="Lihat semua produk dari toko ini">
+                                    Lihat Toko
                                 </a>
-                            @endif
+                                @endif
+                                @if(auth()->check() && (auth()->id() === $product->user_id || auth()->user()->isAdmin()))
+                                    <a href="{{ route('products.edit', $product) }}" class="text-xs font-bold text-gray-700 dark:text-gray-300 hover:text-gray-950 dark:hover:text-white px-2.5 py-1.5 rounded-lg bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 transition-all focus-visible:ring-2 focus-visible:ring-[#7c3aed] focus-visible:outline-none" title="Edit Produk">
+                                        ✏️ Edit
+                                    </a>
+                                @endif
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -177,7 +191,7 @@
                                 Penjual belum menyertakan deskripsi teks untuk produk ini.
                             </p>
                             @if(auth()->check() && (auth()->id() === $product->user_id || auth()->user()->isAdmin()))
-                                <a href="{{ route('products.edit', $product) }}" class="inline-block text-xs font-bold text-[#0050ae] dark:text-cyan-400 hover:underline">
+                                <a href="{{ route('products.edit', $product) }}" class="inline-block text-xs font-bold text-[#7c3aed] dark:text-cyan-400 hover:underline">
                                     + Tambahkan Deskripsi Sekarang
                                 </a>
                             @endif
@@ -187,7 +201,7 @@
 
                 <!-- Cara Transaksi & Catatan Penting -->
                 <div class="p-4 rounded-2xl bg-blue-50/70 dark:bg-blue-950/30 border border-blue-200/70 dark:border-blue-800/40 space-y-2 text-xs">
-                    <div class="flex items-center gap-2 text-[#0050ae] dark:text-cyan-300 font-extrabold">
+                    <div class="flex items-center gap-2 text-[#7c3aed] dark:text-cyan-300 font-extrabold">
                         <span>🛡️</span>
                         <span>Jaminan Transaksi Aman gian games:</span>
                     </div>
@@ -315,14 +329,14 @@
                                 </label>
                                 <textarea id="comment" name="comment" rows="3"
                                           placeholder="Ceritakan pengalaman Anda mengenai kecepatan pengiriman, respon seller, atau kualitas item game ini..."
-                                          class="w-full border @error('comment') border-red-400 bg-red-50 @else border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900 @enderror rounded-xl p-3 text-xs text-gray-900 dark:text-white placeholder-gray-400 focus:outline-none focus:border-[#0050ae] focus:ring-2 focus:ring-[#0050ae]/15 transition-all">{{ old('comment', $userReview ? $userReview->comment : '') }}</textarea>
+                                          class="w-full border @error('comment') border-red-400 bg-red-50 @else border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900 @enderror rounded-xl p-3 text-xs text-gray-900 dark:text-white placeholder-gray-400 focus:outline-none focus:border-[#7c3aed] focus:ring-2 focus:ring-[#7c3aed]/15 transition-all">{{ old('comment', $userReview ? $userReview->comment : '') }}</textarea>
                                 @error('comment')
                                     <p class="text-xs text-red-500 mt-1">{{ $message }}</p>
                                 @enderror
                             </div>
 
                             <button type="submit"
-                                    class="inline-flex items-center gap-2 bg-[#0050ae] hover:bg-[#003d87] text-white font-black px-5 py-2.5 rounded-xl shadow-md text-xs transition-all active:scale-95 cursor-pointer">
+                                    class="inline-flex items-center gap-2 bg-[#7c3aed] hover:bg-[#6d28d9] text-white font-black px-5 py-2.5 rounded-xl shadow-md text-xs transition-all active:scale-95 cursor-pointer">
                                 <span>⭐</span>
                                 <span>{{ $userReview ? 'Simpan Perubahan Ulasan' : 'Kirim Ulasan Sekarang' }}</span>
                             </button>
@@ -338,7 +352,7 @@
                                 </div>
                             </div>
                             <div class="flex items-center gap-2 shrink-0">
-                                <a href="{{ route('login') }}" class="px-4 py-2 bg-[#0050ae] hover:bg-[#003d87] text-white text-xs font-bold rounded-xl transition-all shadow-xs">
+                                <a href="{{ route('login') }}" class="px-4 py-2 bg-[#7c3aed] hover:bg-[#6d28d9] text-white text-xs font-bold rounded-xl transition-all shadow-xs">
                                     Masuk Akun
                                 </a>
                                 <a href="{{ route('register') }}" class="px-4 py-2 bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 text-gray-900 dark:text-white text-xs font-bold rounded-xl transition-all">
@@ -362,7 +376,7 @@
                                     @if($review->user?->avatar_url)
                                         <img src="{{ $review->user->avatar_url }}" alt="{{ $review->user->name }}" class="w-9 h-9 rounded-full object-cover shrink-0 border border-gray-200 dark:border-gray-700">
                                     @else
-                                        <div class="w-9 h-9 rounded-full bg-blue-100 dark:bg-blue-950 text-[#0050ae] dark:text-cyan-400 font-black text-xs flex items-center justify-center shrink-0">
+                                        <div class="w-9 h-9 rounded-full bg-blue-100 dark:bg-blue-950 text-[#7c3aed] dark:text-cyan-400 font-black text-xs flex items-center justify-center shrink-0">
                                             {{ strtoupper(substr($review->user?->name ?? 'U', 0, 1)) }}
                                         </div>
                                     @endif
@@ -480,11 +494,11 @@
                 <div class="space-y-2.5 pt-2">
                     @if(auth()->check() && auth()->id() === $product->user_id)
                         <!-- Jika pemilik produk yang melihat -->
-                        <div class="p-3 rounded-xl bg-blue-50 dark:bg-blue-950/50 border border-blue-200 dark:border-blue-800 text-center text-xs text-[#0050ae] dark:text-cyan-300 font-bold mb-2">
+                        <div class="p-3 rounded-xl bg-blue-50 dark:bg-blue-950/50 border border-blue-200 dark:border-blue-800 text-center text-xs text-[#7c3aed] dark:text-cyan-300 font-bold mb-2">
                             Ini adalah produk di lapak Anda
                         </div>
                         <a href="{{ route('products.edit', $product) }}"
-                           class="w-full py-3 bg-[#0050ae] hover:bg-[#003d87] text-white font-extrabold text-xs rounded-xl shadow-md transition-all text-center block">
+                           class="w-full py-3 bg-[#7c3aed] hover:bg-[#6d28d9] text-white font-extrabold text-xs rounded-xl shadow-md transition-all text-center block">
                             ✏️ Edit Informasi & Stok Produk
                         </a>
                         <a href="{{ route('products.index') }}"
@@ -497,7 +511,7 @@
                             <form action="{{ route('orders.buy', $product) }}" method="POST">
                                 @csrf
                                 <button type="submit"
-                                        class="w-full py-3.5 bg-[#0050ae] hover:bg-[#003d87] text-white font-black text-sm rounded-2xl shadow-lg transition-all flex items-center justify-center gap-2 hover:scale-[1.01] active:scale-[0.99] cursor-pointer">
+                                        class="w-full py-3.5 bg-[#7c3aed] hover:bg-[#6d28d9] text-white font-black text-sm rounded-2xl shadow-lg transition-all flex items-center justify-center gap-2 hover:scale-[1.01] active:scale-[0.99] cursor-pointer">
                                     <span>⚡</span>
                                     <span>Beli Sekarang</span>
                                 </button>
@@ -545,7 +559,7 @@
                     <h3 class="text-xs font-black text-gray-900 dark:text-white uppercase tracking-wide">
                         Rekomendasi Lainnya
                     </h3>
-                    <a href="{{ route('products.index') }}" class="text-[11px] font-bold text-[#0050ae] dark:text-cyan-400 hover:underline">
+                    <a href="{{ route('products.index') }}" class="text-[11px] font-bold text-[#7c3aed] dark:text-cyan-400 hover:underline">
                         Lihat Semua →
                     </a>
                 </div>
@@ -563,7 +577,7 @@
                                 @endif
                             </div>
                             <div class="min-w-0 flex-1">
-                                <h4 class="text-xs font-bold text-gray-900 dark:text-white truncate group-hover:text-[#0050ae] dark:group-hover:text-cyan-300 transition-colors">
+                                <h4 class="text-xs font-bold text-gray-900 dark:text-white truncate group-hover:text-[#7c3aed] dark:group-hover:text-cyan-300 transition-colors">
                                     {{ $rel->name }}
                                 </h4>
                                 <div class="flex items-center justify-between mt-0.5">

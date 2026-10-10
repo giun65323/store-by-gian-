@@ -29,10 +29,10 @@
                        value="{{ old('order_number') }}"
                        placeholder="Masukkan nomor pesanan (Contoh: OD000000164288180)"
                        required
-                       class="w-full bg-gray-50 border border-gray-200 text-gray-900 rounded-xl px-3.5 py-2.5 text-xs font-mono placeholder:font-sans placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#0050ae] focus:bg-white transition-all">
+                       class="w-full bg-gray-50 border border-gray-200 text-gray-900 rounded-xl px-3.5 py-2.5 text-xs font-mono placeholder:font-sans placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#581c87] focus:bg-white transition-all">
             </div>
             <button type="submit"
-                    class="w-full sm:w-auto bg-[#0050ae] hover:bg-[#003d87] text-white font-bold text-xs px-5 py-2.5 rounded-xl transition-all shadow-xs shrink-0 flex items-center justify-center gap-1.5">
+                    class="w-full sm:w-auto bg-[#581c87] hover:bg-[#4c1d95] text-white font-bold text-xs px-5 py-2.5 rounded-xl transition-all shadow-xs shrink-0 flex items-center justify-center gap-1.5 cursor-pointer">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                 </svg>
@@ -48,14 +48,14 @@
     <div class="space-y-3">
         <h2 class="text-sm font-bold text-gray-800 flex items-center gap-2">
             <span>🛒 Pembelian Saya</span>
-            <span class="text-xs bg-blue-50 text-[#0050ae] px-2 py-0.5 rounded-full font-bold">{{ $myPurchases->total() }}</span>
+            <span class="text-xs bg-purple-50 dark:bg-purple-950/70 text-[#581c87] dark:text-purple-300 px-2 py-0.5 rounded-full font-bold">{{ $myPurchases->total() }}</span>
         </h2>
 
         @if($myPurchases->isEmpty())
             <div class="bg-white border border-gray-200 rounded-2xl p-8 text-center text-gray-400 space-y-2">
                 <span class="text-4xl block">🛍️</span>
                 <p class="text-xs font-medium text-gray-600">Belum ada transaksi pembelian.</p>
-                <a href="{{ route('dashboard') }}" class="inline-block mt-2 text-xs font-bold text-[#0050ae] hover:underline">
+                <a href="{{ route('dashboard') }}" class="inline-block mt-2 text-xs font-bold text-[#581c87] hover:underline">
                     Jelajahi Produk Sekarang →
                 </a>
             </div>
@@ -65,7 +65,7 @@
                     @php
                         $unreadChatCount = $order->messages()->where('receiver_id', auth()->id())->where('is_read', false)->count();
                     @endphp
-                    <div class="bg-white border {{ $unreadChatCount > 0 ? 'border-blue-300 ring-1 ring-blue-200' : 'border-gray-100' }} rounded-2xl p-4 sm:p-5 shadow-xs hover:border-blue-200 transition-all flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                    <div class="bg-white border {{ $unreadChatCount > 0 ? 'border-purple-300 ring-1 ring-purple-200' : 'border-gray-100' }} rounded-2xl p-4 sm:p-5 shadow-xs hover:border-purple-200 transition-all flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                         <div class="flex items-start gap-3.5 min-w-0">
                             <div class="w-12 h-12 rounded-xl bg-gray-900 text-white flex items-center justify-center text-lg shrink-0 overflow-hidden">
                                 @if($order->product_image && Storage::disk('public')->exists($order->product_image))
@@ -82,7 +82,7 @@
                                             ✓ Selesai
                                         </span>
                                     @elseif($order->status === 'processing')
-                                        <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-blue-50 text-blue-600">
+                                        <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-purple-50 text-purple-700">
                                             ⏳ Diproses Penjual
                                         </span>
                                     @elseif($order->status === 'pending')
@@ -96,12 +96,19 @@
                                     @endif
 
                                     @if($order->delivery_type === 'Pengiriman BIASA')
-                                        <span class="text-[10px] font-bold px-1.5 py-0.5 rounded-md bg-blue-50 text-blue-700 border border-blue-200/60">
+                                        <span class="text-[10px] font-bold px-1.5 py-0.5 rounded-md bg-purple-50 text-purple-700 border border-purple-200/60">
                                             📦 Biasa
                                         </span>
                                     @else
                                         <span class="text-[10px] font-black px-1.5 py-0.5 rounded-md bg-amber-50 text-amber-700 border border-amber-200/60">
                                             ⚡ Instan
+                                        </span>
+                                    @endif
+
+                                    @if(stripos($order->payment_method ?? '', 'gopay') !== false)
+                                        <span class="inline-flex items-center gap-1 text-[10px] font-bold px-1.5 py-0.5 rounded-md bg-cyan-50 text-cyan-800 border border-cyan-200">
+                                            <img src="{{ asset('images/payments/gopay.webp') }}" alt="GoPay" class="w-3.5 h-3.5 object-contain rounded-xs">
+                                            <span>GoPay</span>
                                         </span>
                                     @endif
 
@@ -124,7 +131,7 @@
                                 <span class="font-bold text-xs text-[#ff5e00]">Rp {{ number_format($order->total_price, 0, ',', '.') }}</span>
                             </div>
                             <a href="{{ route('orders.show', $order->order_number) }}{{ $unreadChatCount > 0 ? '?open_chat=1' : '' }}"
-                               class="inline-flex items-center gap-1 bg-[#0050ae] hover:bg-[#003d87] text-white text-xs font-bold px-3.5 py-2 rounded-xl transition-all shadow-xs">
+                               class="inline-flex items-center gap-1 bg-[#581c87] hover:bg-[#4c1d95] text-white text-xs font-bold px-3.5 py-2 rounded-xl transition-all shadow-xs cursor-pointer">
                                 <span>{{ $unreadChatCount > 0 ? '💬 Buka Chat' : 'Lihat Rincian' }}</span>
                                 <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7" />
@@ -167,7 +174,7 @@
                                         ✓ Selesai
                                     </span>
                                 @elseif($sale->status === 'processing')
-                                    <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-blue-600 text-white animate-pulse">
+                                    <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-purple-800 text-white animate-pulse">
                                         📦 Perlu Dikirim
                                     </span>
                                 @elseif($sale->status === 'pending')
@@ -181,12 +188,19 @@
                                 @endif
 
                                 @if($sale->delivery_type === 'Pengiriman BIASA')
-                                    <span class="text-[10px] font-bold px-1.5 py-0.5 rounded-md bg-blue-50 text-blue-700 border border-blue-200/60">
+                                    <span class="text-[10px] font-bold px-1.5 py-0.5 rounded-md bg-purple-50 dark:bg-purple-950/70 text-purple-700 dark:text-purple-300 border border-purple-200/60">
                                         📦 Biasa
                                     </span>
                                 @else
                                     <span class="text-[10px] font-black px-1.5 py-0.5 rounded-md bg-amber-50 text-amber-700 border border-amber-200/60">
                                         ⚡ Instan
+                                    </span>
+                                @endif
+
+                                @if(stripos($sale->payment_method ?? '', 'gopay') !== false)
+                                    <span class="inline-flex items-center gap-1 text-[10px] font-bold px-1.5 py-0.5 rounded-md bg-cyan-50 text-cyan-800 border border-cyan-200">
+                                        <img src="{{ asset('images/payments/gopay.webp') }}" alt="GoPay" class="w-3.5 h-3.5 object-contain rounded-xs">
+                                        <span>GoPay</span>
                                     </span>
                                 @endif
                                 @if($unreadSaleChatCount > 0)
@@ -204,7 +218,7 @@
                                 <span class="font-bold text-xs text-emerald-600">Rp {{ number_format($sale->total_price, 0, ',', '.') }}</span>
                             </div>
                             <a href="{{ route('orders.show', $sale->order_number) }}{{ $unreadSaleChatCount > 0 ? '?open_chat=1' : '' }}"
-                               class="inline-flex items-center gap-1 {{ $unreadSaleChatCount > 0 ? 'bg-[#0050ae] text-white hover:bg-[#003d87]' : 'bg-gray-100 hover:bg-gray-200 text-gray-800' }} text-xs font-bold px-3.5 py-2 rounded-xl transition-all shadow-xs">
+                               class="inline-flex items-center gap-1 {{ $unreadSaleChatCount > 0 ? 'bg-[#581c87] text-white hover:bg-[#4c1d95]' : 'bg-gray-100 hover:bg-gray-200 text-gray-800' }} text-xs font-bold px-3.5 py-2 rounded-xl transition-all shadow-xs cursor-pointer">
                                 <span>{{ $unreadSaleChatCount > 0 ? '💬 Balas Chat' : 'Rincian & Chat' }}</span>
                             </a>
                         </div>

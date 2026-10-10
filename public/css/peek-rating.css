@@ -1,17 +1,25 @@
 .peek-rating {
   --pr-active: #f5b400;
-  --pr-idle: #52525b;
-  --pr-tip: #27272a;
-  --pr-tip-text: #f5f5f5;
+  --pr-idle: #cbd5e1;
+  --pr-tip: #1e293b;
+  --pr-tip-text: #f8fafc;
   --pr-size: 28px;
   --pr-gap: 6px;
-  --pr-room: 31px;
+  --pr-room: 32px;
   --pr-rise: 320ms;
   --pr-ease-out: cubic-bezier(0.23, 1, 0.32, 1);
 
   display: inline-flex;
   font-family: inherit;
   color: inherit;
+}
+
+html.dark .peek-rating,
+.dark .peek-rating,
+[data-theme='dark'] .peek-rating {
+  --pr-idle: #475569;
+  --pr-tip: #0f172a;
+  --pr-tip-text: #f8fafc;
 }
 
 .peek-rating[aria-disabled='true'] {
@@ -106,9 +114,10 @@
   line-height: 1;
   letter-spacing: 0.01em;
   white-space: nowrap;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.18);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.22);
   opacity: 0;
   pointer-events: none;
+  z-index: 10;
   transition:
     transform var(--pr-rise) var(--pr-ease-out),
     opacity 180ms ease;

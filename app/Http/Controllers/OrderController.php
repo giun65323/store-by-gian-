@@ -38,7 +38,7 @@ class OrderController extends Controller
     public function show(string $order_number)
     {
         $order = Order::where('order_number', $order_number)
-            ->with(['store', 'seller', 'buyer', 'product', 'messages.sender'])
+            ->with(['store', 'seller', 'buyer', 'product.reviews', 'messages.sender'])
             ->firstOrFail();
 
         // Pastikan hanya pihak terkait (buyer, seller, atau admin) yang bisa melihat
@@ -47,7 +47,11 @@ class OrderController extends Controller
             abort(403, 'Anda tidak memiliki akses ke rincian pesanan ini.');
         }
 
-        return view('orders.show', compact('order'));
+        $userReview = ($user && $order->product)
+            ? $order->product->reviews->firstWhere('user_id', $user->id)
+            : null;
+
+        return view('orders.show', compact('order', 'userReview'));
     }
 
     /**

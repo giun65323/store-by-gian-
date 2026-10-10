@@ -41,6 +41,9 @@
       if (!container) return;
 
       this.container = container;
+      const prevRoot = this.container.querySelector('.peek-rating');
+      if (prevRoot) prevRoot.remove();
+
       this.opts = Object.assign(
         {
           defaultValue: 0,
@@ -48,7 +51,7 @@
           count: 5,
           labels: ['1 of 5 (Kecewa)', '2 of 5 (Kurang)', '3 of 5 (Cukup)', '4 of 5 (Puas)', '5 of 5 (Sangat Puas)'],
           activeColor: '#f5b400',
-          idleColor: '#52525b',
+          idleColor: '#cbd5e1',
           tipColor: '#1e293b',
           tipTextColor: '#f8fafc',
           size: 32,
@@ -133,7 +136,8 @@
 
       // Hidden form input for Laravel POST submission
       if (inputName && !readOnly) {
-        let existingInput = this.container.querySelector(`input[name="${inputName}"]`);
+        let existingInput = this.container.querySelector(`input[name="${inputName}"]`) ||
+                            (this.container.closest?.('form')?.querySelector(`input[name="${inputName}"]`));
         if (!existingInput) {
           this.hiddenInput = document.createElement('input');
           this.hiddenInput.type = 'hidden';
@@ -363,6 +367,11 @@
 
     setValue(next) {
       this.commit(clamp(next, 0, this.opts.count));
+    }
+
+    refresh() {
+      this.measure();
+      this.paint();
     }
   }
 

@@ -8,9 +8,9 @@
 
     <!-- Breadcrumb -->
     <nav class="flex items-center gap-2 text-xs text-gray-400 mb-6">
-        <a href="{{ route('dashboard') }}" class="hover:text-[#0050ae] transition-colors">Home</a>
+        <a href="{{ route('dashboard') }}" class="hover:text-[#7c3aed] transition-colors">Home</a>
         <span>/</span>
-        <a href="{{ route('products.index') }}" class="hover:text-[#0050ae] transition-colors">Produk Saya</a>
+        <a href="{{ route('products.index') }}" class="hover:text-[#7c3aed] transition-colors">Produk Saya</a>
         <span>/</span>
         <span class="text-gray-700 font-semibold truncate max-w-xs">{{ $product->name }}</span>
     </nav>
@@ -46,7 +46,7 @@
                      alt="{{ $product->name }}"
                      class="w-12 h-12 rounded-lg object-cover shrink-0 border border-gray-200">
             @else
-                <div class="w-12 h-12 rounded-lg bg-[#0050ae] flex items-center justify-center text-white text-lg font-black shrink-0">
+                <div class="w-12 h-12 rounded-lg bg-[#7c3aed] flex items-center justify-center text-white text-lg font-black shrink-0">
                     {{ strtoupper(substr($product->name, 0, 1)) }}
                 </div>
             @endif
@@ -90,7 +90,7 @@
 
                 <!-- Drop zone -->
                 <div id="drop-zone"
-                     class="relative border-2 border-dashed border-gray-300 rounded-xl p-5 text-center cursor-pointer hover:border-[#0050ae] hover:bg-blue-50/50 transition-all group"
+                     class="relative border-2 border-dashed border-gray-300 rounded-xl p-5 text-center cursor-pointer hover:border-[#7c3aed] hover:bg-blue-50/50 transition-all group"
                      onclick="document.getElementById('image').click()">
 
                     <div id="image-preview-wrapper" class="hidden mb-3">
@@ -99,13 +99,13 @@
                     </div>
 
                     <div id="upload-placeholder">
-                        <div class="w-12 h-12 rounded-xl bg-blue-50 group-hover:bg-blue-100 text-[#0050ae] flex items-center justify-center mx-auto mb-2 transition-colors">
+                        <div class="w-12 h-12 rounded-xl bg-blue-50 group-hover:bg-blue-100 text-[#7c3aed] flex items-center justify-center mx-auto mb-2 transition-colors">
                             <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                       d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
                             </svg>
                         </div>
-                        <p class="text-xs font-bold text-gray-700 group-hover:text-[#0050ae] transition-colors">Klik untuk upload foto baru</p>
+                        <p class="text-xs font-bold text-gray-700 group-hover:text-[#7c3aed] transition-colors">Klik untuk upload foto baru</p>
                         <p class="text-[11px] text-gray-400 mt-0.5">PNG, JPG, WEBP — maks. 2 MB</p>
                     </div>
 
@@ -131,7 +131,7 @@
                     <span class="text-red-500 ml-0.5">*</span>
                 </label>
                 <input type="text" id="name" name="name" value="{{ old('name', $product->name) }}" required autofocus
-                       class="w-full border @error('name') border-red-400 bg-red-50 @else border-gray-300 @enderror rounded-xl px-4 py-2.5 text-xs text-gray-900 placeholder-gray-400 focus:outline-none focus:border-[#0050ae] focus:ring-2 focus:ring-[#0050ae]/15 transition-all">
+                       class="w-full border @error('name') border-red-400 bg-red-50 @else border-gray-300 @enderror rounded-xl px-4 py-2.5 text-xs text-gray-900 placeholder-gray-400 focus:outline-none focus:border-[#7c3aed] focus:ring-2 focus:ring-[#7c3aed]/15 transition-all">
             </div>
 
             <!-- Deskripsi Produk -->
@@ -142,7 +142,7 @@
                 </label>
                 <textarea id="description" name="description" rows="4"
                           placeholder="Jelaskan detail produk/akun/voucher game Anda. Misalnya: level akun, item langka, cara klaim kode voucher, syarat & ketentuan, dll."
-                          class="w-full border @error('description') border-red-400 bg-red-50 @else border-gray-300 @enderror rounded-xl px-4 py-2.5 text-xs text-gray-900 placeholder-gray-400 focus:outline-none focus:border-[#0050ae] focus:ring-2 focus:ring-[#0050ae]/15 transition-all">{{ old('description', $product->description) }}</textarea>
+                          class="w-full border @error('description') border-red-400 bg-red-50 @else border-gray-300 @enderror rounded-xl px-4 py-2.5 text-xs text-gray-900 placeholder-gray-400 focus:outline-none focus:border-[#7c3aed] focus:ring-2 focus:ring-[#7c3aed]/15 transition-all">{{ old('description', $product->description) }}</textarea>
                 <p class="text-[11px] text-gray-400 mt-1">Deskripsi yang jelas akan mempermudah pembeli memahami detail dagangan Anda.</p>
                 @error('description')
                     <p class="mt-1 text-xs text-red-500">{{ $message }}</p>
@@ -158,7 +158,7 @@
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     <!-- Option 1: Instan -->
                     <label class="relative flex items-start p-3.5 border-2 rounded-xl cursor-pointer transition-all border-amber-300 bg-amber-50/40 hover:border-amber-400">
-                        <input type="radio" name="delivery_type" value="instant" {{ old('delivery_type', $product->delivery_type ?? 'instant') === 'instant' ? 'checked' : '' }} class="mt-0.5 text-[#0050ae] focus:ring-[#0050ae]">
+                        <input type="radio" name="delivery_type" value="instant" {{ old('delivery_type', $product->delivery_type ?? 'instant') === 'instant' ? 'checked' : '' }} class="mt-0.5 text-[#7c3aed] focus:ring-[#7c3aed]">
                         <div class="ml-2.5">
                             <div class="flex items-center gap-1.5">
                                 <span class="bg-[#ffb800] text-gray-900 text-[10px] font-black px-1.5 py-0.5 rounded-sm">⚡ INSTAN</span>
@@ -172,10 +172,10 @@
 
                     <!-- Option 2: Biasa / Manual -->
                     <label class="relative flex items-start p-3.5 border-2 rounded-xl cursor-pointer transition-all border-blue-200 bg-blue-50/30 hover:border-blue-300">
-                        <input type="radio" name="delivery_type" value="regular" {{ old('delivery_type', $product->delivery_type ?? 'instant') === 'regular' ? 'checked' : '' }} class="mt-0.5 text-[#0050ae] focus:ring-[#0050ae]">
+                        <input type="radio" name="delivery_type" value="regular" {{ old('delivery_type', $product->delivery_type ?? 'instant') === 'regular' ? 'checked' : '' }} class="mt-0.5 text-[#7c3aed] focus:ring-[#7c3aed]">
                         <div class="ml-2.5">
                             <div class="flex items-center gap-1.5">
-                                <span class="bg-blue-100 text-[#0050ae] text-[10px] font-black px-1.5 py-0.5 rounded-sm">📦 BIASA</span>
+                                <span class="bg-blue-100 text-[#7c3aed] text-[10px] font-black px-1.5 py-0.5 rounded-sm">📦 BIASA</span>
                                 <span class="text-xs font-bold text-gray-900">Pesanan Biasa</span>
                             </div>
                             <p class="text-[11px] text-gray-500 mt-1 leading-snug">
@@ -198,7 +198,7 @@
                             <span class="text-gray-400 text-xs font-bold">Rp</span>
                         </div>
                         <input type="number" id="price" name="price" value="{{ old('price', $product->price) }}" required step="100" min="0"
-                               class="w-full border @error('price') border-red-400 bg-red-50 @else border-gray-300 @enderror rounded-xl pl-9 pr-3 py-2.5 text-xs text-gray-900 placeholder-gray-400 focus:outline-none focus:border-[#0050ae] focus:ring-2 focus:ring-[#0050ae]/15 transition-all">
+                               class="w-full border @error('price') border-red-400 bg-red-50 @else border-gray-300 @enderror rounded-xl pl-9 pr-3 py-2.5 text-xs text-gray-900 placeholder-gray-400 focus:outline-none focus:border-[#7c3aed] focus:ring-2 focus:ring-[#7c3aed]/15 transition-all">
                     </div>
                 </div>
 
@@ -208,7 +208,7 @@
                         <span class="text-red-500 ml-0.5">*</span>
                     </label>
                     <input type="number" id="stock" name="stock" value="{{ old('stock', $product->stock) }}" required min="0"
-                           class="w-full border @error('stock') border-red-400 bg-red-50 @else border-gray-300 @enderror rounded-xl px-3 py-2.5 text-xs text-gray-900 placeholder-gray-400 focus:outline-none focus:border-[#0050ae] focus:ring-2 focus:ring-[#0050ae]/15 transition-all">
+                           class="w-full border @error('stock') border-red-400 bg-red-50 @else border-gray-300 @enderror rounded-xl px-3 py-2.5 text-xs text-gray-900 placeholder-gray-400 focus:outline-none focus:border-[#7c3aed] focus:ring-2 focus:ring-[#7c3aed]/15 transition-all">
                 </div>
             </div>
 
@@ -216,7 +216,7 @@
             <div class="flex items-center justify-between pt-3 border-t border-gray-100">
                 <div class="flex items-center gap-3">
                     <button type="submit"
-                            class="inline-flex items-center gap-2 bg-[#0050ae] hover:bg-[#003d87] text-white font-bold px-6 py-2.5 rounded-xl shadow transition-all text-xs active:scale-[0.99]">
+                            class="inline-flex items-center gap-2 bg-[#7c3aed] hover:bg-[#6d28d9] text-white font-bold px-6 py-2.5 rounded-xl shadow transition-all text-xs active:scale-[0.99]">
                         <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" />
                         </svg>
@@ -283,14 +283,14 @@ const dropZone = document.getElementById('drop-zone');
 if (dropZone) {
     dropZone.addEventListener('dragover', (e) => {
         e.preventDefault();
-        dropZone.classList.add('border-[#0050ae]', 'bg-blue-50/50');
+        dropZone.classList.add('border-[#7c3aed]', 'bg-blue-50/50');
     });
     dropZone.addEventListener('dragleave', () => {
-        dropZone.classList.remove('border-[#0050ae]', 'bg-blue-50/50');
+        dropZone.classList.remove('border-[#7c3aed]', 'bg-blue-50/50');
     });
     dropZone.addEventListener('drop', (e) => {
         e.preventDefault();
-        dropZone.classList.remove('border-[#0050ae]', 'bg-blue-50/50');
+        dropZone.classList.remove('border-[#7c3aed]', 'bg-blue-50/50');
         const input = document.getElementById('image');
         input.files = e.dataTransfer.files;
         previewImage(input);

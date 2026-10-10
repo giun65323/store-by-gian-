@@ -1,131 +1,71 @@
 /**
- * Dock — Vanilla JS port of the React Bits Dock component.
- * Spring-physics magnification, no external dependencies.
+ * Dock — Vanilla JS port of the React Bits <Dock /> component.
+ * Exact React Bits spring-physics magnification, cosine-squared swell, and macOS-style launch hop physics.
  *
  * Usage:
- *   new Dock(containerElement, { items, panelHeight, baseItemSize, magnification, distance });
- *
+ *   new Dock(containerElement, { items, panelHeight, baseItemSize, magnification, distance, spring, bounce });
  *   Dock.mount('#dock-root', { items: [...] });
- *
- * items: Array of:
- *   { icon (HTML string), label (string), onClick (fn|null), href (string|null), active (bool) }
- *   or the string 'separator' to insert a visual divider.
  */
 
 (function (global) {
   'use strict';
 
-  /* ─────────────────────────────────────────
-     Simple spring integrator — replaces motion/react useSpring
-     Uses semi-implicit Euler integration (stable at any dt).
-     ───────────────────────────────────────── */
-  class Spring {
-    constructor({ mass = 0.1, stiffness = 150, damping = 12 } = {}) {
-      this.mass      = mass;
-      this.stiffness = stiffness;
-      this.damping   = damping;
-      this.current   = 0;
-      this.target    = 0;
-      this.velocity  = 0;
-      this._raf      = null;
-      this._cbs      = [];
-    }
+  const HOP = 0.4;
+  const HOP_TIME = 0.38;
 
-    setTarget(target) {
-      if (target === this.target && !this._raf) return;
-      this.target = target;
-      this._start();
-    }
+  const reducedMotion = () =>
+    typeof window !== 'undefined' && !!window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
 
-    setCurrent(val) {
-      this.current  = val;
-      this.target   = val;
-      this.velocity = 0;
-    }
-
-    onChange(cb) {
-      this._cbs.push(cb);
-      return () => { this._cbs = this._cbs.filter(f => f !== cb); };
-    }
-
-    _step(dt) {
-      const force     = -this.stiffness * (this.current - this.target);
-      const dampForce = -this.damping   * this.velocity;
-      const accel     = (force + dampForce) / this.mass;
-      this.velocity  += accel  * dt;
-      this.current   += this.velocity * dt;
-    }
-
-    _notify() { this._cbs.forEach(cb => cb(this.current)); }
-
-    _start() {
-      if (this._raf) return;
-      let last = performance.now();
-
-      const tick = (now) => {
-        const dt = Math.min((now - last) / 1000, 0.064);
-        last = now;
-        this._step(dt);
-        this._notify();
-
-        const settled =
-          Math.abs(this.current - this.target) < 0.05 &&
-          Math.abs(this.velocity) < 0.05;
-
-        if (settled) {
-          this.current = this.target;
-          this._notify();
-          this._raf = null;
-        } else {
-          this._raf = requestAnimationFrame(tick);
-        }
-      };
-      this._raf = requestAnimationFrame(tick);
-    }
-
-    destroy() {
-      if (this._raf) { cancelAnimationFrame(this._raf); this._raf = null; }
-      this._cbs = [];
-    }
-  }
-
-  /* ─────────────────────────────────────────
-     Dock class
-     ───────────────────────────────────────── */
   class Dock {
     /**
-     * @param {HTMLElement} container
-     * @param {object}      options
-     * @param {Array}       options.items           – [{ icon, label, onClick, href, active }] or 'separator'
-     * @param {number}      [options.panelHeight=64]
-     * @param {number}      [options.baseItemSize=48]
-     * @param {number}      [options.magnification=68]
-     * @param {number}      [options.distance=160]
-     * @param {string}      [options.className='']
-     * @param {object}      [options.spring]
+     * @param {HTMLElement|string} container
+     * @param {object} options
+     * @param {Array}  options.items           – [{ icon, label, onClick, href, active }] or 'separator'
+     * @param {number} [options.panelHeight=64]
+     * @param {number} [options.baseItemSize=46]
+     * @param {number} [options.magnification=70]
+     * @param {number} [options.distance=160]
+     * @param {number} [options.gap=10]
+     * @param {boolean} [options.bounce=true]
+     * @param {string} [options.className='']
+     * @param {object} [options.spring]        – { mass: 0.1, stiffness: 150, damping: 12 }
      */
     constructor(container, options = {}) {
+      if (typeof container === 'string') {
+        container = document.querySelector(container);
+      }
+      if (!container) return;
+
       this.container     = container;
       this.items         = options.items          ?? [];
       this.panelHeight   = options.panelHeight    ?? 64;
-      this.baseItemSize  = options.baseItemSize   ?? 48;
-      this.magnification = options.magnification  ?? 68;
-      this.distance      = options.distance       ?? 160;
+      this.baseItemSize  = options.baseItemSize   ?? 46;
+      this.magnification = options.magnification  ?? 70;
+      this.distance      = Math.max(1, options.distance ?? 160);
+      this.gap           = options.gap            ?? 10;
+      this.bounce        = options.bounce         ?? true;
       this.className     = options.className      ?? '';
-      this.springCfg     = options.spring         ?? { mass: 0.1, stiffness: 150, damping: 12 };
 
-      this._mouseX   = Infinity;
-      this._hovered  = false;
-      this._springs  = [];   // one Spring per interactive item (not separators)
-      this._itemEls  = [];   // mirrors this.items indices (null for separators)
+      const spr = options.spring ?? {};
+      this.springCfg = {
+        mass:      Math.max(0.01, spr.mass      ?? 0.1),
+        stiffness: Math.max(1,    spr.stiffness ?? 150),
+        damping:   Math.max(0,    spr.damping   ?? 12),
+      };
+
+      this._itemEls  = []; // elements corresponding to this.items (null for separators)
       this._cleanups = [];
+      this._alive    = true;
 
       this._build();
-      this._bind();
+      this._initAnimation();
     }
 
-    /* ── DOM ── */
+    /* ── DOM Generation ── */
     _build() {
+      // Clear container in case of remount
+      this.container.innerHTML = '';
+
       this._outer = document.createElement('div');
       this._outer.className = 'dock-outer';
 
@@ -136,169 +76,317 @@
       this._panel.style.height = this.panelHeight + 'px';
 
       this.items.forEach((item, i) => {
-        if (item === 'separator') {
+        const isSep = item === 'separator' || item?.separator === true;
+        if (isSep) {
           const sep = document.createElement('div');
           sep.className = 'dock-separator';
           sep.setAttribute('aria-hidden', 'true');
           this._panel.appendChild(sep);
           this._itemEls.push(null);
-          this._springs.push(null);
           return;
         }
 
-        const el = this._buildItem(item, i);
+        const tag = item.href ? 'a' : 'button';
+        const el  = document.createElement(tag);
+        if (tag === 'button') el.type = 'button';
+
+        el.className = [
+          'dock-item',
+          item.active    ? 'dock-item--active' : '',
+          item.className ? item.className      : ''
+        ].filter(Boolean).join(' ');
+
+        el.setAttribute('tabindex', '0');
+        el.setAttribute('role', item.href ? 'link' : 'button');
+        el.setAttribute('aria-label', item.label ?? '');
+        if (item.href) el.href = item.href;
+
+        // Icon wrapper
+        const iconWrap = document.createElement('div');
+        iconWrap.className = 'dock-icon';
+        iconWrap.innerHTML = item.icon ?? '';
+        el.appendChild(iconWrap);
+
+        // Tooltip label
+        const label = document.createElement('span');
+        label.className = 'dock-label';
+        label.setAttribute('role', 'tooltip');
+        label.textContent = item.label ?? '';
+        el.appendChild(label);
+
+        // Set initial resting size
+        el.style.width  = this.baseItemSize + 'px';
+        el.style.height = this.baseItemSize + 'px';
+
         this._itemEls.push(el);
         this._panel.appendChild(el);
-
-        const spring = new Spring(this.springCfg);
-        spring.setCurrent(this.baseItemSize);
-        this._springs.push(spring);
-
-        const unsub = spring.onChange(size => {
-          el.style.width  = size + 'px';
-          el.style.height = size + 'px';
-          const iconEl = el.querySelector('.dock-icon');
-          if (iconEl) {
-            const scale = size / this.baseItemSize;
-            iconEl.style.transform = `scale(${scale})`;
-          }
-        });
-        this._cleanups.push(unsub);
       });
 
       this._outer.appendChild(this._panel);
       this.container.appendChild(this._outer);
-
-      // Set initial sizes
-      this._itemEls.forEach((el) => {
-        if (!el) return;
-        el.style.width  = this.baseItemSize + 'px';
-        el.style.height = this.baseItemSize + 'px';
-      });
     }
 
-    _buildItem(item, index) {
-      const tag = item.href ? 'a' : 'div';
-      const el  = document.createElement(tag);
-
-      el.className = [
-        'dock-item',
-        item.active    ? 'dock-item--active' : '',
-        item.className ? item.className      : ''
-      ].filter(Boolean).join(' ');
-
-      el.setAttribute('tabindex', '0');
-      el.setAttribute('role', 'button');
-      el.setAttribute('aria-label', item.label ?? '');
-      if (item.href) {
-        el.href = item.href;
-        el.setAttribute('role', 'link');
-        delete el.dataset.role; // clean up
-      }
-
-      // Icon
-      const iconWrap = document.createElement('div');
-      iconWrap.className = 'dock-icon';
-      iconWrap.innerHTML = item.icon ?? '';
-      el.appendChild(iconWrap);
-
-      // Tooltip label
-      const label = document.createElement('span');
-      label.className = 'dock-label';
-      label.setAttribute('role', 'tooltip');
-      label.textContent = item.label ?? '';
-      el.appendChild(label);
-
-      return el;
-    }
-
-    /* ── Events ── */
-    _bind() {
+    /* ── React Bits Animation Engine ── */
+    _initAnimation() {
       const panel = this._panel;
+      const reduce = reducedMotion();
 
-      const onMouseMove = (e) => {
-        this._mouseX  = e.clientX;   // clientX for viewport-relative magnification
-        this._hovered = true;
-        this._update();
-      };
-
-      const onMouseLeave = () => {
-        this._mouseX  = Infinity;
-        this._hovered = false;
-        this._update();
-      };
-
-      const onKeyDown = (e) => {
-        if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault();
-          const idx  = this._itemEls.indexOf(e.target);
-          const item = this.items[idx];
-          if (item?.onClick) item.onClick(e);
+      // State per interactive item
+      const motion = new Map();
+      const entry = (index) => {
+        let state = motion.get(index);
+        if (!state) {
+          state = {
+            size: this.baseItemSize,
+            velocity: 0,
+            lift: 0,
+            rise: 0,
+            launch: 0,
+            gravity: 0,
+            hopping: false,
+          };
+          motion.set(index, state);
         }
+        return state;
       };
 
-      panel.addEventListener('mousemove',  onMouseMove);
-      panel.addEventListener('mouseleave', onMouseLeave);
+      const pointer = { x: 0, y: 0, inside: false };
+      let focused = -1;
+      let raf = 0;
+      let last = 0;
+
+      // Single synchronized tick loop for all items
+      const tick = (now) => {
+        raf = 0;
+        if (!this._alive) return;
+
+        const dt = Math.min(1 / 30, Math.max(0.001, (now - last) / 1000));
+        last = now;
+
+        const rect = panel.getBoundingClientRect();
+        const center = rect.left + rect.width / 2;
+
+        // Pre-calculate resting item positions relative to dock center
+        const spans = this.items.map(item => (item === 'separator' || item?.separator ? 1 : this.baseItemSize));
+        let cursor = -(spans.reduce((sum, span) => sum + span, 0) + this.gap * Math.max(0, spans.length - 1)) / 2;
+        const rest = spans.map(span => {
+          const middle = cursor + span / 2;
+          cursor += span + this.gap;
+          return middle;
+        });
+
+        // Determine focal point
+        let focus = null;
+        if (pointer.inside) {
+          focus = pointer.x - center;
+        } else if (focused >= 0 && rest[focused] !== undefined) {
+          focus = rest[focused];
+        }
+
+        const steps = Math.max(1, Math.ceil(dt * 240));
+        const h = dt / steps;
+        const k = this.springCfg.stiffness / this.springCfg.mass;
+        const c = this.springCfg.damping   / this.springCfg.mass;
+        let moving = false;
+
+        this.items.forEach((item, index) => {
+          const node = this._itemEls[index];
+          if (!node || item === 'separator' || item?.separator) return;
+
+          const state = entry(index);
+          const reach = focus === null ? 1 : Math.abs(focus - rest[index]) / this.distance;
+
+          // Parabolic cosine-squared curve from React Bits
+          const target = this.baseItemSize + (this.magnification - this.baseItemSize) * (reach < 1 ? Math.cos((reach * Math.PI) / 2) ** 2 : 0);
+
+          if (reduce) {
+            state.size = target;
+            state.velocity = 0;
+            state.lift = 0;
+            state.hopping = false;
+          } else {
+            // Sub-stepped semi-implicit Euler integration
+            for (let s = 0; s < steps; s++) {
+              state.velocity = (state.velocity + h * k * (target - state.size)) / (1 + h * c + h * h * k);
+              state.size += state.velocity * h;
+
+              // macOS-style Launch & Hop physics
+              if (state.hopping) {
+                state.rise -= state.gravity * h;
+                state.lift += state.rise * h;
+                if (state.lift <= 0) {
+                  state.lift = 0;
+                  state.rise *= -0.36; // Ground collision bounce restitution
+                  if (Math.abs(state.rise) < state.launch * 0.2) {
+                    state.rise = 0;
+                    state.hopping = false;
+                    node.removeAttribute('data-hop');
+                  }
+                }
+              }
+            }
+          }
+
+          if (Math.abs(state.velocity) < 0.01 && Math.abs(target - state.size) < 0.01) {
+            state.size = target;
+            state.velocity = 0;
+          } else {
+            moving = true;
+          }
+
+          if (state.hopping) moving = true;
+
+          // Render updated size and lift
+          const size = Math.max(1, state.size);
+          node.style.width  = size.toFixed(2) + 'px';
+          node.style.height = size.toFixed(2) + 'px';
+
+          const iconEl = node.querySelector('.dock-icon');
+          if (iconEl) {
+            iconEl.style.transform = `scale(${(size / this.baseItemSize).toFixed(3)})`;
+          }
+
+          if (state.lift > 0.01) {
+            node.style.transform = `translateY(${-state.lift.toFixed(2)}px)`;
+          } else if (node.style.transform) {
+            node.style.transform = '';
+          }
+        });
+
+        if (moving) raf = requestAnimationFrame(tick);
+      };
+
+      const wake = () => {
+        if (raf || !this._alive) return;
+        last = performance.now();
+        raf = requestAnimationFrame(tick);
+      };
+
+      // Hop trigger
+      this.hop = (index) => {
+        const node = this._itemEls[index];
+        if (reduce || !this.bounce || !node) return;
+
+        const state = entry(index);
+        if (state.hopping) return;
+
+        const height = state.size * HOP;
+        state.gravity = (8 * height) / (HOP_TIME * HOP_TIME);
+        state.launch  = (state.gravity * HOP_TIME) / 2;
+        state.rise    = state.launch;
+        state.hopping = true;
+        node.setAttribute('data-hop', '');
+        wake();
+      };
+
+      // Pointer event listeners
+      const onMove = (e) => {
+        pointer.x = e.clientX;
+        pointer.y = e.clientY;
+        pointer.inside = true;
+        wake();
+      };
+
+      const onLeave = () => {
+        pointer.inside = false;
+        wake();
+      };
+
+      panel.addEventListener('pointermove',   onMove);
+      panel.addEventListener('pointerenter',  onMove);
+      panel.addEventListener('pointerleave',  onLeave);
+      panel.addEventListener('pointercancel', onLeave);
+
       this._cleanups.push(() => {
-        panel.removeEventListener('mousemove',  onMouseMove);
-        panel.removeEventListener('mouseleave', onMouseLeave);
+        panel.removeEventListener('pointermove',   onMove);
+        panel.removeEventListener('pointerenter',  onMove);
+        panel.removeEventListener('pointerleave',  onLeave);
+        panel.removeEventListener('pointercancel', onLeave);
       });
+
+      // Item interactions & keyboard support
+      const getNextIndex = (current, dir) => {
+        const len = this.items.length;
+        let idx = current;
+        for (let step = 0; step < len; step++) {
+          idx = (idx + dir + len) % len;
+          if (this._itemEls[idx] !== null) return idx;
+        }
+        return -1;
+      };
 
       this._itemEls.forEach((el, i) => {
         if (!el) return;
         const item = this.items[i];
 
+        // Click / Hop handler
+        const onClick = (e) => {
+          this.hop(i);
+
+          if (item.onClick) {
+            item.onClick(e);
+          }
+
+          if (item.href) {
+            // If navigating to a different page, let the bounce launch before navigating
+            if (item.href !== window.location.pathname) {
+              e.preventDefault();
+              setTimeout(() => {
+                window.location.href = item.href;
+              }, 200);
+            }
+          }
+        };
+
+        el.addEventListener('click', onClick);
+        this._cleanups.push(() => el.removeEventListener('click', onClick));
+
+        // Focus → Magnify
+        const onFocus = () => {
+          focused = i;
+          wake();
+        };
+
+        const onBlur = () => {
+          if (focused === i) focused = -1;
+          wake();
+        };
+
+        el.addEventListener('focus', onFocus);
+        el.addEventListener('blur',  onBlur);
+        this._cleanups.push(() => {
+          el.removeEventListener('focus', onFocus);
+          el.removeEventListener('blur',  onBlur);
+        });
+
+        // Keyboard arrow navigation
+        const onKeyDown = (e) => {
+          if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
+            e.preventDefault();
+            const next = getNextIndex(i, 1);
+            if (next !== -1) this._itemEls[next]?.focus();
+          } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+            e.preventDefault();
+            const prev = getNextIndex(i, -1);
+            if (prev !== -1) this._itemEls[prev]?.focus();
+          } else if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            el.click();
+          }
+        };
+
         el.addEventListener('keydown', onKeyDown);
-
-        if (item?.onClick && !item.href) {
-          el.addEventListener('click', item.onClick);
-          this._cleanups.push(() => el.removeEventListener('click', item.onClick));
-        }
-
-        // Focus → magnify that item
-        el.addEventListener('focus', () => {
-          const rect = el.getBoundingClientRect();
-          this._mouseX  = rect.left + rect.width / 2;
-          this._hovered = true;
-          this._update();
-        });
-        el.addEventListener('blur', () => {
-          this._mouseX  = Infinity;
-          this._hovered = false;
-          this._update();
-        });
+        this._cleanups.push(() => el.removeEventListener('keydown', onKeyDown));
       });
-    }
 
-    /* ── Magnification ── */
-    _targetSizeForItem(index) {
-      const el = this._itemEls[index];
-      if (!el) return this.baseItemSize;
-
-      const rect       = el.getBoundingClientRect();
-      const itemCenter = rect.left + rect.width / 2;
-      const diff       = this._mouseX - itemCenter;
-
-      if (!this._hovered || Math.abs(diff) > this.distance) {
-        return this.baseItemSize;
-      }
-
-      // Smooth cosine falloff: peak at diff=0, base at ±distance
-      const t = 1 - Math.abs(diff) / this.distance;
-      const smooth = t * t * (3 - 2 * t); // smoothstep
-      return this.baseItemSize + (this.magnification - this.baseItemSize) * smooth;
-    }
-
-    _update() {
-      this._springs.forEach((spring, i) => {
-        if (!spring) return;
-        spring.setTarget(this._targetSizeForItem(i));
-      });
+      wake();
     }
 
     /* ── Public API ── */
 
-    /** Update the active state of an item by index */
+    /**
+     * Update active dot state for an item by index
+     */
     setActive(index, active = true) {
       const el = this._itemEls[index];
       if (!el) return;
@@ -306,17 +394,17 @@
       else        el.classList.remove('dock-item--active');
     }
 
+    /**
+     * Cleanup and remove dock
+     */
     destroy() {
+      this._alive = false;
       this._cleanups.forEach(fn => fn());
-      this._springs.forEach(s => s?.destroy());
       this._outer?.parentNode?.removeChild(this._outer);
     }
 
     /**
-     * Static mount helper.
-     * @param {string|HTMLElement} selector
-     * @param {object} options
-     * @returns {Dock}
+     * Static mount helper
      */
     static mount(selector, options) {
       const container = typeof selector === 'string'
@@ -332,4 +420,4 @@
 
   global.Dock = Dock;
 
-})(window);
+})(typeof window !== 'undefined' ? window : this);

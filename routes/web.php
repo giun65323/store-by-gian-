@@ -35,7 +35,10 @@ Route::get('/help-center', [HelpCenterController::class, 'index'])->name('help.i
 Route::post('/help-center/ai-chat', [HelpCenterController::class, 'chatAi'])->name('help.ai.chat');
 
 // ==== Detail Produk Publik & Ulasan Bintang ====
-Route::get('/products/{product}', [ProductController::class, 'show'])->name('products.show');
+Route::get('/products/{product}', [ProductController::class, 'show'])->name('products.show')->whereNumber('product');
+
+// ==== Profil Toko & Katalog Dagangan Penjual ====
+Route::get('/stores/{store}', [App\Http\Controllers\StoreController::class, 'show'])->name('stores.show');
 
 // ==== Guest only (belum login) ====
 Route::middleware('guest')->group(function () {

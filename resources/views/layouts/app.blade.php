@@ -36,13 +36,13 @@
                     },
                     colors: {
                         itemku: {
-                            50:  '#eff6ff',
-                            100: '#dbeafe',
-                            500: '#0050ae',
-                            600: '#003d87',
-                            700: '#072a60',
-                            dark: '#051e46',
-                            subnav: '#08326e',
+                            50:  '#f5f3ff',
+                            100: '#ede9fe',
+                            500: '#7c3aed',
+                            600: '#6d28d9',
+                            700: '#5b21b6',
+                            dark: '#2e1065',
+                            subnav: '#1e0842',
                             orange: '#ff5e00',
                             yellow: '#ffb800',
                             gold: '#f59e0b',
@@ -153,10 +153,10 @@
                         <div id="header-chat-dropdown"
                              class="hidden absolute right-0 mt-2 w-80 sm:w-96 bg-white dark:bg-[#101422] rounded-2xl shadow-2xl border border-gray-100 dark:border-gray-800 z-[120] overflow-hidden text-gray-900 dark:text-gray-100">
                             <!-- Dropdown Header -->
-                            <div class="px-4 py-3 bg-[#0050ae] text-white flex items-center justify-between">
+                            <div class="px-4 py-3 bg-gradient-to-r from-[#4c1d95] to-[#6d28d9] text-white flex items-center justify-between">
                                 <div class="flex items-center gap-2">
                                     <span class="text-base">💬</span>
-                                    <h4 class="font-bold text-xs">Pesan & Obrolan Transaksi</h4>
+                                    <h4 class="font-bold text-xs">Pesan &amp; Obrolan Transaksi</h4>
                                 </div>
                                 <span id="chat-unread-count-text" class="text-[10px] bg-white/20 px-2 py-0.5 rounded-full font-bold">0 Baru</span>
                             </div>
@@ -171,8 +171,8 @@
 
                             <!-- Dropdown Footer -->
                             <div class="p-2.5 bg-gray-50 dark:bg-gray-900 border-t border-gray-100 dark:border-gray-800 text-center">
-                                <a href="{{ route('orders.index') }}" class="text-[11px] font-bold text-[#0050ae] dark:text-[#ffb800] hover:underline flex items-center justify-center gap-1">
-                                    <span>Lihat Semua Pesanan & Transaksi</span>
+                                <a href="{{ route('orders.index') }}" class="text-[11px] font-bold text-[#7c3aed] dark:text-purple-300 hover:underline flex items-center justify-center gap-1">
+                                    <span>Lihat Semua Pesanan &amp; Transaksi</span>
                                     <span>→</span>
                                 </a>
                             </div>
@@ -341,36 +341,36 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
             <div class="grid grid-cols-2 md:grid-cols-4 gap-8 mb-8">
                 <div>
-                    <h4 class="font-bold text-gray-900 mb-3 text-sm">Tentang gian games</h4>
+                    <h4 class="font-bold text-gray-900 dark:text-white mb-3 text-sm">Tentang gian games</h4>
                     <ul class="space-y-2">
-                        <li><a href="#" class="hover:text-[#0050ae]">Tentang Kami</a></li>
-                        <li><a href="#" class="hover:text-[#0050ae]">Aturan Penggunaan</a></li>
-                        <li><a href="#" class="hover:text-[#0050ae]">Kebijakan Privasi</a></li>
-                        <li><a href="#" class="hover:text-[#0050ae]">Karir</a></li>
+                        <li><a href="{{ route('help.index') }}" class="hover:text-[#7c3aed] transition-colors">Tentang Kami</a></li>
+                        <li><a href="{{ route('help.index') }}" class="hover:text-[#7c3aed] transition-colors">Aturan Penggunaan</a></li>
+                        <li><a href="{{ route('help.index') }}" class="hover:text-[#7c3aed] transition-colors">Kebijakan Privasi</a></li>
+                        <li><a href="{{ route('help.index') }}" class="hover:text-[#7c3aed] transition-colors">Pusat Karir &amp; Mitra</a></li>
                     </ul>
                 </div>
                 <div>
-                    <h4 class="font-bold text-gray-900 mb-3 text-sm">Panduan Pembeli</h4>
+                    <h4 class="font-bold text-gray-900 dark:text-white mb-3 text-sm">Panduan Pembeli</h4>
                     <ul class="space-y-2">
-                        <li><a href="{{ route('help.index') }}?tab=buyer" class="hover:text-[#0050ae]">Cara Membeli</a></li>
-                        <li><a href="{{ route('help.index') }}?tab=buyer" class="hover:text-[#0050ae]">Garansi 100%</a></li>
-                        <li><a href="{{ route('help.index') }}?tab=buyer" class="hover:text-[#0050ae]">Metode Pembayaran</a></li>
-                        <li><a href="{{ route('help.index') }}" class="hover:text-[#0050ae] font-semibold text-[#0050ae]">FAQ & Pusat Bantuan</a></li>
+                        <li><a href="{{ route('help.index') }}?tab=buyer" class="hover:text-[#7c3aed] transition-colors">Cara Membeli</a></li>
+                        <li><a href="{{ route('help.index') }}?tab=buyer" class="hover:text-[#7c3aed] transition-colors">Garansi 100%</a></li>
+                        <li><a href="{{ route('help.index') }}?tab=buyer" class="hover:text-[#7c3aed] transition-colors">Metode Pembayaran</a></li>
+                        <li><a href="{{ route('help.index') }}" class="hover:text-[#7c3aed] font-semibold text-[#7c3aed] transition-colors">FAQ &amp; Pusat Bantuan</a></li>
                     </ul>
                 </div>
                 <div>
-                    <h4 class="font-bold text-gray-900 mb-3 text-sm">Panduan Penjual</h4>
+                    <h4 class="font-bold text-gray-900 dark:text-white mb-3 text-sm">Panduan Penjual</h4>
                     <ul class="space-y-2">
-                        <li><a href="{{ route('products.create') }}" class="hover:text-[#0050ae]">Cara Berjualan</a></li>
-                        <li><a href="{{ route('help.index') }}?tab=seller" class="hover:text-[#0050ae]">Fitur Tokoku</a></li>
-                        <li><a href="{{ route('help.index') }}?tab=seller" class="hover:text-[#0050ae]">Ketentuan Penjualan</a></li>
-                        <li><a href="{{ route('help.index') }}?tab=seller" class="hover:text-[#0050ae]">Pusat Bantuan Seller</a></li>
+                        <li><a href="{{ route('products.create') }}" class="hover:text-[#7c3aed] transition-colors">Cara Berjualan</a></li>
+                        <li><a href="{{ route('help.index') }}?tab=seller" class="hover:text-[#7c3aed] transition-colors">Fitur Tokoku</a></li>
+                        <li><a href="{{ route('help.index') }}?tab=seller" class="hover:text-[#7c3aed] transition-colors">Ketentuan Penjualan</a></li>
+                        <li><a href="{{ route('help.index') }}?tab=seller" class="hover:text-[#7c3aed] transition-colors">Pusat Bantuan Seller</a></li>
                     </ul>
                 </div>
                 <div>
-                    <h4 class="font-bold text-gray-900 mb-3 text-sm">Hubungi Kami</h4>
+                    <h4 class="font-bold text-gray-900 dark:text-white mb-3 text-sm">Hubungi Kami</h4>
                     <p class="text-gray-400 mb-3">Layanan pelanggan Gian Care siap sedia 24 jam setiap hari.</p>
-                    <a href="{{ route('help.index') }}" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-[11px] font-bold bg-[#0050ae] text-white hover:bg-[#003d87] transition-all shadow-xs">
+                    <a href="{{ route('help.index') }}" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-[11px] font-bold bg-[#7c3aed] text-white hover:bg-[#6d28d9] transition-all shadow-xs">
                         <span>🎧 Mulai Chat Bantuan</span>
                     </a>
                 </div>
@@ -383,123 +383,94 @@
     @endauth
 
     @auth
-    <!-- ===== ITEMKU STYLE USER PROFILE DRAWER / MODAL ===== -->
-    <div id="profile-drawer-backdrop" class="fixed inset-0 bg-black/40 backdrop-blur-xs z-[100] opacity-0 pointer-events-none transition-opacity duration-300"></div>
+    <!-- ===== USER PROFILE DRAWER / SIDEBAR (PURPLE THEME & ANTISLOP CRAFTED) ===== -->
+    <div id="profile-drawer-backdrop" class="fixed inset-0 bg-black/50 backdrop-blur-xs z-[100] opacity-0 pointer-events-none transition-opacity duration-300"></div>
 
     <aside id="profile-drawer"
-           class="fixed top-0 right-0 h-full w-full max-w-sm sm:max-w-md bg-[#f8fafd] z-[101] shadow-2xl transform translate-x-full transition-transform duration-300 ease-in-out flex flex-col overflow-y-auto">
+           class="fixed top-0 right-0 h-full w-full max-w-sm sm:max-w-md bg-[#faf8fd] dark:bg-[#0f091c] z-[101] shadow-2xl transform translate-x-full transition-transform duration-300 ease-in-out flex flex-col overflow-y-auto">
         
-        <!-- Drawer Header (Deep Blue) -->
-        <div class="bg-[#0050ae] text-white p-5 relative overflow-hidden shrink-0">
+        <!-- Drawer Header (Deep Purple Royal Theme) -->
+        <div class="bg-gradient-to-br from-[#4c1d95] via-[#581c87] to-[#3b0764] text-white p-5 relative overflow-hidden shrink-0">
+            <!-- Subtle ambient illumination -->
+            <div class="absolute -top-12 -right-12 w-48 h-48 bg-purple-400/10 rounded-full blur-2xl pointer-events-none"></div>
+
             <!-- Top icons row in drawer -->
-            <div class="flex items-center justify-between gap-3 text-white/90 mb-4">
-                <button type="button" id="close-profile-drawer" class="p-1 hover:bg-white/10 rounded-full transition-colors text-white" title="Tutup">
+            <div class="flex items-center justify-between gap-3 text-white/90 mb-4 relative z-10">
+                <button type="button" id="close-profile-drawer" class="p-1.5 hover:bg-white/10 rounded-xl transition-colors text-white cursor-pointer" title="Tutup Menu">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12" />
                     </svg>
                 </button>
-                <div class="flex items-center gap-3">
-                    <span class="inline-block w-4 h-2.5 bg-red-600 border border-white/50 rounded-xs relative overflow-hidden" title="Indonesia">
-                        <span class="absolute inset-x-0 bottom-0 h-1.5 bg-white"></span>
-                    </span>
-                    <button class="hover:text-white" title="Pesan">
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+                <div class="flex items-center gap-2">
+                    <button type="button" onclick="if(window.toggleChatDropdown) toggleChatDropdown();" class="p-1.5 hover:bg-white/10 rounded-xl transition-colors hover:text-white cursor-pointer" title="Pesan Transaksi">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"/></svg>
                     </button>
-                    <button class="hover:text-white" title="Notifikasi">
+                    <button type="button" class="p-1.5 hover:bg-white/10 rounded-xl transition-colors hover:text-white cursor-pointer" title="Notifikasi Akun">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/></svg>
                     </button>
-                    <button class="hover:text-white relative" title="Keranjang">
+                    <button type="button" onclick="if(window.openCartDrawer) openCartDrawer();" class="p-1.5 hover:bg-white/10 rounded-xl transition-colors hover:text-white relative cursor-pointer" title="Keranjang Belanja">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
-                        <span class="absolute -top-1.5 -right-1.5 w-3.5 h-3.5 bg-[#ff5e00] text-white text-[9px] font-bold rounded-full flex items-center justify-center">1</span>
                     </button>
-                    <a href="{{ route('profile.edit') }}" class="hover:text-white p-1 rounded-full hover:bg-white/10 transition-colors" title="Pengaturan Akun & Edit Profile">
+                    <a href="{{ route('profile.edit') }}" class="p-1.5 hover:bg-white/10 rounded-xl transition-colors hover:text-white" title="Pengaturan Akun & Profil">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
                     </a>
                 </div>
             </div>
 
-            <!-- Profile Info Row (Click to Edit Profile) -->
-            <a href="{{ route('profile.edit') }}" class="flex items-center gap-3.5 group cursor-pointer" title="Klik untuk Edit Profile">
-                <div class="relative w-14 h-14 rounded-full bg-gradient-to-tr from-sky-400 via-indigo-500 to-purple-600 p-0.5 shadow-md shrink-0 group-hover:scale-105 transition-transform">
+            <!-- Profile Info Row (Clean, Authentic, No Fake Gamification) -->
+            <a href="{{ route('profile.edit') }}" class="flex items-center gap-3.5 group cursor-pointer relative z-10" title="Klik untuk Edit Profil">
+                <div class="relative w-14 h-14 rounded-2xl p-0.5 ring-2 ring-purple-300/40 shadow-lg shrink-0 group-hover:scale-105 transition-transform bg-gradient-to-tr from-purple-500 via-indigo-600 to-amber-400">
                     @if(auth()->user()->avatar_url)
-                        <img src="{{ auth()->user()->avatar_url }}" alt="{{ auth()->user()->name }}" class="w-full h-full rounded-full object-cover" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                        <div class="w-full h-full rounded-full bg-[#08326e] items-center justify-center text-white font-extrabold text-lg" style="display:none;">
+                        <img src="{{ auth()->user()->avatar_url }}" alt="{{ auth()->user()->name }}" class="w-full h-full rounded-[14px] object-cover" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div class="w-full h-full rounded-[14px] bg-[#2e1065] items-center justify-center text-white font-black text-xl" style="display:none;">
                             {{ strtoupper(substr(auth()->user()->name, 0, 1)) }}
                         </div>
                     @else
-                        <div class="w-full h-full rounded-full bg-[#08326e] flex items-center justify-center text-white font-extrabold text-lg">
+                        <div class="w-full h-full rounded-[14px] bg-[#2e1065] flex items-center justify-center text-white font-black text-xl">
                             {{ strtoupper(substr(auth()->user()->name, 0, 1)) }}
                         </div>
                     @endif
-                    <!-- Floating Pencil Edit Badge -->
-                    <span class="absolute -bottom-0.5 -right-0.5 w-5 h-5 rounded-full bg-white text-gray-800 shadow-md flex items-center justify-center text-[10px] border border-gray-100 group-hover:bg-[#0050ae] group-hover:text-white transition-colors" title="Edit Profil">
-                        ✏️
-                    </span>
                 </div>
-                <div>
-                    <h3 class="font-extrabold text-base text-white leading-tight flex items-center gap-1.5 group-hover:text-amber-300 transition-colors">
+                <div class="min-w-0">
+                    <h3 class="font-extrabold text-base text-white leading-tight flex items-center gap-1.5 group-hover:text-purple-200 transition-colors truncate">
                         <span>{{ auth()->user()->name }}</span>
-                        <span class="text-xs opacity-70 group-hover:opacity-100">✏️</span>
                     </h3>
-                    <div class="flex items-center gap-2 mt-1 text-xs">
-                        <div class="flex items-center gap-1 bg-black/20 px-2 py-0.5 rounded-full font-bold text-amber-300">
-                            <span>🪙</span> 0 Token
-                        </div>
-                        <span class="text-white/40">|</span>
-                        <div class="flex items-center gap-1 bg-black/20 px-2 py-0.5 rounded-full font-bold text-sky-300">
-                            <span>🎟️</span> 0 Coupons
-                        </div>
+                    <div class="flex items-center gap-2 mt-1.5 flex-wrap">
+                        @if(auth()->user()->isAdmin())
+                            <span class="inline-flex items-center gap-1 bg-amber-400/20 text-amber-300 border border-amber-400/30 px-2 py-0.5 rounded-full font-black text-[10px]">
+                                🛡️ Admin
+                            </span>
+                        @elseif(auth()->user()->isSeller())
+                            <span class="inline-flex items-center gap-1 bg-purple-400/20 text-purple-200 border border-purple-400/30 px-2 py-0.5 rounded-full font-bold text-[10px]">
+                                🏬 Penjual
+                            </span>
+                        @else
+                            <span class="inline-flex items-center gap-1 bg-white/15 text-white/90 border border-white/20 px-2 py-0.5 rounded-full font-medium text-[10px]">
+                                👤 Pembeli
+                            </span>
+                        @endif
+                        <span class="text-[11px] text-purple-200/75 truncate">{{ auth()->user()->email }}</span>
                     </div>
                 </div>
             </a>
-
-            <!-- Quest EXP Progress Bar -->
-            <div class="mt-4 pt-3 border-t border-white/15">
-                <div class="flex items-center justify-between text-[11px] font-semibold text-white/90 mb-1">
-                    <span>Quest: <strong class="text-amber-300">Level 1</strong></span>
-                    <span class="text-white/70">0/- EXP</span>
-                </div>
-                <div class="flex items-center gap-2">
-                    <div class="flex-1 bg-black/30 rounded-full h-2 overflow-hidden">
-                        <div class="bg-gradient-to-r from-amber-400 to-[#ffb800] h-full w-2"></div>
-                    </div>
-                    <span class="text-lg" title="Hadiah Quest">🎁</span>
-                </div>
-            </div>
-
         </div>
 
-        <!-- Floating Wallet Cards (3 Column) -->
+        <!-- Floating Saldo & Status Card (Real Information) -->
         <div class="px-4 -mt-3 relative z-10">
-            <div class="bg-white rounded-2xl p-3 shadow-md border border-gray-100 grid grid-cols-3 divide-x divide-gray-100 text-center">
-                <!-- DANA -->
-                <div class="px-2">
-                    <a href="https://www.dana.id/" target="_blank" rel="noopener noreferrer" class="group block">
-                        <div class="flex items-center justify-center gap-1 text-[11px] font-bold text-sky-600 mb-0.5">
-                            <span class="w-3.5 h-3.5 rounded-full bg-sky-500 text-white text-[9px] flex items-center justify-center font-black">D</span>
-                            <span>DANA</span>
-                        </div>
-                        <p class="text-xs font-bold text-blue-600 group-hover:underline">Connect</p>
-                    </a>
-                </div>
-                <!-- OVO -->
-                <div class="px-2">
-                    <a href="https://www.ovo.id/" target="_blank" rel="noopener noreferrer" class="group block">
-                        <div class="flex items-center justify-center gap-1 text-[11px] font-bold text-purple-600 mb-0.5">
-                            <span class="w-3.5 h-3.5 rounded-full bg-purple-600 text-white text-[9px] flex items-center justify-center font-black">O</span>
-                            <span>OVO</span>
-                        </div>
-                        <p class="text-xs font-bold text-blue-600 group-hover:underline">Connect</p>
-                    </a>
-                </div>
-                <!-- My Wallet -->
-                <div class="px-2">
-                    <div class="flex items-center justify-center gap-1 text-[11px] font-bold text-amber-600 mb-0.5">
-                        <span>👛</span>
-                        <span>My Wallet</span>
+            <div class="bg-white dark:bg-[#160d2b] rounded-2xl p-3.5 shadow-md border border-purple-100/90 dark:border-purple-900/40 flex items-center justify-between gap-3">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-xl bg-purple-100 dark:bg-purple-950/80 text-[#7c3aed] dark:text-purple-300 flex items-center justify-center font-black text-lg shrink-0">
+                        👛
                     </div>
-                    <p class="text-xs font-bold text-gray-900">Rp0</p>
+                    <div>
+                        <span class="text-[10px] text-gray-500 dark:text-purple-300/80 font-medium block">Gian Pay &amp; Transaksi</span>
+                        <span class="text-sm font-black text-gray-900 dark:text-white font-mono">Siap Digunakan</span>
+                    </div>
                 </div>
+                <a href="{{ route('orders.index') }}" class="text-xs font-bold px-3 py-1.5 rounded-xl bg-purple-50 dark:bg-purple-900/30 text-[#7c3aed] dark:text-purple-300 hover:bg-[#7c3aed] hover:text-white transition-colors border border-purple-200/60 dark:border-purple-800/40 flex items-center gap-1">
+                    <span>Pesanan</span>
+                    <span>→</span>
+                </a>
             </div>
         </div>
 
@@ -508,26 +479,24 @@
             
             <!-- Mulai Jualan Button -->
             @if(auth()->user()->isSeller() || auth()->user()->isAdmin())
-            {{-- Seller/Admin: langsung ke tambah produk --}}
             <a href="{{ route('products.create') }}"
-               class="flex items-center justify-between bg-white hover:bg-blue-50/60 border border-blue-200 text-[#0050ae] rounded-2xl p-3.5 shadow-sm transition-all group">
+               class="flex items-center justify-between bg-white dark:bg-[#160d2b] hover:bg-purple-50/60 dark:hover:bg-purple-950/40 border border-purple-200/80 dark:border-purple-900/50 text-[#7c3aed] dark:text-purple-300 rounded-2xl p-3.5 shadow-xs transition-all group">
                 <div class="flex items-center gap-2.5 font-bold text-xs">
                     <span class="text-base">🏬</span>
-                    <span>Mulai Jualan / Tambah Produk</span>
+                    <span>Mulai Jualan / Tambah Dagangan Baru</span>
                 </div>
-                <svg class="w-4 h-4 text-blue-500 group-hover:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg class="w-4 h-4 text-[#7c3aed] dark:text-purple-400 group-hover:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7" />
                 </svg>
             </a>
             @else
-            {{-- Buyer: ajak daftar sebagai seller --}}
             <a href="{{ route('become-seller') }}"
-               class="flex items-center justify-between bg-gradient-to-r from-blue-600 to-indigo-700 hover:from-blue-700 hover:to-indigo-800 text-white rounded-2xl p-3.5 shadow-sm transition-all group">
+               class="flex items-center justify-between bg-gradient-to-r from-purple-700 via-purple-600 to-indigo-700 hover:from-purple-800 hover:to-indigo-800 text-white rounded-2xl p-3.5 shadow-md transition-all group">
                 <div class="flex items-center gap-2.5 font-bold text-xs">
                     <span class="text-base">🏬</span>
                     <div>
-                        <span class="block">Mulai Jualan Sekarang</span>
-                        <span class="text-[10px] font-normal text-blue-200">Daftar sebagai Seller gratis!</span>
+                        <span class="block">Mulai Jualan di gian games</span>
+                        <span class="text-[10px] font-normal text-purple-200">Daftar sebagai Seller gratis &amp; mulai transaksi</span>
                     </div>
                 </div>
                 <svg class="w-4 h-4 text-white/80 group-hover:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -536,120 +505,117 @@
             </a>
             @endif
 
-            <!-- Activity History Grid -->
-            <div class="bg-white rounded-2xl p-4 shadow-sm border border-gray-100">
+            <!-- Status Pesanan (Activity History) -->
+            <div class="bg-white dark:bg-[#160d2b] rounded-2xl p-4 shadow-xs border border-purple-100/90 dark:border-purple-900/40">
                 <div class="flex items-center justify-between mb-3 text-xs">
-                    <h4 class="font-bold text-gray-900">Activity History</h4>
-                    <a href="{{ route('products.index') }}" class="font-bold text-[#0050ae] hover:underline flex items-center gap-0.5">
-                        View All <span class="text-[10px]">»</span>
+                    <h4 class="font-bold text-gray-900 dark:text-white">Status Pesanan Terkini</h4>
+                    <a href="{{ route('orders.index') }}" class="font-bold text-[#7c3aed] dark:text-purple-300 hover:underline flex items-center gap-0.5">
+                        Lihat Semua
                     </a>
                 </div>
                 <div class="grid grid-cols-4 gap-2 text-center text-[11px]">
-                    <a href="{{ route('products.index') }}" class="p-2 hover:bg-gray-50 rounded-xl transition-colors group">
-                        <div class="text-2xl mb-1 group-hover:scale-110 transition-transform">💳</div>
-                        <span class="text-gray-600 font-medium leading-tight block">To Be Paid</span>
+                    <a href="{{ route('orders.index') }}" class="p-2 hover:bg-purple-50/50 dark:hover:bg-purple-950/40 rounded-xl transition-colors group">
+                        <div class="w-8 h-8 mx-auto mb-1 rounded-lg bg-amber-50 dark:bg-amber-950/50 text-amber-600 dark:text-amber-400 flex items-center justify-center group-hover:scale-110 transition-transform">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                        </div>
+                        <span class="text-gray-600 dark:text-purple-200 font-medium leading-tight block">Belum Bayar</span>
                     </a>
-                    <a href="{{ route('products.index') }}" class="p-2 hover:bg-gray-50 rounded-xl transition-colors group">
-                        <div class="text-2xl mb-1 group-hover:scale-110 transition-transform">🚚</div>
-                        <span class="text-gray-600 font-medium leading-tight block">To Be Delivered</span>
+                    <a href="{{ route('orders.index') }}" class="p-2 hover:bg-purple-50/50 dark:hover:bg-purple-950/40 rounded-xl transition-colors group">
+                        <div class="w-8 h-8 mx-auto mb-1 rounded-lg bg-blue-50 dark:bg-blue-950/50 text-blue-600 dark:text-blue-400 flex items-center justify-center group-hover:scale-110 transition-transform">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+                        </div>
+                        <span class="text-gray-600 dark:text-purple-200 font-medium leading-tight block">Diproses</span>
                     </a>
-                    <a href="{{ route('products.index') }}" class="p-2 hover:bg-gray-50 rounded-xl transition-colors group">
-                        <div class="text-2xl mb-1 group-hover:scale-110 transition-transform">📦</div>
-                        <span class="text-gray-600 font-medium leading-tight block">Delivered</span>
+                    <a href="{{ route('orders.index') }}" class="p-2 hover:bg-purple-50/50 dark:hover:bg-purple-950/40 rounded-xl transition-colors group">
+                        <div class="w-8 h-8 mx-auto mb-1 rounded-lg bg-purple-50 dark:bg-purple-950/50 text-[#7c3aed] dark:text-purple-300 flex items-center justify-center group-hover:scale-110 transition-transform">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4"/></svg>
+                        </div>
+                        <span class="text-gray-600 dark:text-purple-200 font-medium leading-tight block">Terkirim</span>
                     </a>
-                    <a href="{{ route('products.index') }}" class="p-2 hover:bg-gray-50 rounded-xl transition-colors group">
-                        <div class="text-2xl mb-1 group-hover:scale-110 transition-transform">🧾</div>
-                        <span class="text-gray-600 font-medium leading-tight block">Completed</span>
+                    <a href="{{ route('orders.index') }}" class="p-2 hover:bg-purple-50/50 dark:hover:bg-purple-950/40 rounded-xl transition-colors group">
+                        <div class="w-8 h-8 mx-auto mb-1 rounded-lg bg-emerald-50 dark:bg-emerald-950/50 text-emerald-600 dark:text-emerald-400 flex items-center justify-center group-hover:scale-110 transition-transform">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                        </div>
+                        <span class="text-gray-600 dark:text-purple-200 font-medium leading-tight block">Selesai</span>
                     </a>
                 </div>
             </div>
 
             <!-- Support & Lacak Transaksi List -->
-            <div class="bg-white rounded-2xl p-3.5 shadow-sm border border-gray-100 space-y-3">
+            <div class="bg-white dark:bg-[#160d2b] rounded-2xl p-3.5 shadow-xs border border-purple-100/90 dark:border-purple-900/40 space-y-3">
                 <div class="flex items-center justify-between px-1">
-                    <h4 class="font-bold text-gray-900 text-xs flex items-center gap-1.5">
-                        <span>🎧 Support & Bantuan</span>
+                    <h4 class="font-bold text-gray-900 dark:text-white text-xs flex items-center gap-1.5">
+                        <span>Bantuan &amp; Layanan</span>
                     </h4>
-                    <span class="text-[10px] bg-blue-50 text-[#0050ae] font-bold px-2 py-0.5 rounded-full">Lacak Pesanan</span>
+                    <span class="text-[10px] bg-purple-50 dark:bg-purple-950/60 text-[#7c3aed] dark:text-purple-300 font-bold px-2 py-0.5 rounded-full">Lacak Pesanan</span>
                 </div>
 
-                <!-- Lacak Transaksi Quick Input Form inside Support -->
-                <form action="{{ route('orders.search') }}" method="POST" class="bg-[#f8fafd] border border-blue-100 rounded-xl p-3 space-y-2">
+                <!-- Lacak Transaksi Quick Input Form -->
+                <form action="{{ route('orders.search') }}" method="POST" class="bg-purple-50/50 dark:bg-[#110920] border border-purple-100 dark:border-purple-900/40 rounded-xl p-3 space-y-2">
                     @csrf
-                    <label class="text-[11px] font-bold text-gray-800 flex items-center justify-between">
-                        <span>🔍 Lacak Transaksi</span>
-                        <span class="text-[10px] text-gray-400 font-normal">Ketik nomor OD...</span>
+                    <label for="drawer_order_number" class="text-[11px] font-bold text-gray-800 dark:text-purple-200 flex items-center justify-between">
+                        <span>Lacak Nomor Transaksi</span>
+                        <span class="text-[10px] text-gray-400 font-normal">Format OD...</span>
                     </label>
                     <div class="flex items-center gap-1.5">
                         <input type="text"
+                               id="drawer_order_number"
                                name="order_number"
                                placeholder="Contoh: OD000000164288180"
                                required
-                               class="w-full bg-white border border-gray-200 text-gray-900 text-xs px-3 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0050ae] font-mono placeholder:font-sans placeholder-gray-400">
+                               class="w-full bg-white dark:bg-[#1b1233] border border-purple-200 dark:border-purple-800/60 text-gray-900 dark:text-white text-xs px-3 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#7c3aed] font-mono placeholder:font-sans placeholder-gray-400">
                         <button type="submit"
-                                class="bg-[#0050ae] hover:bg-[#003d87] text-white font-bold text-xs px-3.5 py-2 rounded-lg transition-all shrink-0 shadow-xs active:scale-95">
+                                class="bg-[#7c3aed] hover:bg-[#6d28d9] text-white font-bold text-xs px-3.5 py-2 rounded-lg transition-all shrink-0 shadow-xs active:scale-95 cursor-pointer">
                             Lacak
                         </button>
                     </div>
                 </form>
 
-                <div class="divide-y divide-gray-100 text-xs pt-1">
-                    <a href="{{ route('orders.index') }}" class="flex items-center justify-between p-2.5 hover:bg-gray-50 rounded-xl transition-colors text-gray-700 font-medium">
+                <div class="divide-y divide-purple-50 dark:divide-purple-900/30 text-xs pt-1">
+                    <a href="{{ route('orders.index') }}" class="flex items-center justify-between p-2.5 hover:bg-purple-50/50 dark:hover:bg-purple-950/30 rounded-xl transition-colors text-gray-700 dark:text-purple-200 font-medium">
                         <div class="flex items-center gap-2.5">
-                            <span class="text-base">🎧</span>
+                            <span class="text-base">📦</span>
                             <div>
-                                <span class="block text-gray-900 font-bold">Order Issues</span>
-                                <span class="text-[10px] text-gray-400">Kendala & Bantuan Transaksi</span>
+                                <span class="block text-gray-900 dark:text-white font-bold">Riwayat &amp; Kendala Pesanan</span>
+                                <span class="text-[10px] text-gray-400">Kelola pesanan dan status transaksi</span>
                             </div>
                         </div>
                         <svg class="w-3.5 h-3.5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
                     </a>
-                    <a href="{{ route('help.index') }}" class="flex items-center justify-between p-2.5 hover:bg-blue-50/60 rounded-xl transition-colors text-gray-700 font-medium group">
+                    <a href="{{ route('help.index') }}" class="flex items-center justify-between p-2.5 hover:bg-purple-50/50 dark:hover:bg-purple-950/30 rounded-xl transition-colors text-gray-700 dark:text-purple-200 font-medium group">
                         <div class="flex items-center gap-2.5">
                             <span class="text-base">❓</span>
-                            <span class="font-bold group-hover:text-[#0050ae]">Pusat Bantuan (Help Center)</span>
+                            <span class="font-bold group-hover:text-[#7c3aed] dark:group-hover:text-purple-300">Pusat Bantuan (Help Center)</span>
                         </div>
-                        <svg class="w-3.5 h-3.5 text-gray-400 group-hover:text-[#0050ae]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                        <svg class="w-3.5 h-3.5 text-gray-400 group-hover:text-[#7c3aed]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
                     </a>
-                    <a href="{{ route('orders.index') }}" class="flex items-center justify-between p-2.5 hover:bg-gray-50 rounded-xl transition-colors text-gray-700 font-medium">
+                    <a href="{{ route('help.index') }}?tab=buyer" class="flex items-center justify-between p-2.5 hover:bg-purple-50/50 dark:hover:bg-purple-950/30 rounded-xl transition-colors text-gray-700 dark:text-purple-200 font-medium">
                         <div class="flex items-center gap-2.5">
-                            <span class="text-base">⚠️</span>
-                            <span>Complain List</span>
+                            <span class="text-base">🛡️</span>
+                            <span>Panduan Garansi &amp; Keamanan</span>
                         </div>
                         <svg class="w-3.5 h-3.5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
                     </a>
                 </div>
             </div>
 
-            <!-- Accordion Menus -->
-            <div class="bg-white rounded-2xl p-3 shadow-sm border border-gray-100 divide-y divide-gray-100 text-xs">
-                <details class="group p-2 cursor-pointer">
-                    <summary class="flex items-center justify-between font-bold text-gray-800 list-none">
-                        <span>Information and Community</span>
-                        <svg class="w-4 h-4 text-gray-400 group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
-                    </summary>
-                    <div class="pt-2 text-gray-500 space-y-1.5 pl-1">
-                        <p><a href="#" class="hover:text-[#0050ae]">Discord Community</a></p>
-                        <p><a href="#" class="hover:text-[#0050ae]">Blog & Promo</a></p>
-                    </div>
-                </details>
-                <details class="group p-2 cursor-pointer">
-                    <summary class="flex items-center justify-between font-bold text-gray-800 list-none">
-                        <span>About Us</span>
-                        <svg class="w-4 h-4 text-gray-400 group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
-                    </summary>
-                    <div class="pt-2 text-gray-500 space-y-1.5 pl-1">
-                        <p><a href="#" class="hover:text-[#0050ae]">Tentang gian games</a></p>
-                        <p><a href="#" class="hover:text-[#0050ae]">Aturan & Kebijakan</a></p>
-                    </div>
-                </details>
+            <!-- Panduan & Informasi Platform -->
+            <div class="bg-white dark:bg-[#160d2b] rounded-2xl p-3 shadow-xs border border-purple-100/90 dark:border-purple-900/40 divide-y divide-purple-50 dark:divide-purple-900/30 text-xs">
+                <a href="{{ route('help.index') }}?tab=seller" class="flex items-center justify-between p-2 hover:bg-purple-50/40 dark:hover:bg-purple-950/30 rounded-xl transition-colors text-gray-700 dark:text-purple-200 font-semibold">
+                    <span>Panduan Penjual &amp; Buka Lapak</span>
+                    <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                </a>
+                <a href="{{ route('help.index') }}?tab=buyer" class="flex items-center justify-between p-2 hover:bg-purple-50/40 dark:hover:bg-purple-950/30 rounded-xl transition-colors text-gray-700 dark:text-purple-200 font-semibold">
+                    <span>Panduan Pembeli &amp; Cara Bayar</span>
+                    <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                </a>
             </div>
 
             <!-- Logout Button -->
             <form method="POST" action="{{ route('logout') }}" class="pt-1">
                 @csrf
                 <button type="submit"
-                        class="w-full flex items-center justify-center gap-2 bg-red-50 hover:bg-red-100 text-red-600 font-bold py-2.5 rounded-xl transition-colors text-xs">
+                        class="w-full flex items-center justify-center gap-2 bg-rose-50 dark:bg-rose-950/30 hover:bg-rose-100 dark:hover:bg-rose-900/40 text-rose-600 dark:text-rose-400 border border-rose-200/50 dark:border-rose-900/30 font-bold py-2.5 rounded-xl transition-colors text-xs cursor-pointer">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
                     </svg>
@@ -659,27 +625,27 @@
 
         </div>
 
-        <!-- Drawer Bottom Nav Strip -->
-        <div class="sticky bottom-0 bg-white border-t border-gray-100 px-4 py-2 flex items-center justify-around text-[10px] text-gray-500 shrink-0">
-            <a href="{{ route('dashboard') }}" class="flex flex-col items-center gap-0.5 hover:text-[#0050ae]">
+        <!-- Drawer Bottom Nav Strip (Dark & Light Mode Aligned) -->
+        <div class="sticky bottom-0 bg-white dark:bg-[#120a22] border-t border-purple-100 dark:border-purple-950 px-4 py-2.5 flex items-center justify-around text-[10px] text-gray-500 dark:text-purple-300/80 shrink-0">
+            <a href="{{ route('dashboard') }}" class="flex flex-col items-center gap-0.5 hover:text-[#7c3aed] dark:hover:text-white transition-colors">
                 <span class="text-base">🏠</span>
-                <span>Home</span>
+                <span>Beranda</span>
             </a>
-            <a href="#" class="flex flex-col items-center gap-0.5 hover:text-[#0050ae]">
-                <span class="text-base">🤍</span>
-                <span>Favorite</span>
+            <a href="{{ route('products.index') }}" class="flex flex-col items-center gap-0.5 hover:text-[#7c3aed] dark:hover:text-white transition-colors">
+                <span class="text-base">🎮</span>
+                <span>Katalog</span>
             </a>
-            <a href="{{ route('products.index') }}" class="flex flex-col items-center gap-0.5 hover:text-[#0050ae]">
-                <span class="text-base">🔁</span>
-                <span>Transaction</span>
+            <a href="{{ route('orders.index') }}" class="flex flex-col items-center gap-0.5 hover:text-[#7c3aed] dark:hover:text-white transition-colors">
+                <span class="text-base">📦</span>
+                <span>Transaksi</span>
             </a>
-            <a href="#" onclick="if(window.openProfileDrawer) window.openProfileDrawer(); return false;" class="flex flex-col items-center gap-0.5 hover:text-[#0050ae]">
+            <a href="{{ route('help.index') }}" class="flex flex-col items-center gap-0.5 hover:text-[#7c3aed] dark:hover:text-white transition-colors">
                 <span class="text-base">🎧</span>
-                <span>Support</span>
+                <span>Bantuan</span>
             </a>
-            <a href="{{ route('profile.edit') }}" class="flex flex-col items-center gap-0.5 {{ request()->routeIs('profile.*') ? 'text-[#0050ae] font-bold' : 'hover:text-[#0050ae]' }}" title="Edit Profil">
+            <a href="{{ route('profile.edit') }}" class="flex flex-col items-center gap-0.5 {{ request()->routeIs('profile.*') ? 'text-[#7c3aed] dark:text-purple-300 font-bold' : 'hover:text-[#7c3aed] dark:hover:text-white' }} transition-colors" title="Pengaturan Akun">
                 <span class="text-base">👤</span>
-                <span>Account</span>
+                <span>Akun</span>
             </a>
         </div>
 
@@ -694,10 +660,10 @@
          class="fixed inset-0 bg-black/60 backdrop-blur-xs z-[120] opacity-0 pointer-events-none transition-opacity duration-300"></div>
 
     <aside id="cart-drawer"
-           class="fixed top-0 right-0 h-full w-full max-w-md bg-white z-[125] shadow-2xl flex flex-col transform translate-x-full transition-transform duration-300 ease-in-out">
+           class="fixed top-0 right-0 h-full w-full max-w-md bg-white dark:bg-[#130c22] z-[125] shadow-2xl flex flex-col transform translate-x-full transition-transform duration-300 ease-in-out">
 
         <!-- Cart Header -->
-        <div class="bg-[#0050ae] text-white px-5 py-4 flex items-center justify-between shrink-0 shadow-sm">
+        <div class="bg-gradient-to-r from-[#4c1d95] to-[#6d28d9] text-white px-5 py-4 flex items-center justify-between shrink-0 shadow-sm">
             <div class="flex items-center gap-2.5">
                 <span class="text-xl">🛒</span>
                 <div>
@@ -729,7 +695,7 @@
             <form action="{{ route('cart.checkout') }}" method="POST">
                 @csrf
                 <button type="submit"
-                        class="w-full py-3 bg-[#0050ae] hover:bg-[#003d87] text-white font-extrabold text-xs rounded-xl shadow-md hover:shadow-lg transition-all active:scale-[0.99] flex items-center justify-center gap-2">
+                        class="w-full py-3 bg-[#7c3aed] hover:bg-[#6d28d9] text-white font-extrabold text-xs rounded-xl shadow-md hover:shadow-lg transition-all active:scale-[0.99] flex items-center justify-center gap-2 cursor-pointer">
                     <span>Checkout Semua Barang</span>
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3" />
@@ -1027,6 +993,7 @@
             magnification: 70,
             distance:      150,
             spring: { mass: 0.1, stiffness: 180, damping: 13 },
+            bounce:        true,
             items: [
                 /* Home */
                 {
@@ -1092,18 +1059,18 @@
 
     <!-- ===== GLOBAL CHAT TOAST & NOTIFICATION SCRIPT ===== -->
     <div id="global-chat-toast"
-         class="fixed top-20 right-4 max-w-sm w-full bg-white border-2 border-[#0050ae] text-gray-900 rounded-2xl shadow-2xl p-4 flex items-start gap-3 transform translate-x-full opacity-0 pointer-events-none transition-all duration-300 z-[200]">
-        <div class="w-10 h-10 rounded-xl bg-blue-50 text-[#0050ae] flex items-center justify-center text-lg shrink-0">
+         class="fixed top-20 right-4 max-w-sm w-full bg-white dark:bg-[#160d2b] border-2 border-[#7c3aed] text-gray-900 dark:text-white rounded-2xl shadow-2xl p-4 flex items-start gap-3 transform translate-x-full opacity-0 pointer-events-none transition-all duration-300 z-[200]">
+        <div class="w-10 h-10 rounded-xl bg-purple-50 dark:bg-purple-950/80 text-[#7c3aed] dark:text-purple-300 flex items-center justify-center text-lg shrink-0">
             💬
         </div>
         <div class="flex-1 min-w-0">
             <div class="flex items-center justify-between">
-                <h5 class="text-xs font-bold text-gray-900 truncate" id="toast-chat-sender">Pesan Baru Masuk</h5>
+                <h5 class="text-xs font-bold text-gray-900 dark:text-white truncate" id="toast-chat-sender">Pesan Baru Masuk</h5>
                 <span class="text-[10px] text-gray-400">Baru saja</span>
             </div>
-            <p class="text-xs text-gray-600 line-clamp-2 mt-0.5" id="toast-chat-text">...</p>
-            <a href="#" id="toast-chat-link" class="inline-block text-[11px] font-bold text-[#0050ae] hover:underline mt-1.5">
-                Buka Chat Sekarang →
+            <p class="text-xs text-gray-600 dark:text-purple-200/80 line-clamp-2 mt-0.5" id="toast-chat-text">...</p>
+            <a href="#" id="toast-chat-link" class="inline-block text-[11px] font-bold text-[#7c3aed] dark:text-purple-300 hover:underline mt-1.5">
+                Buka Chat Sekarang
             </a>
         </div>
         <button onclick="dismissChatToast()" class="text-gray-400 hover:text-gray-600 text-xs">✕</button>

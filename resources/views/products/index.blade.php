@@ -24,21 +24,21 @@
             </div>
             <p class="text-xs text-gray-400 mt-1">
                 @if(auth()->user()->isAdmin())
-                    Menampilkan total <strong class="text-[#0050ae] dark:text-sky-400">{{ $products->total() }}</strong> produk dari seluruh penjual di platform gian games.
+                    Menampilkan total <strong class="text-[#7c3aed] dark:text-sky-400">{{ $products->total() }}</strong> produk dari seluruh penjual di platform gian games.
                 @else
-                    Total <strong class="text-[#0050ae] dark:text-sky-400">{{ $products->total() }}</strong> produk aktif di lapak Anda
+                    Total <strong class="text-[#7c3aed] dark:text-sky-400">{{ $products->total() }}</strong> produk aktif di lapak Anda
                 @endif
             </p>
         </div>
         <div class="flex items-center gap-2">
             @if(auth()->user()->isAdmin())
                 <a href="{{ route('admin.dashboard') }}"
-                   class="inline-flex items-center gap-1.5 bg-[#07193b] hover:bg-[#0050ae] text-white font-black px-4 py-2.5 rounded-2xl shadow transition-all text-xs shrink-0 hover:scale-105">
+                   class="inline-flex items-center gap-1.5 bg-[#07193b] hover:bg-[#7c3aed] text-white font-black px-4 py-2.5 rounded-2xl shadow transition-all text-xs shrink-0 hover:scale-105">
                     <span>🛡️ Pusat Kontrol Admin</span>
                 </a>
             @endif
             <a href="{{ route('products.create') }}"
-               class="inline-flex items-center gap-2 bg-[#0050ae] hover:bg-[#003d87] text-white font-black px-5 py-2.5 rounded-2xl shadow-md transition-all text-xs active:scale-95 shrink-0 hover:scale-105">
+               class="inline-flex items-center gap-2 bg-[#7c3aed] hover:bg-[#6d28d9] text-white font-black px-5 py-2.5 rounded-2xl shadow-md transition-all text-xs active:scale-95 shrink-0 hover:scale-105">
                 <span>+</span>
                 <span>Tambah Produk</span>
             </a>
@@ -105,7 +105,7 @@
 
                 <!-- Product Info -->
                 <div class="space-y-1">
-                    <h3 class="font-black text-gray-900 dark:text-white text-xs truncate group-hover:text-[#0050ae] dark:group-hover:text-sky-400 transition-colors" title="{{ $product->name }}">
+                    <h3 class="font-black text-gray-900 dark:text-white text-xs truncate group-hover:text-[#7c3aed] dark:group-hover:text-sky-400 transition-colors" title="{{ $product->name }}">
                         <a href="{{ route('products.show', $product) }}" class="hover:underline">
                             {{ $product->name }}
                         </a>
@@ -128,7 +128,7 @@
             <!-- Action buttons (Bottom) -->
             <div class="mt-3 pt-2.5 border-t border-gray-100 dark:border-gray-800 flex items-center justify-between gap-1.5">
                 <a href="{{ route('products.show', $product) }}"
-                   class="flex-1 text-center bg-blue-50 dark:bg-blue-950/60 hover:bg-[#0050ae] hover:text-white text-[#0050ae] dark:text-cyan-300 text-[11px] font-bold py-2 rounded-xl transition-all">
+                   class="flex-1 text-center bg-blue-50 dark:bg-blue-950/60 hover:bg-[#7c3aed] hover:text-white text-[#7c3aed] dark:text-cyan-300 text-[11px] font-bold py-2 rounded-xl transition-all">
                     Buka
                 </a>
                 <a href="{{ route('products.edit', $product) }}"
@@ -166,7 +166,7 @@
         <h3 class="text-base font-black text-gray-900 dark:text-white">Belum Ada Produk Jualan</h3>
         <p class="text-xs text-gray-400 max-w-sm mx-auto">Mulai tambahkan voucher game atau akun digital untuk mulai berjualan hari ini.</p>
         <div class="pt-2">
-            <a href="{{ route('products.create') }}" class="inline-flex items-center gap-2 bg-[#0050ae] hover:bg-[#003d87] text-white font-black px-5 py-2.5 rounded-2xl shadow-md text-xs transition-all hover:scale-105">
+            <a href="{{ route('products.create') }}" class="inline-flex items-center gap-2 bg-[#7c3aed] hover:bg-[#6d28d9] text-white font-black px-5 py-2.5 rounded-2xl shadow-md text-xs transition-all hover:scale-105">
                 <span>+</span>
                 <span>Tambah Produk Pertama</span>
             </a>

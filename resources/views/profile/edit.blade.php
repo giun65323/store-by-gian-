@@ -18,7 +18,7 @@
         transition: border-color 0.2s ease, box-shadow 0.2s ease;
     }
     .profile-input:focus {
-        border-bottom-color: #0050ae;
+        border-bottom-color: #7c3aed;
     }
     .profile-label {
         display: block;
@@ -197,7 +197,7 @@
             <!-- Submit Button -->
             <div class="pt-4">
                 <button type="submit"
-                        class="w-full py-3.5 bg-gradient-to-r from-[#0050ae] to-indigo-700 hover:from-[#003d87] hover:to-indigo-800 text-white font-extrabold text-sm rounded-xl shadow-md hover:shadow-lg transition-all hover:scale-[1.01] active:scale-[0.99] flex items-center justify-center gap-2 cursor-pointer">
+                        class="w-full py-3.5 bg-gradient-to-r from-[#7c3aed] to-indigo-700 hover:from-[#6d28d9] hover:to-indigo-800 text-white font-extrabold text-sm rounded-xl shadow-md hover:shadow-lg transition-all hover:scale-[1.01] active:scale-[0.99] flex items-center justify-center gap-2 cursor-pointer">
                     <span>💾</span>
                     <span>Simpan Perubahan Profil</span>
                 </button>

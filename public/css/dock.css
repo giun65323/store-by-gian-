@@ -55,7 +55,7 @@
   cursor: pointer;
   outline: none;
   transition: background 0.15s ease, border-color 0.15s ease;
-  will-change: width, height;
+  will-change: width, height, transform;
   flex-shrink: 0;
   /* items grow upward from the panel bottom */
   align-self: flex-end;
@@ -79,8 +79,7 @@
   line-height: 1;
   pointer-events: none;
   user-select: none;
-  /* scale driven by JS */
-  transition: transform 0.05s linear;
+  transform-origin: center center;
 }
 
 /* ── Tooltip label ── */
@@ -109,6 +108,12 @@
 .dock-item:focus-visible .dock-label {
   opacity: 1;
   transform: translateX(-50%) translateY(0);
+}
+
+.dock-item[data-hop] .dock-label {
+  opacity: 0 !important;
+  transform: translateX(-50%) translateY(4px) !important;
+  pointer-events: none !important;
 }
 
 /* ── Active dot indicator ── */

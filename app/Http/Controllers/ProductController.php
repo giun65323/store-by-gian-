@@ -225,7 +225,16 @@ class ProductController extends Controller
             $message = 'Terima kasih! Ulasan dan penilaian bintang Anda berhasil disimpan.';
         }
 
-        return redirect()->route('products.show', $product)->with('success', $message);
+        if ($request->expectsJson() || $request->ajax()) {
+            return response()->json([
+                'success' => true,
+                'message' => $message,
+                'rating'  => (int) $validated['rating'],
+                'comment' => $validated['comment'] ?? '',
+            ]);
+        }
+
+        return back()->with('success', $message);
     }
 
     /**

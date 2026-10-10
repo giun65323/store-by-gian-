@@ -1,54 +1,58 @@
-/* ===== ITEMKU THEME CSS — with COMPLETE Dark/Light Mode ===== */
+/* ===== ITEMKU THEME CSS — with COMPLETE Purple Dark/Light Mode ===== */
 
 /* ─── CSS Variables (Light theme default) ─── */
 :root {
-  --itemku-blue-dark:    #072a60;
-  --itemku-blue-primary: #0050ae;
-  --itemku-blue-hover:   #003d87;
-  --itemku-blue-subnav:  #08326e;
+  --itemku-blue-dark:    #2e1065;
+  --itemku-blue-primary: #7c3aed;
+  --itemku-blue-hover:   #6d28d9;
+  --itemku-blue-subnav:  #1e0842;
+  --itemku-purple-dark:  #2e1065;
+  --itemku-purple-primary: #7c3aed;
+  --itemku-purple-hover: #6d28d9;
+  --itemku-purple-subnav: #1e0842;
   --itemku-orange:       #ff5e00;
   --itemku-yellow:       #ffb800;
-  --itemku-bg-gray:      #f5f7fa;
+  --itemku-bg-gray:      #f7f5fa;
 
   /* Theme tokens */
-  --bg-page:        #f7f9fb;
+  --bg-page:        #f8f6fc;
   --bg-card:        #ffffff;
-  --bg-card-hover:  #f8fafc;
-  --bg-sidebar:     #f8fafd;
-  --border-color:   #eef2f6;
-  --border-hover:   #bcd4fa;
-  --text-primary:   #1e293b;
-  --text-secondary: #64748b;
-  --text-muted:     #94a3b8;
+  --bg-card-hover:  #faf8fe;
+  --bg-sidebar:     #faf8fd;
+  --border-color:   #ede8f5;
+  --border-hover:   #d8b4fe;
+  --text-primary:   #1e1b29;
+  --text-secondary: #6b6380;
+  --text-muted:     #968da8;
   --shadow-card:    rgba(0,0,0,0.04);
-  --shadow-hover:   rgba(0,80,174,0.10);
+  --shadow-hover:   rgba(124,58,237,0.14);
   --input-bg:       #ffffff;
-  --input-border:   #e2e8f0;
+  --input-border:   #e4dcf0;
 
   /* Header bar base style (light mode) */
-  --header-bg:      #0050ae;
-  --header-subnav:  #08326e;
+  --header-bg:      #4c1d95;
+  --header-subnav:  #2e1065;
 }
 
-/* ─── Dark theme overrides (Complete Dark) ─── */
+/* ─── Dark theme overrides (Complete Dark with Purple Tones) ─── */
 [data-theme="dark"] {
-  --bg-page:        #080a10;
-  --bg-card:        #101422;
-  --bg-card-hover:  #181d30;
-  --bg-sidebar:     #0c0f1a;
-  --border-color:   #1c2235;
-  --border-hover:   #2d3654;
-  --text-primary:   #f8fafc;
-  --text-secondary: #94a3b8;
-  --text-muted:     #627288;
-  --shadow-card:    rgba(0,0,0,0.3);
-  --shadow-hover:   rgba(0,80,174,0.25);
-  --input-bg:       #181d30;
-  --input-border:   #1c2235;
+  --bg-page:        #0c0717;
+  --bg-card:        #130c22;
+  --bg-card-hover:  #1c1233;
+  --bg-sidebar:     #0f081c;
+  --border-color:   #251640;
+  --border-hover:   #5b21b6;
+  --text-primary:   #f8f7fc;
+  --text-secondary: #a99ec0;
+  --text-muted:     #74688d;
+  --shadow-card:    rgba(0,0,0,0.4);
+  --shadow-hover:   rgba(124,58,237,0.25);
+  --input-bg:       #19102c;
+  --input-border:   #2a184a;
 
-  /* Header is also fully dark in dark mode */
-  --header-bg:      #0c0f1a;
-  --header-subnav:  #101422;
+  /* Header is also deep violet-black in dark mode */
+  --header-bg:      #120726;
+  --header-subnav:  #180a33;
 }
 
 /* ─── Base ─── */
@@ -103,14 +107,14 @@ body {
 
 /* ─── Hero ─── */
 .itemku-hero {
-  background: radial-gradient(circle at 85% 30%, #1e6bd6 0%, #0c4291 50%, #072a60 100%);
+  background: radial-gradient(circle at 85% 30%, #581c87 0%, #3b0764 50%, #1e0842 100%);
   position: relative;
   overflow: hidden;
   border-radius: 20px;
 }
 
 [data-theme="dark"] .itemku-hero {
-  background: radial-gradient(circle at 85% 30%, #172a45 0%, #0e1726 60%, #080a10 100%);
+  background: radial-gradient(circle at 85% 30%, #2e1065 0%, #190a36 60%, #0c0717 100%);
 }
 
 .itemku-hero-card {
@@ -238,12 +242,12 @@ body {
   width: 52px;
   height: 52px;
   border-radius: 50%;
-  background: #0050ae;
+  background: #7c3aed;
   color: #ffffff;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 8px 24px rgba(0, 80, 174, 0.4);
+  box-shadow: 0 8px 24px rgba(124, 58, 237, 0.4);
   cursor: pointer;
   z-index: 99;
   transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
@@ -251,8 +255,8 @@ body {
 
 .itemku-floating-btn:hover {
   transform: scale(1.1);
-  background: #003d87;
-  box-shadow: 0 12px 30px rgba(0, 80, 174, 0.6);
+  background: #6d28d9;
+  box-shadow: 0 12px 30px rgba(124, 58, 237, 0.6);
 }
 
 /* ─── High-Specificity Dark-mode Tailwind overrides ─── */
@@ -260,22 +264,22 @@ body {
 [data-theme="dark"] .bg-white               { background-color: var(--bg-card) !important; }
 [data-theme="dark"] .bg-\[\#f8fafd\]        { background-color: var(--bg-sidebar) !important; }
 [data-theme="dark"] .bg-gray-50             { background-color: var(--bg-card-hover) !important; }
-[data-theme="dark"] .bg-gray-100            { background-color: #181d30 !important; }
-[data-theme="dark"] .bg-blue-50             { background-color: rgba(0,80,174,0.15) !important; }
+[data-theme="dark"] .bg-gray-100            { background-color: #1c1233 !important; }
+[data-theme="dark"] .bg-blue-50             { background-color: rgba(124,58,237,0.15) !important; }
 
 /* Stat cards & icons */
 [data-theme="dark"] .bg-\[\#f8fafd\].border  { background-color: var(--bg-card) !important; border-color: var(--border-color) !important; }
-[data-theme="dark"] .bg-blue-100            { background-color: #1b263b !important; color: #38bdf8 !important; }
+[data-theme="dark"] .bg-blue-100            { background-color: #2e1065 !important; color: #c084fc !important; }
 [data-theme="dark"] .bg-emerald-100         { background-color: #064e3b !important; color: #34d399 !important; }
 [data-theme="dark"] .bg-amber-100           { background-color: #78350f !important; color: #fbbf24 !important; }
 
 /* Category icons in dark mode should not have white backgrounds */
-[data-theme="dark"] .itemku-category-icon   { background-color: #181d30 !important; border-color: #1c2235 !important; }
+[data-theme="dark"] .itemku-category-icon   { background-color: #24143d !important; border-color: #341c59 !important; }
 
 /* Borders */
 [data-theme="dark"] .border-gray-100        { border-color: var(--border-color) !important; }
 [data-theme="dark"] .border-gray-200        { border-color: var(--border-color) !important; }
-[data-theme="dark"] .border-blue-100        { border-color: #1c2235 !important; }
+[data-theme="dark"] .border-blue-100        { border-color: #251640 !important; }
 
 /* Text colors */
 [data-theme="dark"] .text-gray-900          { color: var(--text-primary)   !important; }

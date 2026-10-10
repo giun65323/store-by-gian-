@@ -24,7 +24,7 @@
 
         <button type="button"
                 onclick="openOrderChatModal()"
-                class="inline-flex items-center gap-1.5 px-3 py-1.5 bg-blue-50 dark:bg-blue-950 text-[#0050ae] dark:text-sky-400 hover:bg-[#0050ae] hover:text-white rounded-xl font-extrabold text-xs transition-all shadow-xs cursor-pointer">
+                class="inline-flex items-center gap-1.5 px-3 py-1.5 bg-purple-50 dark:bg-purple-950/70 text-[#581c87] dark:text-purple-300 hover:bg-[#581c87] hover:text-white rounded-xl font-extrabold text-xs transition-all shadow-xs cursor-pointer">
             <span>💬 Live Chat</span>
         </button>
     </div>
@@ -38,6 +38,9 @@
         $isProcessing = ($status === 'processing');
         $isCompleted = ($status === 'completed');
         $isCancelled = ($status === 'cancelled');
+
+        $userReview = $userReview ?? (auth()->check() && $order->product ? $order->product->reviews->firstWhere('user_id', auth()->id()) : null);
+        $isBuyer = auth()->id() === $order->buyer_id;
 
         // Progress percentage for stepper line
         $progressPct = 0;
@@ -55,8 +58,8 @@
                     Pesanan Selesai
                 </span>
             @elseif($isProcessing)
-                <span class="inline-flex items-center gap-1.5 bg-blue-50 dark:bg-blue-950 text-blue-600 dark:text-blue-400 text-xs font-black px-3 py-1 rounded-full border border-blue-200 dark:border-blue-800 shadow-xs">
-                    <span class="w-2 h-2 rounded-full bg-blue-500 animate-pulse"></span>
+                <span class="inline-flex items-center gap-1.5 bg-purple-50 dark:bg-purple-950/70 text-purple-700 dark:text-purple-300 text-xs font-black px-3 py-1 rounded-full border border-purple-200 dark:border-purple-800 shadow-xs">
+                    <span class="w-2 h-2 rounded-full bg-purple-500 animate-pulse"></span>
                     Sedang Diproses
                 </span>
             @elseif($isPending)
@@ -76,7 +79,7 @@
             <!-- Background Line -->
             <div class="absolute top-5 left-6 right-6 h-1 bg-gray-200 dark:bg-gray-800 -translate-y-1/2 z-0 rounded-full"></div>
             <!-- Active Filled Progress Line -->
-            <div class="absolute top-5 left-6 h-1 bg-gradient-to-r from-blue-600 via-indigo-600 to-emerald-500 -translate-y-1/2 z-0 rounded-full transition-all duration-500"
+            <div class="absolute top-5 left-6 h-1 bg-gradient-to-r from-[#581c87] via-purple-600 to-emerald-500 -translate-y-1/2 z-0 rounded-full transition-all duration-500"
                  style="width: calc({{ $progressPct }}% - 24px);"></div>
 
             <!-- 4 Stage Circles Grid -->
@@ -92,7 +95,7 @@
 
                 <!-- Step 2: Proses -->
                 <div class="flex flex-col items-center">
-                    <div class="w-8 h-8 rounded-full flex items-center justify-center font-black text-xs shadow-md transition-all {{ $isCompleted ? 'bg-emerald-500 text-white' : ($isProcessing ? 'bg-blue-600 text-white ring-4 ring-blue-100 dark:ring-blue-900/50' : 'bg-gray-200 dark:bg-gray-800 text-gray-400') }}">
+                    <div class="w-8 h-8 rounded-full flex items-center justify-center font-black text-xs shadow-md transition-all {{ $isCompleted ? 'bg-emerald-500 text-white' : ($isProcessing ? 'bg-[#581c87] text-white ring-4 ring-purple-100 dark:ring-purple-900/50' : 'bg-gray-200 dark:bg-gray-800 text-gray-400') }}">
                         {{ $isCompleted ? '✓' : '2' }}
                     </div>
                     <span class="text-[10px] font-black text-gray-800 dark:text-gray-200 mt-2">Proses</span>
@@ -101,7 +104,7 @@
 
                 <!-- Step 3: Kirim -->
                 <div class="flex flex-col items-center">
-                    <div class="w-8 h-8 rounded-full flex items-center justify-center font-black text-xs shadow-md transition-all {{ $isCompleted ? 'bg-emerald-500 text-white' : ($isProcessing ? 'bg-blue-100 dark:bg-blue-950 text-blue-600 dark:text-sky-400' : 'bg-gray-200 dark:bg-gray-800 text-gray-400') }}">
+                    <div class="w-8 h-8 rounded-full flex items-center justify-center font-black text-xs shadow-md transition-all {{ $isCompleted ? 'bg-emerald-500 text-white' : ($isProcessing ? 'bg-purple-100 dark:bg-purple-950 text-purple-700 dark:text-purple-300' : 'bg-gray-200 dark:bg-gray-800 text-gray-400') }}">
                         {{ $isCompleted ? '✓' : '3' }}
                     </div>
                     <span class="text-[10px] font-black text-gray-800 dark:text-gray-200 mt-2">Kirim</span>
@@ -133,13 +136,17 @@
                     <p class="text-xs text-amber-100 mt-0.5">Selesaikan pembayaran untuk membuka kode voucher instan.</p>
                 </div>
             </div>
-            <span class="bg-white/20 text-white font-mono text-[11px] font-black px-3 py-1 rounded-xl shrink-0 shadow-xs">
-                {{ $order->payment_method ?: 'QRIS' }}
+            <span class="bg-white/20 text-white font-mono text-[11px] font-black px-3 py-1 rounded-xl shrink-0 shadow-xs flex items-center gap-1.5">
+                @if(stripos($order->payment_method ?? '', 'gopay') !== false)
+                    <img src="{{ asset('images/payments/gopay.webp') }}" alt="GoPay" class="w-4 h-4 object-contain rounded-xs">
+                @endif
+                {{ $order->payment_method ?: 'GoPay / QRIS' }}
             </span>
         </div>
         <a href="{{ route('orders.payment', $order->order_number) }}"
            class="w-full py-3 bg-white hover:bg-gray-50 text-gray-950 font-black text-xs rounded-2xl shadow-md transition-all active:scale-[0.99] flex items-center justify-center gap-2 hover:scale-[1.01]">
-            <span>Lanjutkan Pembayaran (DANA / GoPay / QRIS)</span>
+            <img src="{{ asset('images/payments/gopay.webp') }}" alt="GoPay" class="w-4 h-4 object-contain rounded-xs">
+            <span>Lanjutkan Pembayaran (GoPay / DANA / QRIS)</span>
             <svg class="w-4 h-4 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3" />
             </svg>
@@ -156,10 +163,10 @@
     @endphp
 
     @if($isProcessing && $isSeller)
-        <div class="bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-950/40 dark:to-indigo-950/40 border-2 border-blue-200 dark:border-blue-800 rounded-3xl p-5 shadow-sm space-y-3">
+        <div class="bg-gradient-to-r from-purple-50 to-indigo-50 dark:from-purple-950/40 dark:to-indigo-950/40 border-2 border-purple-200 dark:border-purple-800 rounded-3xl p-5 shadow-sm space-y-3">
             <div class="flex items-center justify-between">
                 <div class="flex items-center gap-3">
-                    <div class="w-10 h-10 rounded-2xl bg-blue-600 text-white flex items-center justify-center text-lg font-bold shadow-xs">
+                    <div class="w-10 h-10 rounded-2xl bg-[#581c87] text-white flex items-center justify-center text-lg font-bold shadow-xs">
                         📦
                     </div>
                     <div>
@@ -167,7 +174,7 @@
                         <p class="text-xs text-gray-500 dark:text-gray-400">Pembeli telah membayar. Silakan proses item dan kirimkan konfirmasi.</p>
                     </div>
                 </div>
-                <span class="px-3 py-1 bg-blue-600 text-white font-black text-[10px] rounded-lg uppercase tracking-wider shadow-xs">
+                <span class="px-3 py-1 bg-[#581c87] text-white font-black text-[10px] rounded-lg uppercase tracking-wider shadow-xs">
                     Perlu Dikirim
                 </span>
             </div>
@@ -180,7 +187,7 @@
                     </label>
                     <textarea name="delivery_note" rows="2"
                               placeholder="Contoh: Akun telah dikirim via chat / Data Akun: username & password / Top up telah berhasil..."
-                              class="w-full text-xs p-3.5 border border-gray-300 dark:border-gray-700 rounded-2xl bg-white dark:bg-gray-800 focus:outline-none focus:border-[#0050ae] focus:ring-2 focus:ring-[#0050ae]/15"></textarea>
+                              class="w-full text-xs p-3.5 border border-gray-300 dark:border-gray-700 rounded-2xl bg-white dark:bg-gray-800 focus:outline-none focus:border-[#581c87] focus:ring-2 focus:ring-[#581c87]/15"></textarea>
                 </div>
                 <div class="flex flex-wrap items-center gap-2.5">
                     <button type="submit"
@@ -197,9 +204,9 @@
             </form>
         </div>
     @elseif($isProcessing && !$isSeller)
-        <div class="bg-blue-50/80 dark:bg-blue-950/40 border border-blue-200 dark:border-blue-800 rounded-3xl p-5 shadow-xs flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+        <div class="bg-purple-50/80 dark:bg-purple-950/40 border border-purple-200 dark:border-purple-800 rounded-3xl p-5 shadow-xs flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
             <div class="flex items-center gap-3">
-                <div class="w-11 h-11 rounded-2xl bg-blue-100 dark:bg-blue-900 text-[#0050ae] dark:text-sky-300 flex items-center justify-center text-xl shrink-0">
+                <div class="w-11 h-11 rounded-2xl bg-purple-100 dark:bg-purple-900 text-[#581c87] dark:text-purple-300 flex items-center justify-center text-xl shrink-0">
                     ⏳
                 </div>
                 <div>
@@ -209,7 +216,7 @@
             </div>
             <button type="button"
                     onclick="openOrderChatModal()"
-                    class="px-4 py-2 bg-[#0050ae] text-white font-black text-xs rounded-xl shadow-xs hover:bg-[#003d87] transition-all shrink-0 cursor-pointer">
+                    class="px-4 py-2 bg-[#581c87] text-white font-black text-xs rounded-xl shadow-xs hover:bg-[#4c1d95] transition-all shrink-0 cursor-pointer">
                 💬 Hubungi Penjual
             </button>
         </div>
@@ -224,23 +231,23 @@
                 {{ $isRegular ? 'Data / Catatan Pengiriman' : 'Kode Voucher Game (Instan)' }}
             </h2>
             @if($isRegular)
-                <span class="text-[10px] font-black text-blue-600 bg-blue-50 dark:bg-blue-950 px-2 py-0.5 rounded-lg">📦 PESANAN BIASA</span>
+                <span class="text-[10px] font-black text-purple-700 bg-purple-50 dark:bg-purple-950/70 px-2 py-0.5 rounded-lg">📦 PESANAN BIASA</span>
             @else
                 <span class="text-[10px] font-black text-emerald-600 bg-emerald-50 dark:bg-emerald-950 px-2 py-0.5 rounded-lg">⚡ INSTANT ACCESS</span>
             @endif
         </div>
 
         @if($order->voucher_code)
-            <div class="bg-gradient-to-r from-blue-50 via-indigo-50 to-purple-50 dark:from-[#1e293b] dark:to-[#0f172a] border-2 border-blue-300 dark:border-blue-700/60 rounded-2xl p-4 flex items-center justify-between gap-3 shadow-inner">
+            <div class="bg-gradient-to-r from-purple-50 via-indigo-50 to-purple-100 dark:from-[#1a0833] dark:to-[#120424] border-2 border-purple-300 dark:border-purple-700/60 rounded-2xl p-4 flex items-center justify-between gap-3 shadow-inner">
                 <div class="min-w-0 flex-1">
-                    <span class="text-[10px] font-bold text-blue-600 dark:text-sky-400 block mb-0.5">KODE / SERIAL KEY:</span>
+                    <span class="text-[10px] font-bold text-[#581c87] dark:text-purple-300 block mb-0.5">KODE / SERIAL KEY:</span>
                     <div class="text-base sm:text-lg font-black text-gray-950 dark:text-white font-mono tracking-wider select-all break-all" id="voucher-code-text">
                         {{ $order->voucher_code }}
                     </div>
                 </div>
                 <button type="button"
                         onclick="copyToClipboard('{{ $order->voucher_code }}', 'Kode Voucher')"
-                        class="px-4 py-2.5 bg-[#0050ae] hover:bg-[#003d87] text-white font-black text-xs rounded-xl shadow-md transition-all hover:scale-105 active:scale-95 flex items-center gap-1.5 shrink-0 cursor-pointer"
+                        class="px-4 py-2.5 bg-[#581c87] hover:bg-[#4c1d95] text-white font-black text-xs rounded-xl shadow-md transition-all hover:scale-105 active:scale-95 flex items-center gap-1.5 shrink-0 cursor-pointer"
                         title="Salin Kode Voucher">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/>
@@ -249,7 +256,7 @@
                 </button>
             </div>
         @elseif($isProcessing)
-            <div class="bg-blue-50/50 dark:bg-blue-950/30 border border-dashed border-blue-300 dark:border-blue-800 rounded-2xl p-5 text-center space-y-1.5">
+            <div class="bg-purple-50/50 dark:bg-purple-950/30 border border-dashed border-purple-300 dark:border-purple-800 rounded-2xl p-5 text-center space-y-1.5">
                 <div class="text-2xl">📦</div>
                 <p class="text-xs font-black text-gray-800 dark:text-gray-200">Menunggu Pengiriman dari Penjual</p>
                 <p class="text-[11px] text-gray-500 dark:text-gray-400">Penjual akan mengisi data atau konfirmasi pesanan setelah selesai.</p>
@@ -260,7 +267,7 @@
                 <p class="text-xs font-black text-gray-800 dark:text-gray-200">Kode / Data Pengiriman Terkunci</p>
                 <p class="text-[11px] text-gray-400">Kode voucher akan otomatis muncul setelah pembayaran terkonfirmasi.</p>
                 <a href="{{ route('orders.payment', $order->order_number) }}"
-                   class="inline-block px-5 py-2 bg-[#0050ae] hover:bg-[#003d87] text-white text-xs font-black rounded-xl transition-all shadow-md">
+                   class="inline-block px-5 py-2 bg-[#581c87] hover:bg-[#4c1d95] text-white text-xs font-black rounded-xl transition-all shadow-md">
                     Bayar Sekarang
                 </a>
             </div>
@@ -279,7 +286,7 @@
                     @if ($order->product_image && Storage::disk('public')->exists($order->product_image))
                         <img src="{{ asset('storage/' . $order->product_image) }}" alt="{{ $order->product_name }}" class="w-full h-full object-cover">
                     @else
-                        <div class="w-full h-full bg-gradient-to-br from-indigo-950 to-blue-900 flex items-center justify-center text-white font-black text-xl">
+                        <div class="w-full h-full bg-gradient-to-br from-[#2e1065] to-purple-950 flex items-center justify-center text-white font-black text-xl">
                             🎮
                         </div>
                     @endif
@@ -305,7 +312,7 @@
 
                 <button type="button"
                         onclick="openOrderChatModal()"
-                        class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-[#0050ae] text-white hover:bg-[#003d87] font-black text-xs transition-all shadow-xs shrink-0 cursor-pointer hover:scale-105">
+                        class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-[#581c87] text-white hover:bg-[#4c1d95] font-black text-xs transition-all shadow-xs shrink-0 cursor-pointer hover:scale-105">
                     <span>💬 Chat</span>
                 </button>
             </div>
@@ -313,9 +320,14 @@
 
         <!-- Payment & Total Breakdown -->
         <div class="pt-2 border-t border-gray-100 dark:border-gray-800 space-y-2 text-xs">
-            <div class="flex justify-between text-gray-500 dark:text-gray-400">
+            <div class="flex justify-between items-center text-gray-500 dark:text-gray-400">
                 <span>Metode Pembayaran</span>
-                <span class="font-bold text-gray-900 dark:text-white">{{ $order->payment_method ?? 'DANA / QRIS' }}</span>
+                <span class="font-bold text-gray-900 dark:text-white flex items-center gap-1.5">
+                    @if(stripos($order->payment_method ?? '', 'gopay') !== false)
+                        <img src="{{ asset('images/payments/gopay.webp') }}" alt="GoPay" class="w-4 h-4 object-contain rounded-xs inline-block">
+                    @endif
+                    {{ $order->payment_method ?? 'GoPay / QRIS' }}
+                </span>
             </div>
             <div class="flex justify-between text-gray-500 dark:text-gray-400">
                 <span>Waktu Transaksi</span>
@@ -329,13 +341,20 @@
     </div>
 
     <!-- ===== REVIEW BUTTON ===== -->
-    @if($isCompleted)
+    @if($isCompleted && $order->product_id && ($isBuyer || auth()->user()?->isAdmin()))
     <div class="pt-2">
         <button type="button"
+                id="open-review-btn"
                 onclick="openReviewModal()"
-                class="w-full py-3.5 px-4 rounded-2xl bg-gradient-to-r from-[#0050ae] to-indigo-700 hover:from-[#003d87] hover:to-indigo-800 text-white font-black text-xs shadow-md hover:shadow-lg transition-all hover:scale-[1.01] active:scale-[0.99] flex items-center justify-center gap-2 cursor-pointer">
-            <span>⭐</span>
-            <span>Beri Ulasan Kepuasan Transaksi</span>
+                class="w-full py-3.5 px-4 rounded-2xl bg-gradient-to-r from-[#581c87] to-indigo-900 hover:from-[#4c1d95] hover:to-indigo-950 text-white font-black text-xs shadow-md hover:shadow-lg transition-all hover:scale-[1.01] active:scale-[0.99] flex items-center justify-center gap-2 cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#7c3aed]">
+            <span class="text-amber-400 text-sm">★</span>
+            <span id="review-btn-text">
+                @if($userReview)
+                    Ulasan Anda: {{ $userReview->rating }} ★ (Edit Ulasan)
+                @else
+                    Beri Ulasan Kepuasan Transaksi
+                @endif
+            </span>
         </button>
     </div>
     @endif
@@ -354,7 +373,7 @@
          class="bg-white dark:bg-[#111827] rounded-3xl w-full max-w-lg shadow-2xl overflow-hidden flex flex-col h-[520px] max-h-[90vh] transform scale-95 opacity-0 transition-all duration-300 border border-gray-100 dark:border-gray-800">
 
         <!-- Chat Header -->
-        <div class="bg-[#0050ae] text-white p-4 flex items-center justify-between shrink-0 shadow-md">
+        <div class="bg-[#581c87] text-white p-4 flex items-center justify-between shrink-0 shadow-md">
             <div class="flex items-center gap-3">
                 @php
                     $chatPartner = $isSeller ? $order->buyer : ($order->store?->seller ?? $order->seller);
@@ -368,7 +387,7 @@
                 @endif
                 <div>
                     <h3 class="font-extrabold text-sm leading-tight">Live Chat Pesanan</h3>
-                    <p class="text-[11px] text-blue-100 truncate">
+                    <p class="text-[11px] text-purple-100 truncate">
                         {{ $isSeller ? 'Dengan Pembeli: ' . ($order->buyer?->name ?? 'Pembeli') : 'Dengan Toko: ' . ($order->store ? $order->store->name : ($order->seller?->name ?? 'Penjual')) }}
                     </p>
                 </div>
@@ -392,17 +411,17 @@
         <div class="bg-white dark:bg-[#111827] border-t border-gray-100 dark:border-gray-800 px-3 py-2 flex items-center gap-1.5 overflow-x-auto scrollbar-hide text-[11px] shrink-0">
             <span class="text-gray-400 shrink-0 text-[10px] font-bold">⚡ Cepat:</span>
             @if($isSeller)
-                <button type="button" onclick="sendQuickReply('Halo! Pesanan Anda sedang kami proses ya 👍')" class="px-2.5 py-1 bg-gray-100 dark:bg-gray-800 hover:bg-blue-50 dark:hover:bg-blue-950 text-gray-700 dark:text-gray-200 rounded-full shrink-0 transition-colors font-semibold">
+                <button type="button" onclick="sendQuickReply('Halo! Pesanan Anda sedang kami proses ya 👍')" class="px-2.5 py-1 bg-gray-100 dark:bg-gray-800 hover:bg-purple-50 dark:hover:bg-purple-950/70 text-gray-700 dark:text-gray-200 rounded-full shrink-0 transition-colors font-semibold">
                     Sedang diproses 👍
                 </button>
-                <button type="button" onclick="sendQuickReply('Data pesanan / voucher sudah kami kirimkan ya 🙏')" class="px-2.5 py-1 bg-gray-100 dark:bg-gray-800 hover:bg-blue-50 dark:hover:bg-blue-950 text-gray-700 dark:text-gray-200 rounded-full shrink-0 transition-colors font-semibold">
+                <button type="button" onclick="sendQuickReply('Data pesanan / voucher sudah kami kirimkan ya 🙏')" class="px-2.5 py-1 bg-gray-100 dark:bg-gray-800 hover:bg-purple-50 dark:hover:bg-purple-950/70 text-gray-700 dark:text-gray-200 rounded-full shrink-0 transition-colors font-semibold">
                     Pesanan sudah dikirim 🙏
                 </button>
             @else
-                <button type="button" onclick="sendQuickReply('Halo kak, apakah pesanan ini ready?')" class="px-2.5 py-1 bg-gray-100 dark:bg-gray-800 hover:bg-blue-50 dark:hover:bg-blue-950 text-gray-700 dark:text-gray-200 rounded-full shrink-0 transition-colors font-semibold">
+                <button type="button" onclick="sendQuickReply('Halo kak, apakah pesanan ini ready?')" class="px-2.5 py-1 bg-gray-100 dark:bg-gray-800 hover:bg-purple-50 dark:hover:bg-purple-950/70 text-gray-700 dark:text-gray-200 rounded-full shrink-0 transition-colors font-semibold">
                     Apakah ready?
                 </button>
-                <button type="button" onclick="sendQuickReply('Pesanan sudah saya terima, terima kasih banyak! ⭐')" class="px-2.5 py-1 bg-gray-100 dark:bg-gray-800 hover:bg-blue-50 dark:hover:bg-blue-950 text-gray-700 dark:text-gray-200 rounded-full shrink-0 transition-colors font-semibold">
+                <button type="button" onclick="sendQuickReply('Pesanan sudah saya terima, terima kasih banyak! ⭐')" class="px-2.5 py-1 bg-gray-100 dark:bg-gray-800 hover:bg-purple-50 dark:hover:bg-purple-950/70 text-gray-700 dark:text-gray-200 rounded-full shrink-0 transition-colors font-semibold">
                     Sudah diterima ⭐
                 </button>
             @endif
@@ -416,10 +435,10 @@
                    placeholder="Ketik pesan..."
                    autocomplete="off"
                    required
-                   class="flex-1 bg-gray-100 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-2xl px-4 py-2.5 text-xs text-gray-800 dark:text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#0050ae] transition-all">
+                   class="flex-1 bg-gray-100 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-2xl px-4 py-2.5 text-xs text-gray-800 dark:text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#581c87] transition-all">
             <button type="submit"
                     id="chat-send-btn"
-                    class="bg-[#0050ae] hover:bg-[#003d87] text-white p-2.5 rounded-2xl font-bold transition-all shadow-sm flex items-center justify-center shrink-0 cursor-pointer hover:scale-105 active:scale-95"
+                    class="bg-[#581c87] hover:bg-[#4c1d95] text-white p-2.5 rounded-2xl font-bold transition-all shadow-sm flex items-center justify-center shrink-0 cursor-pointer hover:scale-105 active:scale-95"
                     title="Kirim Pesan">
                 <svg class="w-4 h-4 transform rotate-90" fill="currentColor" viewBox="0 0 20 20">
                     <path d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z" />
@@ -430,44 +449,253 @@
 </div>
 
 <!-- ========================================================================= -->
-<!-- REVIEW MODAL -->
+<!-- REVIEW MODAL (<PeekRating /> from React Bits) -->
 <!-- ========================================================================= -->
-<div id="review-modal" class="fixed inset-0 bg-black/60 backdrop-blur-xs z-[120] hidden flex items-center justify-center p-4">
-    <div class="bg-white dark:bg-[#111827] rounded-3xl p-6 max-w-sm w-full shadow-2xl space-y-4 border border-gray-100 dark:border-gray-800 text-center">
-        <div class="text-4xl">⭐</div>
+<div id="review-modal"
+     onclick="if(event.target === this) closeReviewModal()"
+     class="fixed inset-0 bg-black/60 backdrop-blur-xs z-[120] hidden flex items-center justify-center p-4">
+    <div class="bg-white dark:bg-[#111827] rounded-3xl p-6 max-w-sm w-full shadow-2xl space-y-4 border border-gray-100 dark:border-gray-800 text-center relative">
+        <!-- Close Button -->
+        <button type="button"
+                onclick="closeReviewModal()"
+                class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 p-1.5 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors cursor-pointer"
+                aria-label="Tutup modal">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+        </button>
+
+        <!-- Star Badge & Title -->
         <div>
-            <h3 class="font-black text-base text-gray-900 dark:text-white">Beri Ulasan Pesanan</h3>
-            <p class="text-xs text-gray-400 mt-0.5">Bagikan pengalaman belanja Anda untuk toko ini</p>
+            <div class="w-12 h-12 mx-auto rounded-2xl bg-amber-500/10 dark:bg-amber-500/20 text-amber-500 flex items-center justify-center text-2xl shadow-inner mb-2">
+                ★
+            </div>
+            <h3 id="review-modal-title" class="font-black text-base text-gray-900 dark:text-white">
+                {{ $userReview ? 'Edit Ulasan Pesanan' : 'Beri Ulasan Pesanan' }}
+            </h3>
+            <p class="text-xs text-gray-400 mt-0.5">
+                Bagikan pengalaman belanja Anda untuk toko {{ $order->store?->name ?? 'penjual' }}
+            </p>
         </div>
-        <div class="flex justify-center gap-2 text-2xl cursor-pointer py-1">
-            <span class="hover:scale-125 transition-transform">⭐</span>
-            <span class="hover:scale-125 transition-transform">⭐</span>
-            <span class="hover:scale-125 transition-transform">⭐</span>
-            <span class="hover:scale-125 transition-transform">⭐</span>
-            <span class="hover:scale-125 transition-transform">⭐</span>
-        </div>
-        <textarea placeholder="Tulis kepuasan transaksi Anda..." class="w-full p-3 text-xs bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-2xl focus:outline-none focus:ring-2 focus:ring-[#0050ae]"></textarea>
-        <div class="flex gap-2">
-            <button onclick="document.getElementById('review-modal').classList.add('hidden')" class="flex-1 py-2.5 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-200 rounded-xl font-bold text-xs">Batal</button>
-            <button onclick="submitReview()" class="flex-1 py-2.5 bg-[#0050ae] hover:bg-[#003d87] text-white rounded-xl font-bold text-xs">Kirim Ulasan</button>
-        </div>
+
+        @if($order->product_id)
+        <!-- Review Form -->
+        <form id="order-review-form"
+              action="{{ route('products.reviews.store', $order->product_id) }}"
+              method="POST"
+              class="space-y-4 text-left">
+            @csrf
+
+            <!-- PeekRating Interactive Component -->
+            <div class="space-y-2">
+                <div class="text-center">
+                    <span class="text-[11px] font-bold text-gray-400 uppercase tracking-wider block mb-1">
+                        Geser atau pilih rating bintang
+                    </span>
+
+                    <!-- Slot where PeekRating mounts -->
+                    <div class="flex justify-center items-center py-1">
+                        <div id="order-peek-rating-slot"
+                             class="inline-flex justify-center"
+                             data-peek-rating
+                             data-default-value="{{ old('rating', $userReview ? $userReview->rating : 5) }}"
+                             data-size="34"
+                             data-input-name="rating"></div>
+                    </div>
+
+                    <!-- Dynamic Live Score Indicator -->
+                    <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-500/10 dark:bg-amber-500/20 text-amber-600 dark:text-amber-400 text-xs font-bold border border-amber-500/20 mt-1">
+                        <span id="order-peek-rating-score">{{ old('rating', $userReview ? $userReview->rating : 5) }} ★</span>
+                        <span class="text-gray-300 dark:text-gray-600">·</span>
+                        <span id="order-peek-rating-label">
+                            @php
+                                $currentRatingVal = (int) old('rating', $userReview ? $userReview->rating : 5);
+                                $ratingLabelsMap = [1 => 'Kecewa', 2 => 'Kurang', 3 => 'Cukup', 4 => 'Puas', 5 => 'Sangat Puas'];
+                            @endphp
+                            {{ $ratingLabelsMap[$currentRatingVal] ?? 'Sangat Puas' }}
+                        </span>
+                    </div>
+                </div>
+
+                <input type="hidden" name="rating" id="order-review-rating-input" value="{{ old('rating', $userReview ? $userReview->rating : 5) }}">
+            </div>
+
+            <!-- Comment Textarea -->
+            <div>
+                <label for="order-review-comment" class="block text-xs font-bold text-gray-700 dark:text-gray-300 mb-1">
+                    Catatan Pengalaman <span class="text-gray-400 font-normal lowercase">(opsional)</span>
+                </label>
+                <textarea id="order-review-comment"
+                          name="comment"
+                          rows="3"
+                          placeholder="Tulis kepuasan transaksi Anda..."
+                          class="w-full p-3 text-xs bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-2xl focus:outline-none focus:ring-2 focus:ring-[#581c87] text-gray-900 dark:text-white placeholder-gray-400 transition-all resize-none">{{ old('comment', $userReview ? $userReview->comment : '') }}</textarea>
+            </div>
+
+            <!-- Modal Action Buttons -->
+            <div class="flex gap-2 pt-1">
+                <button type="button"
+                        onclick="closeReviewModal()"
+                        class="flex-1 py-2.5 bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-200 rounded-xl font-bold text-xs transition-colors cursor-pointer">
+                    Batal
+                </button>
+                <button type="submit"
+                        id="order-review-submit-btn"
+                        class="flex-1 py-2.5 bg-[#581c87] hover:bg-[#4c1d95] text-white rounded-xl font-bold text-xs transition-all shadow-md active:scale-95 flex items-center justify-center gap-1.5 cursor-pointer disabled:opacity-60 disabled:pointer-events-none">
+                    <svg id="order-review-spinner" class="hidden w-3.5 h-3.5 animate-spin text-white" fill="none" viewBox="0 0 24 24">
+                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path>
+                    </svg>
+                    <span id="order-review-submit-text">Kirim Ulasan</span>
+                </button>
+            </div>
+        </form>
+        @endif
     </div>
 </div>
 
 <script>
 const ORDER_NUMBER = '{{ $order->order_number }}';
 let chatPollInterval = null;
+let orderPeekRatingInstance = null;
+const ORDER_RATING_LABELS = ['Kecewa', 'Kurang', 'Cukup', 'Puas', 'Sangat Puas'];
+
+function initOrderPeekRating() {
+    const slot = document.getElementById('order-peek-rating-slot');
+    const input = document.getElementById('order-review-rating-input');
+    const scoreEl = document.getElementById('order-peek-rating-score');
+    const labelEl = document.getElementById('order-peek-rating-label');
+
+    if (!slot || !window.PeekRating) return;
+
+    slot.innerHTML = '';
+    orderPeekRatingInstance = new window.PeekRating(slot, {
+        defaultValue: Number(input ? input.value : 5),
+        count: 5,
+        labels: ['1 ★ Kecewa', '2 ★ Kurang', '3 ★ Cukup', '4 ★ Puas', '5 ★ Sangat Puas'],
+        activeColor: '#f5b400',
+        idleColor: '#cbd5e1',
+        tipColor: '#1e293b',
+        tipTextColor: '#f8fafc',
+        size: 34,
+        lift: 7,
+        magnify: 1.15,
+        riseDuration: 320,
+        popScale: 1.3,
+        showTip: true,
+        allowClear: false,
+        inputName: 'rating',
+        onChange: function (val) {
+            if (input) input.value = val;
+            if (scoreEl) scoreEl.textContent = val + ' ★';
+            if (labelEl && ORDER_RATING_LABELS[val - 1]) labelEl.textContent = ORDER_RATING_LABELS[val - 1];
+        },
+        onPreview: function (val) {
+            if (val && scoreEl) scoreEl.textContent = val + ' ★';
+            if (val && labelEl && ORDER_RATING_LABELS[val - 1]) labelEl.textContent = ORDER_RATING_LABELS[val - 1];
+            if (val === null && input && scoreEl && labelEl) {
+                const currentVal = Number(input.value || 5);
+                scoreEl.textContent = currentVal + ' ★';
+                if (ORDER_RATING_LABELS[currentVal - 1]) labelEl.textContent = ORDER_RATING_LABELS[currentVal - 1];
+            }
+        }
+    });
+}
 
 function openReviewModal() {
-    document.getElementById('review-modal').classList.remove('hidden');
-}
-
-function submitReview() {
-    document.getElementById('review-modal').classList.add('hidden');
-    if (window.showToast) {
-        window.showToast('Terima kasih atas ulasan bintang 5 Anda! ⭐', 'success');
+    const modal = document.getElementById('review-modal');
+    if (!modal) return;
+    modal.classList.remove('hidden');
+    if (!orderPeekRatingInstance) {
+        initOrderPeekRating();
+    } else {
+        orderPeekRatingInstance.refresh();
     }
 }
+
+function closeReviewModal() {
+    const modal = document.getElementById('review-modal');
+    if (!modal) return;
+    modal.classList.add('hidden');
+}
+
+// Close review modal on Escape key
+document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') {
+        const modal = document.getElementById('review-modal');
+        if (modal && !modal.classList.contains('hidden')) {
+            closeReviewModal();
+        }
+    }
+});
+
+// Setup Form AJAX & Fallback
+document.addEventListener('DOMContentLoaded', function () {
+    initOrderPeekRating();
+
+    const reviewForm = document.getElementById('order-review-form');
+    if (!reviewForm) return;
+
+    reviewForm.addEventListener('submit', async function (e) {
+        e.preventDefault();
+
+        const submitBtn = document.getElementById('order-review-submit-btn');
+        const submitText = document.getElementById('order-review-submit-text');
+        const spinner = document.getElementById('order-review-spinner');
+
+        if (submitBtn) submitBtn.disabled = true;
+        if (spinner) spinner.classList.remove('hidden');
+        if (submitText) submitText.textContent = 'Menyimpan...';
+
+        const formData = new FormData(reviewForm);
+
+        try {
+            const csrfToken = reviewForm.querySelector('input[name="_token"]')?.value;
+
+            const response = await fetch(reviewForm.action, {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'X-Requested-With': 'XMLHttpRequest',
+                    'X-CSRF-TOKEN': csrfToken || ''
+                },
+                body: formData
+            });
+
+            const data = await response.json();
+
+            if (response.ok && data.success) {
+                closeReviewModal();
+                if (window.showToast) {
+                    window.showToast(data.message || 'Ulasan berhasil disimpan! ⭐', 'success');
+                }
+                const btnText = document.getElementById('review-btn-text');
+                if (btnText && data.rating) {
+                    btnText.textContent = `Ulasan Anda: ${data.rating} ★ (Edit Ulasan)`;
+                }
+                const modalTitle = document.getElementById('review-modal-title');
+                if (modalTitle) {
+                    modalTitle.textContent = 'Edit Ulasan Pesanan';
+                }
+            } else {
+                const msg = data.errors ? Object.values(data.errors).flat().join(' ') : (data.message || 'Gagal mengirim ulasan.');
+                if (window.showToast) {
+                    window.showToast(msg, 'error');
+                } else {
+                    alert(msg);
+                }
+            }
+        } catch (err) {
+            console.warn('AJAX submit failed, submitting form normally', err);
+            reviewForm.submit();
+            return;
+        } finally {
+            if (submitBtn) submitBtn.disabled = false;
+            if (spinner) spinner.classList.add('hidden');
+            if (submitText) submitText.textContent = 'Kirim Ulasan';
+        }
+    });
+});
 
 /* ── Live Chat Logic ── */
 function openOrderChatModal() {
@@ -539,13 +767,13 @@ function renderChatMessages(messages) {
         const initial = escapeHtml((msg.sender_name || 'U').substring(0, 1).toUpperCase());
         const avatarImg = msg.sender_avatar
             ? `<img src="${escapeHtml(msg.sender_avatar)}" alt="${escapeHtml(msg.sender_name)}" class="w-7 h-7 rounded-full object-cover shrink-0 shadow-xs border border-gray-200 dark:border-gray-700" onerror="this.outerHTML='<div class=\\'w-7 h-7 rounded-full bg-slate-500 text-white font-bold text-[10px] flex items-center justify-center shrink-0\\'>${initial}</div>'">`
-            : `<div class="w-7 h-7 rounded-full bg-gradient-to-tr from-sky-500 to-indigo-600 text-white font-bold text-[10px] flex items-center justify-center shrink-0 shadow-xs">${initial}</div>`;
+            : `<div class="w-7 h-7 rounded-full bg-gradient-to-tr from-purple-600 to-indigo-700 text-white font-bold text-[10px] flex items-center justify-center shrink-0 shadow-xs">${initial}</div>`;
 
         if (msg.is_me) {
             html += `
                 <div class="flex items-end justify-end gap-2">
                     <div class="flex flex-col items-end max-w-[78%]">
-                        <div class="bg-[#0050ae] text-white px-3.5 py-2 rounded-2xl rounded-br-xs shadow-xs leading-relaxed">
+                        <div class="bg-[#581c87] text-white px-3.5 py-2 rounded-2xl rounded-br-xs shadow-xs leading-relaxed">
                             ${escapeHtml(msg.message)}
                         </div>
                         <span class="text-[10px] text-gray-400 mt-0.5 mr-1">${msg.created_time} ✓✓</span>

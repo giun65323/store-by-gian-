@@ -103,6 +103,19 @@
                                      class="w-40 h-40 mx-auto object-contain">
                             </div>
                             <p class="text-[11px] text-gray-400 font-mono">NMID: ID102003881920 • GIAN GAMES</p>
+                            <div class="flex items-center justify-center gap-1.5 pt-1.5 border-t border-gray-100 flex-wrap">
+                                <span class="text-[10px] text-gray-400">Didukung:</span>
+                                <span class="inline-flex items-center gap-1 bg-cyan-50 border border-cyan-200 px-2 py-0.5 rounded-md">
+                                    <img src="{{ asset('images/payments/gopay.webp') }}" alt="GoPay" class="w-3.5 h-3.5 object-contain rounded-xs">
+                                    <span class="text-[10px] font-bold text-cyan-800">GoPay</span>
+                                </span>
+                                <span class="inline-flex items-center gap-1 bg-blue-50 border border-blue-200 px-2 py-0.5 rounded-md text-[10px] font-bold text-blue-700">
+                                    DANA
+                                </span>
+                                <span class="inline-flex items-center gap-1 bg-orange-50 border border-orange-200 px-2 py-0.5 rounded-md text-[10px] font-bold text-orange-700">
+                                    ShopeePay
+                                </span>
+                            </div>
                         </div>
                     </div>
                 </label>
@@ -125,16 +138,27 @@
                 </label>
 
                 <!-- 3. GoPay -->
-                <label class="payment-method-card flex items-start gap-3.5 p-3.5 rounded-xl border-2 border-gray-200 cursor-pointer transition-all hover:border-cyan-200">
-                    <input type="radio" name="payment_method" value="GoPay" class="mt-1 text-[#0050ae] focus:ring-[#0050ae]" onchange="selectPaymentMethod('GoPay')">
+                <label class="payment-method-card flex items-start gap-3.5 p-3.5 rounded-xl border-2 border-gray-200 cursor-pointer transition-all hover:border-[#00aed6] group">
+                    <input type="radio" name="payment_method" value="GoPay" class="mt-1 text-[#00aed6] focus:ring-[#00aed6]" onchange="selectPaymentMethod('GoPay')">
                     <div class="flex-1">
                         <div class="flex items-center justify-between">
-                            <span class="font-extrabold text-xs text-gray-900 flex items-center gap-1.5">
-                                <span class="bg-[#00aed6] text-white font-bold text-[9px] px-2 py-0.5 rounded">GoPay</span>
+                            <span class="font-extrabold text-xs text-gray-900 flex items-center gap-2">
+                                <img src="{{ asset('images/payments/gopay.webp') }}" alt="GoPay" class="w-6 h-6 object-contain rounded-lg shadow-xs group-hover:scale-105 transition-transform">
                                 <span>GoPay / Gojek</span>
+                                <span class="bg-[#00aed6] text-white font-bold text-[9px] px-1.5 py-0.5 rounded">Instan</span>
                             </span>
+                            <span class="text-xs text-emerald-600 font-bold bg-emerald-50 px-2 py-0.5 rounded-full">Bebas Biaya</span>
                         </div>
-                        <p class="text-[11px] text-gray-500 mt-1">Pembayaran mudah terhubung dengan GoPay & Gojek App.</p>
+                        <p class="text-[11px] text-gray-500 mt-1">Pembayaran mudah dan otomatis terhubung dengan saldo GoPay & Gojek App Anda.</p>
+                        <div id="gopay-input-box" class="mt-2.5 hidden">
+                            <div class="flex items-center gap-2.5 bg-cyan-50/70 border border-cyan-200 rounded-xl p-3">
+                                <img src="{{ asset('images/payments/gopay.webp') }}" alt="GoPay" class="w-10 h-10 object-contain rounded-xl shadow-xs shrink-0 bg-white p-0.5 border border-cyan-200">
+                                <div class="flex-1 min-w-0">
+                                    <label class="text-[10px] text-cyan-900 font-bold block">Nomor HP Terdaftar GoPay / Gojek</label>
+                                    <input type="tel" placeholder="08xxxxxxxxxx" value="{{ auth()->user()->phone ?? '081234567890' }}" class="w-full bg-white border border-cyan-300 rounded-lg px-2.5 py-1.5 text-xs text-gray-900 font-mono focus:outline-none focus:ring-2 focus:ring-[#00aed6] mt-1">
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </label>
 
@@ -170,11 +194,14 @@
 <!-- Payment Processing Modal Simulation -->
 <div id="payment-loading-modal" class="fixed inset-0 bg-black/70 backdrop-blur-xs z-[200] flex items-center justify-center p-4 hidden">
     <div class="bg-white rounded-2xl p-6 max-w-sm w-full text-center space-y-4 shadow-2xl">
-        <div class="w-16 h-16 mx-auto rounded-full bg-blue-50 text-[#0050ae] flex items-center justify-center animate-spin">
-            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path>
-            </svg>
+        <div class="w-16 h-16 mx-auto rounded-2xl flex items-center justify-center relative">
+            <img id="payment-modal-gopay-logo" src="{{ asset('images/payments/gopay.webp') }}" alt="GoPay" class="w-16 h-16 object-contain rounded-2xl shadow-md hidden animate-bounce">
+            <div id="payment-modal-spinner" class="w-16 h-16 mx-auto rounded-full bg-blue-50 text-[#0050ae] flex items-center justify-center animate-spin">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path>
+                </svg>
+            </div>
         </div>
         <div class="space-y-1">
             <h3 class="text-base font-extrabold text-gray-900">Memverifikasi Pembayaran...</h3>
@@ -186,7 +213,7 @@
 <script>
 function selectPaymentMethod(method) {
     document.querySelectorAll('.payment-method-card').forEach(card => {
-        card.classList.remove('border-[#0050ae]', 'bg-blue-50/40');
+        card.classList.remove('border-[#0050ae]', 'bg-blue-50/40', 'border-[#00aed6]', 'bg-cyan-50/30');
         card.classList.add('border-gray-200');
     });
 
@@ -194,16 +221,22 @@ function selectPaymentMethod(method) {
     if (selectedRadio) {
         const card = selectedRadio.closest('.payment-method-card');
         if (card) {
-            card.classList.add('border-[#0050ae]', 'bg-blue-50/40');
+            if (method === 'GoPay') {
+                card.classList.add('border-[#00aed6]', 'bg-cyan-50/30');
+            } else {
+                card.classList.add('border-[#0050ae]', 'bg-blue-50/40');
+            }
             card.classList.remove('border-gray-200');
         }
     }
 
     const qrisBox = document.getElementById('qris-box');
     const danaInput = document.getElementById('dana-input-box');
+    const gopayBox = document.getElementById('gopay-input-box');
 
     if (qrisBox) qrisBox.style.display = method === 'QRIS' ? 'block' : 'none';
     if (danaInput) danaInput.style.display = method === 'DANA' ? 'block' : 'none';
+    if (gopayBox) gopayBox.style.display = method === 'GoPay' ? 'block' : 'none';
 
     const btnText = document.getElementById('btn-pay-text');
     if (btnText) {
@@ -232,9 +265,20 @@ document.getElementById('payment-form').addEventListener('submit', function(e) {
     const selected = document.querySelector('input[name="payment_method"]:checked')?.value || 'Pembayaran';
     const modal = document.getElementById('payment-loading-modal');
     const loadingText = document.getElementById('loading-method-text');
+    const gopayLogo = document.getElementById('payment-modal-gopay-logo');
+    const spinner = document.getElementById('payment-modal-spinner');
+
     if (modal) {
         modal.classList.remove('hidden');
-        if (loadingText) loadingText.textContent = `Memproses pembayaran via ${selected}...`;
+        if (selected === 'GoPay') {
+            if (gopayLogo) gopayLogo.classList.remove('hidden');
+            if (spinner) spinner.classList.add('hidden');
+            if (loadingText) loadingText.textContent = 'Menghubungkan ke aplikasi GoPay / Gojek...';
+        } else {
+            if (gopayLogo) gopayLogo.classList.add('hidden');
+            if (spinner) spinner.classList.remove('hidden');
+            if (loadingText) loadingText.textContent = `Memproses pembayaran via ${selected}...`;
+        }
     }
 });
 </script>

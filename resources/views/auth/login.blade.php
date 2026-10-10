@@ -13,23 +13,23 @@
         body { font-family: 'Inter', sans-serif; }
         .input-field {
             width: 100%;
-            border: 1px solid #b0b0b0;
+            border: 1px solid #d8b4fe;
             border-radius: 12px;
             padding: 14px 16px;
             font-size: 14px;
-            color: #222;
+            color: #111827;
             outline: none;
             transition: border-color 0.2s, box-shadow 0.2s;
             background: #fff;
         }
         .input-field:focus {
-            border-color: #222;
-            box-shadow: 0 0 0 2px rgba(34,34,34,0.12);
+            border-color: #7c3aed;
+            box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.15);
         }
         .btn-brand {
-            background: linear-gradient(to right, #FF385C, #e31c5f);
+            background: linear-gradient(to right, #7c3aed, #6d28d9);
             color: white;
-            font-weight: 600;
+            font-weight: 700;
             border-radius: 12px;
             width: 100%;
             padding: 15px;
@@ -37,16 +37,13 @@
             cursor: pointer;
             border: none;
             transition: opacity 0.2s, transform 0.1s;
-            box-shadow: 0 4px 14px rgba(255,56,92,0.35);
+            box-shadow: 0 4px 14px rgba(124, 58, 237, 0.35);
         }
         .btn-brand:hover { opacity: 0.93; }
         .btn-brand:active { transform: scale(0.99); }
         .divider-line {
             border: none;
-            border-top: 1px solid #ddd;
-        }
-        .hero-overlay {
-            background: linear-gradient(to bottom right, rgba(255,56,92,0.7), rgba(30,0,15,0.5));
+            border-top: 1px solid #ede8f5;
         }
         .animate-up { animation: slideUp 0.5s ease both; }
         @keyframes slideUp { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:translateY(0); } }
@@ -54,67 +51,66 @@
     <link rel="stylesheet" href="{{ asset('css/text-type.css') }}">
     <link rel="stylesheet" href="{{ asset('css/fold-text.css') }}">
 </head>
-<body class="min-h-screen bg-white text-gray-900 selection:bg-rose-100">
+<body class="min-h-screen bg-white text-gray-900 selection:bg-purple-200">
 
 <div class="flex min-h-screen">
 
     <!-- ===== LEFT: Hero Panel ===== -->
     <div class="hidden lg:flex lg:w-[52%] relative overflow-hidden">
-        <!-- Background gradient + pattern -->
-        <div class="absolute inset-0 bg-gradient-to-br from-rose-400 via-pink-500 to-rose-700"></div>
-        <!-- Decorative circles -->
-        <div class="absolute -top-20 -left-20 w-96 h-96 bg-white/10 rounded-full blur-3xl"></div>
-        <div class="absolute bottom-0 right-0 w-80 h-80 bg-pink-900/30 rounded-full blur-3xl"></div>
-        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-72 h-72 bg-white/5 rounded-full border border-white/20"></div>
+        <!-- Background: Royal deep purple -->
+        <div class="absolute inset-0 bg-gradient-to-br from-[#12072b] via-[#3b1366] to-[#4c1d95]"></div>
+        <!-- Ambient violet orb -->
+        <div class="absolute -top-20 -left-20 w-96 h-96 bg-purple-400/20 rounded-full blur-3xl"></div>
+        <div class="absolute bottom-0 right-0 w-80 h-80 bg-violet-900/40 rounded-full blur-3xl"></div>
 
         <!-- Content overlay -->
         <div class="relative z-10 flex flex-col justify-between p-12 w-full">
             <!-- Brand -->
-            <a href="#" class="flex items-center gap-3">
-                <svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10 text-white" viewBox="0 0 32 32" fill="currentColor">
-                    <path d="M16 1c-2.3 5.1-9 8.5-9 14a9 9 0 0018 0c0-5.5-6.7-8.9-9-14zm0 20.5a4.5 4.5 0 110-9 4.5 4.5 0 010 9z"/>
-                </svg>
-                <span class="text-2xl font-bold text-white tracking-tight">gian games</span>
+            <a href="{{ route('dashboard') }}" class="flex items-center gap-2">
+                <span class="text-2xl font-black text-white tracking-tight font-brand">gian games</span>
+                <span class="w-2 h-2 rounded-full bg-[#ffb800]"></span>
             </a>
 
             <!-- Center Text -->
             <div class="space-y-6">
-                <div class="inline-flex items-center gap-2 bg-white/20 backdrop-blur-sm border border-white/30 text-white text-xs font-semibold px-4 py-2 rounded-full">
-                    ✦ Platform Manajemen Produk #1 di Indonesia
+                <div class="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-white/20 text-purple-200 text-xs font-bold px-4 py-2 rounded-full">
+                    <span>🎮</span>
+                    <span>Platform Jual Beli Game &amp; Produk Digital</span>
                 </div>
-                <h1 class="text-4xl xl:text-5xl font-bold text-white leading-tight">
+                <h1 class="text-4xl xl:text-5xl font-bold text-white leading-tight font-brand">
                     <span id="fold-hero-line1" class="block"></span>
                     <span id="fold-hero-line2" class="block"></span>
-                    <span id="typing-heading" class="text-rose-200">Mudah & Cepat</span>
+                    <span id="typing-heading" class="text-amber-300">Mudah &amp; Cepat</span>
                 </h1>
-                <p class="text-white/75 text-base leading-relaxed max-w-sm">
-                    Daftarkan, pantau, dan kelola seluruh inventaris produk Anda dari satu tempat. Gratis, selalu.
+                <p class="text-purple-100/80 text-base leading-relaxed max-w-sm">
+                    Jual beli voucher game, Robux instan, akun digital, dan item game dengan aman dan otomatis 24 jam.
                 </p>
-                <!-- Stats row -->
-                <div class="flex gap-8 pt-2">
+                <!-- Real platform features -->
+                <div class="flex gap-6 pt-2">
                     <div>
-                        <div class="text-2xl font-bold text-white">10K+</div>
-                        <div class="text-white/60 text-xs mt-0.5">Pengguna Aktif</div>
+                        <div class="text-2xl font-black text-amber-300">24 Jam</div>
+                        <div class="text-purple-200/70 text-xs mt-0.5">Sistem Otomatis</div>
                     </div>
                     <div>
-                        <div class="text-2xl font-bold text-white">50K+</div>
-                        <div class="text-white/60 text-xs mt-0.5">Produk Terdaftar</div>
+                        <div class="text-2xl font-black text-white">100%</div>
+                        <div class="text-purple-200/70 text-xs mt-0.5">Garansi Saldo</div>
                     </div>
                     <div>
-                        <div class="text-2xl font-bold text-white">4.9★</div>
-                        <div class="text-white/60 text-xs mt-0.5">Rating Pengguna</div>
+                        <div class="text-2xl font-black text-purple-200">Resmi</div>
+                        <div class="text-purple-200/70 text-xs mt-0.5">Katalog Game</div>
                     </div>
                 </div>
             </div>
 
-            <!-- Bottom testimonial -->
-            <div class="bg-white/15 backdrop-blur-sm border border-white/20 rounded-2xl p-5">
-                <p class="text-white/90 text-sm leading-relaxed italic">"Dengan gian games, saya bisa mengelola ratusan produk hanya dalam beberapa menit. Luar biasa!"</p>
-                <div class="flex items-center gap-3 mt-3">
-                    <div class="w-9 h-9 rounded-full bg-white/30 text-white flex items-center justify-center font-bold text-sm">A</div>
+            <!-- Product Showcase Highlight -->
+            <div class="bg-white/10 backdrop-blur-sm border border-white/15 rounded-2xl p-4 flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-xl bg-purple-600/60 flex items-center justify-center text-white font-black text-lg">
+                        ⚡
+                    </div>
                     <div>
-                        <div class="text-white text-xs font-semibold">alvar gian aetren</div>
-                        <div class="text-white/50 text-[11px]">Online Store Owner, Jakarta</div>
+                        <p class="text-white text-xs font-bold">Transaksi Cepat &amp; Terpercaya</p>
+                        <p class="text-purple-200/70 text-[11px]">Dukungan pembayaran QRIS, Transfer Bank, dan E-Wallet</p>
                     </div>
                 </div>
             </div>
@@ -127,14 +123,12 @@
 
             <!-- Mobile Logo -->
             <div class="lg:hidden flex items-center gap-2 mb-8">
-                <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 text-rose-500" viewBox="0 0 32 32" fill="currentColor">
-                    <path d="M16 1c-2.3 5.1-9 8.5-9 14a9 9 0 0018 0c0-5.5-6.7-8.9-9-14zm0 20.5a4.5 4.5 0 110-9 4.5 4.5 0 010 9z"/>
-                </svg>
-                <span class="text-xl font-bold text-gray-900">gian games</span>
+                <span class="text-xl font-black text-gray-900 font-brand">gian games</span>
+                <span class="w-1.5 h-1.5 rounded-full bg-[#ffb800]"></span>
             </div>
 
             <h2 class="text-2xl font-bold text-gray-900 mb-1">Selamat datang kembali</h2>
-            <p class="text-gray-500 text-sm mb-8">Masuk untuk mengelola produk Anda</p>
+            <p class="text-gray-500 text-sm mb-8">Masuk untuk mengelola produk dan transaksi Anda</p>
 
             @if (session('success'))
                 <div class="mb-5 rounded-xl bg-emerald-50 border border-emerald-200 px-4 py-3.5 text-emerald-800 text-sm font-semibold flex items-start gap-2.5">
@@ -146,8 +140,8 @@
             @endif
 
             @if (session('info'))
-                <div class="mb-5 rounded-xl bg-blue-50 border border-blue-200 px-4 py-3.5 text-blue-800 text-sm font-semibold flex items-start gap-2.5">
-                    <svg class="h-5 w-5 text-blue-500 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div class="mb-5 rounded-xl bg-purple-50 border border-purple-200 px-4 py-3.5 text-purple-800 text-sm font-semibold flex items-start gap-2.5">
+                    <svg class="h-5 w-5 text-purple-500 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
                     </svg>
                     <span>{{ session('info') }}</span>
@@ -166,8 +160,8 @@
                     @endforeach
                     <div class="pt-2 border-t border-rose-200/80 flex items-center justify-between gap-2">
                         <span class="text-xs text-rose-600">Password salah?</span>
-                        <a href="{{ route('password.request', ['email' => old('email')]) }}" class="text-xs font-bold text-rose-700 hover:text-rose-900 underline flex items-center gap-1">
-                            <span>Ganti Password via OTP Gmail</span>
+                        <a href="{{ route('password.request', ['email' => old('email')]) }}" class="text-xs font-bold text-purple-700 hover:text-purple-900 underline flex items-center gap-1">
+                            <span>Ganti Password via Email</span>
                             <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
                         </a>
                     </div>
@@ -186,7 +180,7 @@
                 <div>
                     <div class="flex items-center justify-between mb-1.5">
                         <label class="block text-[13px] font-semibold text-gray-700">Password</label>
-                        <a href="{{ route('password.request', ['email' => old('email')]) }}" class="text-xs font-semibold text-rose-500 hover:text-rose-600 hover:underline">
+                        <a href="{{ route('password.request', ['email' => old('email')]) }}" class="text-xs font-semibold text-[#7c3aed] hover:text-[#6d28d9] hover:underline">
                             Lupa Password?
                         </a>
                     </div>
@@ -200,11 +194,11 @@
                 </div>
 
                 <div class="flex items-center gap-2 pt-1">
-                    <input type="checkbox" name="remember" id="remember" class="w-4 h-4 rounded accent-rose-500">
+                    <input type="checkbox" name="remember" id="remember" class="w-4 h-4 rounded accent-purple-600">
                     <label for="remember" class="text-sm text-gray-600 cursor-pointer select-none">Ingat saya</label>
                 </div>
 
-                <button type="submit" class="specular-btn specular-btn--full btn-brand mt-2">Masuk</button>
+                <button type="submit" class="specular-btn specular-btn--full btn-brand mt-2">Masuk ke Akun</button>
             </form>
 
             <div class="my-6 flex items-center gap-3">
@@ -215,8 +209,11 @@
 
             <p class="text-center text-sm text-gray-500">
                 Belum punya akun?
-                <a href="{{ route('register') }}" class="font-semibold text-rose-500 hover:text-rose-600 hover:underline ml-1">Daftar Sekarang →</a>
+                <a href="{{ route('register') }}" class="font-semibold text-[#7c3aed] hover:text-[#6d28d9] hover:underline ml-1">Daftar Sekarang</a>
             </p>
+
+        </div>
+    </div>
 
         </div>
     </div>
